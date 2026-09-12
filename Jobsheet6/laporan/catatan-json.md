@@ -1,8 +1,8 @@
-## 4. Data JSON
+## Data JSON
 
 Pada Jobsheet 6, data anggota dan data buku dipisahkan ke dalam file JSON. Data tersebut digunakan sebagai sumber data yang akan diambil oleh JavaScript menggunakan `fetch()`, kemudian ditampilkan secara dinamis ke dalam tabel HTML.
 
-### 4.1 File `anggota.json`
+### File `anggota.json`
 
 File `anggota.json` digunakan untuk menyimpan data anggota perpustakaan dalam bentuk array of object.
 
@@ -18,7 +18,7 @@ File `anggota.json` digunakan untuk menyimpan data anggota perpustakaan dalam be
 ]
 ```
 
-Setiap objek pada `anggota.json` memiliki beberapa atribut, yaitu:
+Setiap objek pada `anggota.json` memiliki beberapa atribut:
 
 - `no_anggota` digunakan untuk menyimpan nomor anggota.
 - `nama` digunakan untuk menyimpan nama anggota.
@@ -34,7 +34,7 @@ const daftarAnggota = await res.json();
 
 Setelah data berhasil diambil, setiap objek anggota diproses menggunakan `forEach()` dan dibuat menjadi baris tabel `<tr>` secara dinamis.
 
-### 4.2 File `buku.json`
+### File `buku.json`
 
 File `buku.json` digunakan untuk menyimpan data buku perpustakaan dalam bentuk array of object.
 
@@ -53,7 +53,7 @@ File `buku.json` digunakan untuk menyimpan data buku perpustakaan dalam bentuk a
 ]
 ```
 
-Setiap objek pada `buku.json` memiliki beberapa atribut, yaitu:
+Setiap objek pada `buku.json` memiliki beberapa atribut:
 
 - `judul` digunakan untuk menyimpan judul buku.
 - `pengarang` digunakan untuk menyimpan nama pengarang.
@@ -69,7 +69,7 @@ const daftarBuku = await res.json();
 
 Setelah data berhasil diambil, setiap objek buku diproses menggunakan `forEach()` dan dibuat menjadi baris tabel `<tr>` secara dinamis.
 
-### 4.3 Hubungan JSON dengan JavaScript
+### Hubungan JSON dengan JavaScript
 
 Pada Jobsheet 6, file JSON berfungsi sebagai sumber data untuk halaman daftar buku dan anggota. JavaScript mengambil data tersebut menggunakan `fetch()`, kemudian mengubah respons menjadi data JavaScript menggunakan `res.json()`.
 
