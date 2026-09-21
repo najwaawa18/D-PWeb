@@ -2,51 +2,43 @@
 
 require __DIR__ . "/../../config/database.php";
 
-function kembali($pesan)
-{
-    header(
-        "Location: index.php?pesan=" .
-        urlencode($pesan)
-    );
-    exit;
-}
 
-
-// ======================================================
-// HAPUS PESANAN
-// ======================================================
+/*
+|--------------------------------------------------------------------------
+| HAPUS PESANAN
+|--------------------------------------------------------------------------
+*/
 
 if (
-    $_SERVER['REQUEST_METHOD'] === 'GET' &&
-    ($_GET['aksi'] ?? '') === 'hapus'
+    isset($_GET['aksi']) &&
+    $_GET['aksi'] === 'hapus'
 ) {
 
-    $id = filter_input(
-        INPUT_GET,
-        'id',
-        FILTER_VALIDATE_INT
-    );
+    $id = $_GET['id'] ?? null;
 
     if (!$id) {
-        kembali('gagal');
+
+        header("Location: index.php?pesan=gagal");
+        exit;
+
     }
+
 
     try {
 
         $pdo->beginTransaction();
 
-        // Hapus detail pesanan terlebih dahulu
+
         $stmt = $pdo->prepare("
             DELETE FROM detail_pesanan
-            WHERE pesanan_id = :pesanan_id
+            WHERE pesanan_id = :id
         ");
 
         $stmt->execute([
-            ':pesanan_id' => $id
+            ':id' => $id
         ]);
 
 
-        // Hapus data pesanan
         $stmt = $pdo->prepare("
             DELETE FROM pesanan
             WHERE id = :id
@@ -59,7 +51,10 @@ if (
 
         $pdo->commit();
 
-        kembali('hapus');
+
+        header("Location: index.php?pesan=hapus");
+        exit;
+
 
     } catch (Exception $e) {
 
@@ -67,80 +62,115 @@ if (
             $pdo->rollBack();
         }
 
-        kembali('gagal');
+        header("Location: index.php?pesan=gagal");
+        exit;
+
     }
+
 }
 
 
-// ======================================================
-// CEK REQUEST
-// ======================================================
+/*
+|--------------------------------------------------------------------------
+| CEK METHOD
+|--------------------------------------------------------------------------
+*/
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if (
+    $_SERVER['REQUEST_METHOD'] !== 'POST'
+) {
 
     header("Location: index.php");
     exit;
+
 }
 
 
-// ======================================================
-// AMBIL DATA FORM
-// ======================================================
+/*
+|--------------------------------------------------------------------------
+| DATA UTAMA
+|--------------------------------------------------------------------------
+*/
 
-$aksi = $_POST['aksi'] ?? 'tambah';
+$aksi =
+    $_POST['aksi'] ?? '';
 
-$id = filter_input(
-    INPUT_POST,
-    'id',
-    FILTER_VALIDATE_INT
-);
+$id =
+    $_POST['id'] ?? null;
 
-$kode_pesanan = trim(
-    $_POST['kode_pesanan'] ?? ''
-);
+$kode_pesanan =
+    trim($_POST['kode_pesanan'] ?? '');
 
-$pelanggan_id = filter_input(
-    INPUT_POST,
-    'pelanggan_id',
-    FILTER_VALIDATE_INT
-);
+$pelanggan_id =
+    !empty($_POST['pelanggan_id'])
+        ? (int) $_POST['pelanggan_id']
+        : null;
 
-$meja_id = filter_input(
-    INPUT_POST,
-    'meja_id',
-    FILTER_VALIDATE_INT
-);
+$meja_id =
+    !empty($_POST['meja_id'])
+        ? (int) $_POST['meja_id']
+        : null;
 
-$status = trim(
-    $_POST['status'] ?? 'Proses'
-);
+$tanggal_pesanan =
+    $_POST['tanggal_pesanan'] ?? '';
 
-$menu_id = $_POST['menu_id'] ?? [];
-$jumlah = $_POST['jumlah'] ?? [];
+$status =
+    $_POST['status'] ?? 'Proses';
 
 
-// Pastikan menjadi array
-if (!is_array($menu_id)) {
-    $menu_id = [$menu_id];
+$menu_id =
+    $_POST['menu_id'] ?? [];
+
+$jumlah =
+    $_POST['jumlah'] ?? [];
+
+
+/*
+|--------------------------------------------------------------------------
+| VALIDASI DATA DASAR
+|--------------------------------------------------------------------------
+*/
+
+if ($kode_pesanan === '') {
+
+    header("Location: index.php?pesan=gagal");
+    exit;
+
 }
 
-if (!is_array($jumlah)) {
-    $jumlah = [$jumlah];
+
+if ($tanggal_pesanan === '') {
+
+    header("Location: index.php?pesan=gagal");
+    exit;
+
 }
 
 
-// ======================================================
-// VALIDASI DATA DASAR
-// ======================================================
+$timestamp =
+    strtotime($tanggal_pesanan);
 
-if (
-    $kode_pesanan === '' ||
-    !$pelanggan_id ||
-    !$meja_id
-) {
-    kembali('gagal');
+
+if ($timestamp === false) {
+
+    header("Location: index.php?pesan=gagal");
+    exit;
+
 }
 
+
+$tanggal_pesanan_db =
+    date(
+        'Y-m-d H:i:s',
+        $timestamp
+    );
+
+
+/*
+|--------------------------------------------------------------------------
+| VALIDASI STATUS
+|--------------------------------------------------------------------------
+*/
 
 $statusValid = [
     'Proses',
@@ -148,252 +178,53 @@ $statusValid = [
     'Dibatalkan'
 ];
 
-if (!in_array($status, $statusValid, true)) {
-    kembali('gagal');
+
+if (!in_array(
+    $status,
+    $statusValid,
+    true
+)) {
+
+    header("Location: index.php?pesan=gagal");
+    exit;
+
 }
 
-if (count($menu_id) === 0) {
-    kembali('gagal');
+
+/*
+|--------------------------------------------------------------------------
+| VALIDASI DETAIL
+|--------------------------------------------------------------------------
+*/
+
+if (
+    !is_array($menu_id) ||
+    !is_array($jumlah) ||
+    count($menu_id) === 0
+) {
+
+    header("Location: index.php?pesan=gagal");
+    exit;
+
 }
 
 
-// ======================================================
-// PROSES DATABASE
-// ======================================================
+/*
+|--------------------------------------------------------------------------
+| PROSES DATABASE
+|--------------------------------------------------------------------------
+*/
 
 try {
 
     $pdo->beginTransaction();
 
 
-    // ==================================================
-    // CEK PELANGGAN
-    // ==================================================
-
-    $stmt = $pdo->prepare("
-        SELECT id
-        FROM pelanggan
-        WHERE id = :id
-    ");
-
-    $stmt->execute([
-        ':id' => $pelanggan_id
-    ]);
-
-    if (!$stmt->fetch()) {
-        throw new Exception(
-            "Pelanggan tidak ditemukan."
-        );
-    }
-
-
-    // ==================================================
-    // CEK MEJA
-    // ==================================================
-
-    $stmt = $pdo->prepare("
-        SELECT id
-        FROM meja
-        WHERE id = :id
-    ");
-
-    $stmt->execute([
-        ':id' => $meja_id
-    ]);
-
-    if (!$stmt->fetch()) {
-        throw new Exception(
-            "Meja tidak ditemukan."
-        );
-    }
-
-
-    // ==================================================
-    // CEK KODE PESANAN SAAT TAMBAH
-    // ==================================================
-
-    if ($aksi === 'tambah') {
-
-        $stmt = $pdo->prepare("
-            SELECT id
-            FROM pesanan
-            WHERE kode_pesanan = :kode_pesanan
-        ");
-
-        $stmt->execute([
-            ':kode_pesanan' => $kode_pesanan
-        ]);
-
-        if ($stmt->fetch()) {
-
-            throw new Exception(
-                "Kode pesanan sudah digunakan."
-            );
-        }
-    }
-
-
-    // ==================================================
-    // CEK PESANAN SAAT EDIT
-    // ==================================================
-
-    if ($aksi === 'edit') {
-
-        if (!$id) {
-            throw new Exception(
-                "ID pesanan tidak valid."
-            );
-        }
-
-
-        $stmt = $pdo->prepare("
-            SELECT id
-            FROM pesanan
-            WHERE id = :id
-        ");
-
-        $stmt->execute([
-            ':id' => $id
-        ]);
-
-        if (!$stmt->fetch()) {
-
-            throw new Exception(
-                "Pesanan tidak ditemukan."
-            );
-        }
-
-
-        // Cek kode pesanan agar tidak sama dengan
-        // pesanan lain
-        $stmt = $pdo->prepare("
-            SELECT id
-            FROM pesanan
-            WHERE kode_pesanan = :kode_pesanan
-              AND id <> :id
-        ");
-
-        $stmt->execute([
-            ':kode_pesanan' => $kode_pesanan,
-            ':id' => $id
-        ]);
-
-        if ($stmt->fetch()) {
-
-            throw new Exception(
-                "Kode pesanan sudah digunakan."
-            );
-        }
-    }
-
-
-    // ==================================================
-    // CEK MENU DAN HITUNG TOTAL
-    // ==================================================
-
-    $stmtMenu = $pdo->prepare("
-        SELECT
-            id,
-            harga,
-            stok,
-            status
-        FROM menu
-        WHERE id = :id
-    ");
-
-
-    $total = 0;
-
-    $detailData = [];
-
-
-    foreach ($menu_id as $i => $id_menu) {
-
-        $id_menu = filter_var(
-            $id_menu,
-            FILTER_VALIDATE_INT
-        );
-
-        $qty = isset($jumlah[$i])
-            ? filter_var(
-                $jumlah[$i],
-                FILTER_VALIDATE_INT
-            )
-            : false;
-
-
-        if (!$id_menu || !$qty || $qty < 1) {
-
-            throw new Exception(
-                "Data menu atau jumlah tidak valid."
-            );
-        }
-
-
-        // Ambil data menu
-        $stmtMenu->execute([
-            ':id' => $id_menu
-        ]);
-
-        $dataMenu = $stmtMenu->fetch();
-
-
-        if (!$dataMenu) {
-
-            throw new Exception(
-                "Menu tidak ditemukan."
-            );
-        }
-
-
-        // Cek status menu
-        if ($dataMenu['status'] !== 'Tersedia') {
-
-            throw new Exception(
-                "Ada menu yang sudah tidak tersedia."
-            );
-        }
-
-
-        // Cek stok
-        if (
-            $dataMenu['stok'] !== null &&
-            $qty > (int) $dataMenu['stok']
-        ) {
-
-            throw new Exception(
-                "Jumlah pesanan melebihi stok menu."
-            );
-        }
-
-
-        $harga = (float) $dataMenu['harga'];
-
-        $subtotal = $harga * $qty;
-
-        $total += $subtotal;
-
-
-        $detailData[] = [
-            'menu_id' => $id_menu,
-            'jumlah' => $qty,
-            'harga' => $harga,
-            'subtotal' => $subtotal
-        ];
-    }
-
-
-    if ($total <= 0) {
-
-        throw new Exception(
-            "Total pesanan tidak valid."
-        );
-    }
-
-
-    // ==================================================
-    // TAMBAH PESANAN
-    // ==================================================
+    /*
+    |--------------------------------------------------------------------------
+    | TAMBAH PESANAN
+    |--------------------------------------------------------------------------
+    */
 
     if ($aksi === 'tambah') {
 
@@ -410,68 +241,63 @@ try {
                 :kode_pesanan,
                 :pelanggan_id,
                 :meja_id,
-                NOW(),
+                :tanggal_pesanan,
                 :status,
-                :total
+                0
             )
             RETURNING id
         ");
 
 
         $stmt->execute([
-            ':kode_pesanan' => $kode_pesanan,
-            ':pelanggan_id' => $pelanggan_id,
-            ':meja_id' => $meja_id,
-            ':status' => $status,
-            ':total' => $total
+
+            ':kode_pesanan' =>
+                $kode_pesanan,
+
+            ':pelanggan_id' =>
+                $pelanggan_id,
+
+            ':meja_id' =>
+                $meja_id,
+
+            ':tanggal_pesanan' =>
+                $tanggal_pesanan_db,
+
+            ':status' =>
+                $status
+
         ]);
 
 
-        $pesanan_id = $stmt->fetchColumn();
+        $pesanan =
+            $stmt->fetch();
 
+        $pesanan_id =
+            $pesanan['id'];
 
-        // Simpan detail pesanan
-        $stmtDetail = $pdo->prepare("
-            INSERT INTO detail_pesanan (
-                pesanan_id,
-                menu_id,
-                jumlah,
-                harga,
-                subtotal
-            )
-            VALUES (
-                :pesanan_id,
-                :menu_id,
-                :jumlah,
-                :harga,
-                :subtotal
-            )
-        ");
-
-
-        foreach ($detailData as $detail) {
-
-            $stmtDetail->execute([
-                ':pesanan_id' => $pesanan_id,
-                ':menu_id' => $detail['menu_id'],
-                ':jumlah' => $detail['jumlah'],
-                ':harga' => $detail['harga'],
-                ':subtotal' => $detail['subtotal']
-            ]);
-        }
-
-
-        $pdo->commit();
-
-        kembali('tambah');
     }
 
 
-    // ==================================================
-    // EDIT PESANAN
-    // ==================================================
+    /*
+    |--------------------------------------------------------------------------
+    | EDIT PESANAN
+    |--------------------------------------------------------------------------
+    */
 
     elseif ($aksi === 'edit') {
+
+        if (!$id) {
+
+            throw new Exception(
+                "ID pesanan tidak ditemukan."
+            );
+
+        }
+
+
+        $pesanan_id =
+            (int) $id;
+
 
         $stmt = $pdo->prepare("
             UPDATE pesanan
@@ -479,34 +305,184 @@ try {
                 kode_pesanan = :kode_pesanan,
                 pelanggan_id = :pelanggan_id,
                 meja_id = :meja_id,
-                status = :status,
-                total = :total
+                tanggal_pesanan = :tanggal_pesanan,
+                status = :status
             WHERE id = :id
         ");
 
 
         $stmt->execute([
-            ':kode_pesanan' => $kode_pesanan,
-            ':pelanggan_id' => $pelanggan_id,
-            ':meja_id' => $meja_id,
-            ':status' => $status,
-            ':total' => $total,
-            ':id' => $id
+
+            ':kode_pesanan' =>
+                $kode_pesanan,
+
+            ':pelanggan_id' =>
+                $pelanggan_id,
+
+            ':meja_id' =>
+                $meja_id,
+
+            ':tanggal_pesanan' =>
+                $tanggal_pesanan_db,
+
+            ':status' =>
+                $status,
+
+            ':id' =>
+                $pesanan_id
+
         ]);
 
 
-        // Hapus detail lama
-        $stmt = $pdo->prepare("
-            DELETE FROM detail_pesanan
-            WHERE pesanan_id = :pesanan_id
-        ");
+        /*
+        | Hapus detail lama.
+        */
+
+        $stmt =
+            $pdo->prepare("
+                DELETE FROM detail_pesanan
+                WHERE pesanan_id = :pesanan_id
+            ");
+
 
         $stmt->execute([
-            ':pesanan_id' => $id
+            ':pesanan_id' =>
+                $pesanan_id
+        ]);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | AKSI TIDAK VALID
+    |--------------------------------------------------------------------------
+    */
+
+    else {
+
+        throw new Exception(
+            "Aksi tidak valid."
+        );
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | INSERT DETAIL PESANAN
+    |--------------------------------------------------------------------------
+    */
+
+    $total = 0;
+
+
+    for (
+        $i = 0;
+        $i < count($menu_id);
+        $i++
+    ) {
+
+        $menuId =
+            (int) $menu_id[$i];
+
+        $qty =
+            (int) ($jumlah[$i] ?? 0);
+
+
+        if (
+            $menuId <= 0 ||
+            $qty <= 0
+        ) {
+
+            throw new Exception(
+                "Detail menu tidak valid."
+            );
+
+        }
+
+
+        /*
+        | Ambil harga menu dari database.
+        */
+
+        $stmtMenu = $pdo->prepare("
+            SELECT
+                id,
+                harga,
+                stok,
+                status
+            FROM menu
+            WHERE id = :id
+        ");
+
+
+        $stmtMenu->execute([
+            ':id' => $menuId
         ]);
 
 
-        // Simpan detail baru
+        $dataMenu =
+            $stmtMenu->fetch();
+
+
+        if (!$dataMenu) {
+
+            throw new Exception(
+                "Menu tidak ditemukan."
+            );
+
+        }
+
+
+        /*
+        | Pastikan menu tersedia.
+        */
+
+        if (
+            $dataMenu['status'] !==
+            'Tersedia'
+        ) {
+
+            throw new Exception(
+                "Menu tidak tersedia."
+            );
+
+        }
+
+
+        /*
+        | Pastikan stok mencukupi.
+        */
+
+        if (
+            $qty >
+            (int) $dataMenu['stok']
+        ) {
+
+            throw new Exception(
+                "Stok menu tidak mencukupi."
+            );
+
+        }
+
+
+        $harga =
+            (float) $dataMenu['harga'];
+
+
+        $subtotal =
+            $harga * $qty;
+
+
+        $total +=
+            $subtotal;
+
+
+        /*
+        | Simpan detail.
+        */
+
         $stmtDetail = $pdo->prepare("
             INSERT INTO detail_pesanan (
                 pesanan_id,
@@ -525,41 +501,86 @@ try {
         ");
 
 
-        foreach ($detailData as $detail) {
+        $stmtDetail->execute([
 
-            $stmtDetail->execute([
-                ':pesanan_id' => $id,
-                ':menu_id' => $detail['menu_id'],
-                ':jumlah' => $detail['jumlah'],
-                ':harga' => $detail['harga'],
-                ':subtotal' => $detail['subtotal']
-            ]);
-        }
+            ':pesanan_id' =>
+                $pesanan_id,
 
+            ':menu_id' =>
+                $menuId,
 
-        $pdo->commit();
+            ':jumlah' =>
+                $qty,
 
-        kembali('edit');
+            ':harga' =>
+                $harga,
+
+            ':subtotal' =>
+                $subtotal
+
+        ]);
+
     }
 
 
-    // ==================================================
-    // AKSI TIDAK DIKENAL
-    // ==================================================
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE TOTAL PESANAN
+    |--------------------------------------------------------------------------
+    */
 
-    else {
+    $stmtTotal = $pdo->prepare("
+        UPDATE pesanan
+        SET total = :total
+        WHERE id = :id
+    ");
 
-        throw new Exception(
-            "Aksi tidak dikenal."
-        );
-    }
+
+    $stmtTotal->execute([
+
+        ':total' =>
+            $total,
+
+        ':id' =>
+            $pesanan_id
+
+    ]);
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | SELESAI
+    |--------------------------------------------------------------------------
+    */
+
+    $pdo->commit();
+
+
+    header(
+        "Location: index.php?pesan=" .
+        (
+            $aksi === 'tambah'
+                ? 'tambah'
+                : 'edit'
+        )
+    );
+
+    exit;
 
 
 } catch (Exception $e) {
 
     if ($pdo->inTransaction()) {
+
         $pdo->rollBack();
+
     }
 
-    kembali('gagal');
+
+    header(
+        "Location: index.php?pesan=gagal"
+    );
+
+    exit;
+
 }
