@@ -7,6 +7,7 @@ $id = $_GET['id'] ?? null;
 $edit = false;
 
 $pesanan_id = '';
+$tanggal_bayar = date('Y-m-d\TH:i');
 $total_bayar = '';
 $metode_pembayaran = 'Cash';
 $status = 'Lunas';
@@ -17,7 +18,7 @@ $status = 'Lunas';
 | DATA PESANAN
 |--------------------------------------------------------------------------
 | Hanya mengambil pesanan yang belum memiliki pembayaran.
-| Saat edit, pembayaran yang sedang diedit tetap ditampilkan.
+| Saat edit, pembayaran yang sedang diedit tetap dapat ditampilkan.
 |--------------------------------------------------------------------------
 */
 
@@ -51,6 +52,7 @@ if ($id !== null) {
         SELECT
             pembayaran.id,
             pembayaran.pesanan_id,
+            pembayaran.tanggal_bayar,
             pembayaran.total_bayar,
             pembayaran.metode_pembayaran,
             pembayaran.status,
@@ -72,16 +74,35 @@ if ($id !== null) {
     $data = $stmt->fetch();
 
     if (!$data) {
+
         header("Location: index.php?pesan=gagal");
         exit;
+
     }
 
     $edit = true;
 
     $pesanan_id = $data['pesanan_id'];
+
+    /*
+    | Ubah format timestamp database
+    | menjadi format yang dapat dibaca
+    | oleh input datetime-local.
+    */
+
+    $tanggal_bayar = date(
+        'Y-m-d\TH:i',
+        strtotime($data['tanggal_bayar'])
+    );
+
     $total_bayar = $data['total_bayar'];
-    $metode_pembayaran = $data['metode_pembayaran'];
-    $status = $data['status'];
+
+    $metode_pembayaran =
+        $data['metode_pembayaran'];
+
+    $status =
+        $data['status'];
+
 
     /*
     | Tambahkan pesanan yang sedang diedit
@@ -92,20 +113,35 @@ if ($id !== null) {
 
     foreach ($pesanan as $item) {
 
-        if ((int)$item['id'] === (int)$pesanan_id) {
+        if (
+            (int) $item['id'] ===
+            (int) $pesanan_id
+        ) {
+
             $sudahAda = true;
             break;
+
         }
 
     }
 
+
     if (!$sudahAda) {
 
         $pesanan[] = [
-            'id' => $data['pesanan_id'],
-            'kode_pesanan' => $data['kode_pesanan'],
-            'total' => $data['total'],
-            'nama_pelanggan' => $data['nama_pelanggan']
+
+            'id' =>
+                $data['pesanan_id'],
+
+            'kode_pesanan' =>
+                $data['kode_pesanan'],
+
+            'total' =>
+                $data['total'],
+
+            'nama_pelanggan' =>
+                $data['nama_pelanggan']
+
         ];
 
     }
@@ -121,6 +157,10 @@ $page_title = $edit
 
 <?php require __DIR__ . "/../../layout/header.php"; ?>
 
+
+<!-- =====================================================
+     JUDUL
+===================================================== -->
 
 <section>
 
@@ -141,12 +181,19 @@ $page_title = $edit
 </section>
 
 
+<!-- =====================================================
+     FORM PEMBAYARAN
+===================================================== -->
+
 <section>
 
     <form
         action="proses.php"
         method="POST"
         id="formPembayaran">
+
+
+        <!-- ID SAAT EDIT -->
 
         <?php if ($edit): ?>
 
@@ -158,13 +205,17 @@ $page_title = $edit
         <?php endif; ?>
 
 
+        <!-- AKSI -->
+
         <input
             type="hidden"
             name="aksi"
             value="<?= $edit ? 'edit' : 'tambah'; ?>">
 
 
-        <!-- PESANAN -->
+        <!-- =================================================
+             PESANAN
+        ================================================== -->
 
         <div>
 
@@ -187,8 +238,8 @@ $page_title = $edit
                     <option
                         value="<?= $dataPesanan['id']; ?>"
                         data-total="<?= $dataPesanan['total']; ?>"
-                        <?= (string)$pesanan_id ===
-                            (string)$dataPesanan['id']
+                        <?= (string) $pesanan_id ===
+                            (string) $dataPesanan['id']
                             ? 'selected'
                             : '';
                         ?>>
@@ -198,12 +249,15 @@ $page_title = $edit
                         ); ?>
 
                         -
+
                         <?= htmlspecialchars(
                             $dataPesanan['nama_pelanggan'] ?? '-'
                         ); ?>
 
                         -
+
                         Rp
+
                         <?= number_format(
                             $dataPesanan['total'],
                             0,
@@ -218,7 +272,10 @@ $page_title = $edit
             </select>
 
 
-            <?php if (count($pesanan) === 0 && !$edit): ?>
+            <?php if (
+                count($pesanan) === 0 &&
+                !$edit
+            ): ?>
 
                 <small>
                     Belum ada pesanan yang dapat dibayar.
@@ -229,7 +286,31 @@ $page_title = $edit
         </div>
 
 
-        <!-- TOTAL BAYAR -->
+        <!-- =================================================
+             TANGGAL PEMBAYARAN
+        ================================================== -->
+
+        <div>
+
+            <label for="tanggal_bayar">
+                Tanggal Pembayaran
+            </label>
+
+            <input
+                type="datetime-local"
+                id="tanggal_bayar"
+                name="tanggal_bayar"
+                value="<?= htmlspecialchars(
+                    $tanggal_bayar
+                ); ?>"
+                required>
+
+        </div>
+
+
+        <!-- =================================================
+             TOTAL BAYAR
+        ================================================== -->
 
         <div>
 
@@ -241,7 +322,9 @@ $page_title = $edit
                 type="number"
                 id="total_bayar"
                 name="total_bayar"
-                value="<?= htmlspecialchars($total_bayar); ?>"
+                value="<?= htmlspecialchars(
+                    $total_bayar
+                ); ?>"
                 min="0"
                 step="0.01"
                 placeholder="Masukkan total pembayaran"
@@ -250,7 +333,9 @@ $page_title = $edit
         </div>
 
 
-        <!-- METODE -->
+        <!-- =================================================
+             METODE PEMBAYARAN
+        ================================================== -->
 
         <div>
 
@@ -304,7 +389,9 @@ $page_title = $edit
         </div>
 
 
-        <!-- STATUS -->
+        <!-- =================================================
+             STATUS PEMBAYARAN
+        ================================================== -->
 
         <div>
 
@@ -340,7 +427,9 @@ $page_title = $edit
         </div>
 
 
-        <!-- TOMBOL -->
+        <!-- =================================================
+             TOMBOL
+        ================================================== -->
 
         <div class="actions">
 
@@ -369,6 +458,10 @@ $page_title = $edit
 </section>
 
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script>
 
 document.addEventListener(
@@ -395,14 +488,17 @@ document.addEventListener(
                         pesananSelect.selectedIndex
                     ];
 
+
                 if (!option) {
                     return;
                 }
+
 
                 const total =
                     option.getAttribute(
                         "data-total"
                     );
+
 
                 if (total !== null) {
 

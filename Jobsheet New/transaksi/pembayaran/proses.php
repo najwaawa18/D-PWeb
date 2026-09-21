@@ -16,9 +16,15 @@ if (
 
     $id = $_GET['id'] ?? null;
 
+
     if (!$id) {
-        header("Location: index.php?pesan=gagal");
+
+        header(
+            "Location: index.php?pesan=gagal"
+        );
+
         exit;
+
     }
 
 
@@ -40,6 +46,7 @@ if (
 
         exit;
 
+
     } catch (PDOException $e) {
 
         header(
@@ -59,9 +66,13 @@ if (
 |--------------------------------------------------------------------------
 */
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if (
+    $_SERVER['REQUEST_METHOD'] !== 'POST'
+) {
 
-    header("Location: index.php");
+    header(
+        "Location: index.php"
+    );
 
     exit;
 
@@ -74,22 +85,32 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 |--------------------------------------------------------------------------
 */
 
-$aksi = $_POST['aksi'] ?? '';
+$aksi =
+    $_POST['aksi'] ?? '';
 
-$id = $_POST['id'] ?? null;
+$id =
+    $_POST['id'] ?? null;
+
 
 $pesanan_id =
     !empty($_POST['pesanan_id'])
-        ? (int)$_POST['pesanan_id']
+        ? (int) $_POST['pesanan_id']
         : 0;
+
+
+$tanggal_bayar =
+    $_POST['tanggal_bayar'] ?? '';
+
 
 $total_bayar =
     isset($_POST['total_bayar'])
-        ? (float)$_POST['total_bayar']
+        ? (float) $_POST['total_bayar']
         : 0;
+
 
 $metode_pembayaran =
     $_POST['metode_pembayaran'] ?? '';
+
 
 $status =
     $_POST['status'] ?? 'Lunas';
@@ -97,61 +118,39 @@ $status =
 
 /*
 |--------------------------------------------------------------------------
-| VALIDASI
+| VALIDASI METODE DAN STATUS
 |--------------------------------------------------------------------------
 */
 
 $metodeValid = [
+
     'Cash',
     'QRIS',
     'Debit',
     'E-Wallet'
+
 ];
+
 
 $statusValid = [
+
     'Lunas',
     'Belum Lunas'
+
 ];
 
+
+/*
+|--------------------------------------------------------------------------
+| VALIDASI PESANAN
+|--------------------------------------------------------------------------
+*/
 
 if ($pesanan_id <= 0) {
 
-    header("Location: index.php?pesan=gagal");
-
-    exit;
-
-}
-
-
-if ($total_bayar < 0) {
-
-    header("Location: index.php?pesan=gagal");
-
-    exit;
-
-}
-
-
-if (!in_array(
-    $metode_pembayaran,
-    $metodeValid,
-    true
-)) {
-
-    header("Location: index.php?pesan=gagal");
-
-    exit;
-
-}
-
-
-if (!in_array(
-    $status,
-    $statusValid,
-    true
-)) {
-
-    header("Location: index.php?pesan=gagal");
+    header(
+        "Location: index.php?pesan=gagal"
+    );
 
     exit;
 
@@ -160,7 +159,111 @@ if (!in_array(
 
 /*
 |--------------------------------------------------------------------------
-| PROSES
+| VALIDASI TANGGAL
+|--------------------------------------------------------------------------
+*/
+
+if ($tanggal_bayar === '') {
+
+    header(
+        "Location: index.php?pesan=gagal"
+    );
+
+    exit;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| KONVERSI TANGGAL
+|--------------------------------------------------------------------------
+*/
+
+$timestamp =
+    strtotime($tanggal_bayar);
+
+
+if ($timestamp === false) {
+
+    header(
+        "Location: index.php?pesan=gagal"
+    );
+
+    exit;
+
+}
+
+
+$tanggal_bayar_db =
+    date(
+        'Y-m-d H:i:s',
+        $timestamp
+    );
+
+
+/*
+|--------------------------------------------------------------------------
+| VALIDASI TOTAL
+|--------------------------------------------------------------------------
+*/
+
+if ($total_bayar < 0) {
+
+    header(
+        "Location: index.php?pesan=gagal"
+    );
+
+    exit;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| VALIDASI METODE
+|--------------------------------------------------------------------------
+*/
+
+if (!in_array(
+    $metode_pembayaran,
+    $metodeValid,
+    true
+)) {
+
+    header(
+        "Location: index.php?pesan=gagal"
+    );
+
+    exit;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| VALIDASI STATUS
+|--------------------------------------------------------------------------
+*/
+
+if (!in_array(
+    $status,
+    $statusValid,
+    true
+)) {
+
+    header(
+        "Location: index.php?pesan=gagal"
+    );
+
+    exit;
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| PROSES DATABASE
 |--------------------------------------------------------------------------
 */
 
@@ -187,7 +290,9 @@ try {
         ':id' => $pesanan_id
     ]);
 
-    $pesanan = $stmtPesanan->fetch();
+
+    $pesanan =
+        $stmtPesanan->fetch();
 
 
     if (!$pesanan) {
@@ -201,13 +306,17 @@ try {
 
     /*
     |--------------------------------------------------------------------------
-    | TOTAL BAYAR TIDAK BOLEH LEBIH DARI TOTAL PESANAN
+    | CEK TOTAL PEMBAYARAN
     |--------------------------------------------------------------------------
+    |
+    | Total pembayaran tidak boleh lebih
+    | besar daripada total pesanan.
+    |
     */
 
     if (
         $total_bayar >
-        (float)$pesanan['total']
+        (float) $pesanan['total']
     ) {
 
         throw new Exception(
@@ -219,7 +328,7 @@ try {
 
     /*
     |--------------------------------------------------------------------------
-    | TAMBAH
+    | TAMBAH PEMBAYARAN
     |--------------------------------------------------------------------------
     */
 
@@ -231,14 +340,17 @@ try {
         | memiliki satu pembayaran.
         */
 
-        $cekPembayaran = $pdo->prepare("
-            SELECT id
-            FROM pembayaran
-            WHERE pesanan_id = :pesanan_id
-        ");
+        $cekPembayaran =
+            $pdo->prepare("
+                SELECT id
+                FROM pembayaran
+                WHERE pesanan_id = :pesanan_id
+            ");
+
 
         $cekPembayaran->execute([
-            ':pesanan_id' => $pesanan_id
+            ':pesanan_id' =>
+                $pesanan_id
         ]);
 
 
@@ -251,15 +363,21 @@ try {
         }
 
 
+        /*
+        | INSERT
+        */
+
         $stmt = $pdo->prepare("
             INSERT INTO pembayaran (
                 pesanan_id,
+                tanggal_bayar,
                 total_bayar,
                 metode_pembayaran,
                 status
             )
             VALUES (
                 :pesanan_id,
+                :tanggal_bayar,
                 :total_bayar,
                 :metode_pembayaran,
                 :status
@@ -271,6 +389,9 @@ try {
 
             ':pesanan_id' =>
                 $pesanan_id,
+
+            ':tanggal_bayar' =>
+                $tanggal_bayar_db,
 
             ':total_bayar' =>
                 $total_bayar,
@@ -298,7 +419,7 @@ try {
 
     /*
     |--------------------------------------------------------------------------
-    | EDIT
+    | EDIT PEMBAYARAN
     |--------------------------------------------------------------------------
     */
 
@@ -315,7 +436,7 @@ try {
 
 
         /*
-        | Cek pembayaran
+        | Cek pembayaran yang sedang diedit.
         */
 
         $cek = $pdo->prepare("
@@ -323,6 +444,7 @@ try {
             FROM pembayaran
             WHERE id = :id
         ");
+
 
         $cek->execute([
             ':id' => $id
@@ -339,8 +461,8 @@ try {
 
 
         /*
-        | Cek apakah pesanan lain
-        | sudah memakai pembayaran ini.
+        | Cek apakah pesanan tersebut
+        | sudah digunakan pembayaran lain.
         */
 
         $cekPesanan = $pdo->prepare("
@@ -350,9 +472,15 @@ try {
             AND id != :id
         ");
 
+
         $cekPesanan->execute([
-            ':pesanan_id' => $pesanan_id,
-            ':id' => $id
+
+            ':pesanan_id' =>
+                $pesanan_id,
+
+            ':id' =>
+                $id
+
         ]);
 
 
@@ -373,6 +501,7 @@ try {
             UPDATE pembayaran
             SET
                 pesanan_id = :pesanan_id,
+                tanggal_bayar = :tanggal_bayar,
                 total_bayar = :total_bayar,
                 metode_pembayaran = :metode_pembayaran,
                 status = :status
@@ -384,6 +513,9 @@ try {
 
             ':pesanan_id' =>
                 $pesanan_id,
+
+            ':tanggal_bayar' =>
+                $tanggal_bayar_db,
 
             ':total_bayar' =>
                 $total_bayar,
@@ -431,7 +563,9 @@ try {
 
 
     if ($pdo->inTransaction()) {
+
         $pdo->rollBack();
+
     }
 
 
