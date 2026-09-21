@@ -101,9 +101,6 @@ a {
     overflow: visible;
 }
 
-
-/* decorative gold glow */
-
 .site-header::before {
     content: "";
 
@@ -124,9 +121,6 @@ a {
 
     pointer-events: none;
 }
-
-
-/* bottom gold line */
 
 .site-header::after {
     content: "";
@@ -183,12 +177,9 @@ a {
 
     color: #ddc8b9;
 
-    font-family:
-        Georgia,
-        serif;
+    font-family: Georgia, serif;
 
     font-size: 13px;
-
     font-style: italic;
 
     letter-spacing: 2px;
@@ -201,9 +192,11 @@ a {
 
 nav {
     position: relative;
+
     z-index: 100;
 
     display: flex;
+
     align-items: center;
 
     gap: 5px;
@@ -218,6 +211,7 @@ nav > a,
     position: relative;
 
     display: flex;
+
     align-items: center;
 
     padding: 11px 15px;
@@ -237,9 +231,6 @@ nav > a,
         transform 0.25s ease;
 }
 
-
-/* gold underline */
-
 nav > a::after,
 .nav-group > span::after {
     content: "";
@@ -248,6 +239,7 @@ nav > a::after,
 
     left: 15px;
     right: 15px;
+
     bottom: 4px;
 
     height: 1px;
@@ -312,9 +304,6 @@ nav > a:hover::after,
     z-index: 9999;
 }
 
-
-/* invisible bridge */
-
 .nav-group::after {
     content: "";
 
@@ -332,13 +321,11 @@ nav > a:hover::after,
     display: block;
 }
 
-
-/* dropdown links */
-
 .dropdown a {
     position: relative;
 
     display: flex;
+
     align-items: center;
 
     padding: 11px 13px;
@@ -402,15 +389,13 @@ section {
     box-shadow: var(--shadow);
 }
 
-
-/* subtle top accent */
-
 section::before {
     content: "";
 
     position: absolute;
 
     top: 0;
+
     left: 34px;
     right: 34px;
 
@@ -466,6 +451,7 @@ h2::after {
     display: block;
 
     width: 48px;
+
     height: 2px;
 
     margin-top: 11px;
@@ -517,6 +503,7 @@ button,
     font-family: inherit;
 
     font-size: 13px;
+
     font-weight: 600;
 
     letter-spacing: 0.2px;
@@ -647,7 +634,9 @@ textarea::placeholder {
 }
 
 
-/* SELECT FIX */
+/* =========================================================
+   SELECT
+========================================================= */
 
 select {
     position: relative !important;
@@ -673,7 +662,10 @@ select option {
 ========================================================= */
 
 .table-responsive {
-    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+
+    overflow: hidden;
 
     border:
         1px solid var(--border);
@@ -686,10 +678,12 @@ select option {
 
 table {
     width: 100%;
+    max-width: 100%;
 
     border-collapse: separate;
-
     border-spacing: 0;
+
+    table-layout: fixed;
 }
 
 th,
@@ -702,6 +696,10 @@ td {
 
     border-bottom:
         1px solid #eee5dc;
+
+    vertical-align: middle;
+
+    word-break: break-word;
 }
 
 th {
@@ -792,6 +790,7 @@ tbody tr:last-child td {
     position: absolute;
 
     top: 0;
+
     left: 22px;
     right: 22px;
 
@@ -829,8 +828,7 @@ tbody tr:last-child td {
 
     border-radius: 30px;
 
-    background:
-        #f3e8dc;
+    background: #f3e8dc;
 
     color: var(--burgundy);
 
@@ -843,7 +841,7 @@ tbody tr:last-child td {
 
 
 /* =========================================================
-   DASHBOARD / STAT CARDS
+   DASHBOARD
 ========================================================= */
 
 .stats {
@@ -930,9 +928,7 @@ footer {
 
     text-align: center;
 
-    font-family:
-        Georgia,
-        serif;
+    font-family: Georgia, serif;
 
     font-size: 12px;
 
@@ -981,13 +977,26 @@ td {
 
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE - TABLET / HP
 ========================================================= */
 
 @media (max-width: 700px) {
 
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
     .site-header {
-        padding: 25px 4% 0;
+        width: 100%;
+        padding: 24px 4% 0;
     }
 
     .brand h1 {
@@ -996,22 +1005,34 @@ td {
 
     .brand span {
         font-size: 11px;
-
         letter-spacing: 1.5px;
     }
 
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
     .nav-toggle {
         display: inline-flex;
+
+        width: auto;
+
+        margin-top: 13px;
     }
 
     nav {
         display: none;
+
+        width: 100%;
 
         flex-direction: column;
 
         align-items: stretch;
 
         gap: 3px;
+
+        margin-top: 14px;
     }
 
     nav.open {
@@ -1023,10 +1044,19 @@ td {
         width: 100%;
     }
 
+    .nav-group {
+        width: 100%;
+    }
+
     .dropdown {
         position: static;
 
+        width: 100%;
+        min-width: 0;
+
         margin-top: 3px;
+
+        padding: 5px;
 
         border: none;
 
@@ -1043,30 +1073,414 @@ td {
         display: block;
     }
 
+
+    /* =========================
+       CONTAINER
+    ========================= */
+
     .container {
         width: 94%;
+        max-width: 94%;
 
-        margin: 28px auto;
+        margin: 27px auto;
     }
 
+
+    /* =========================
+       SECTION
+    ========================= */
+
     section {
-        padding: 21px;
+        width: 100%;
+
+        padding: 19px;
+
+        margin-bottom: 19px;
 
         border-radius: 14px;
     }
 
-    h2 {
-        font-size: 24px;
+    section::before {
+        left: 19px;
+        right: 19px;
     }
 
-    th,
-    td {
-        padding: 10px;
+
+    /* =========================
+       HEADING
+    ========================= */
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h2 {
+        font-size: 23px;
+
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+
+    /* =========================
+       FORM
+    ========================= */
+
+    form {
+        width: 100%;
+
+        gap: 14px;
+    }
+
+    form > div {
+        width: 100%;
+        min-width: 0;
+    }
+
+    label {
+        margin-bottom: 5px;
 
         font-size: 12px;
     }
 
+    input,
+    select,
+    textarea {
+        width: 100%;
+        min-width: 0;
+
+        padding: 9px 11px;
+
+        font-size: 12px;
+    }
+
+
+    /* =========================
+       TABLE - FIT HP
+    ========================= */
+
+    .table-responsive {
+        width: 100%;
+        max-width: 100%;
+
+        overflow: hidden;
+
+        border-radius: 9px;
+    }
+
+    table {
+        width: 100%;
+        max-width: 100%;
+
+        table-layout: fixed;
+    }
+
+    th,
+    td {
+        padding: 7px 5px;
+
+        font-size: 10px;
+
+        line-height: 1.35;
+
+        white-space: normal;
+
+        overflow-wrap: anywhere;
+
+        word-break: break-word;
+    }
+
+    th {
+        font-size: 10px;
+    }
+
+    td {
+        max-width: 0;
+
+        overflow: hidden;
+    }
+
+
+    /* =========================
+       TOMBOL DI DALAM TABEL
+    ========================= */
+
+    table button,
+    table .btn {
+        min-height: 28px;
+
+        padding: 4px 6px;
+
+        font-size: 9px;
+
+        white-space: normal;
+    }
+
+
+    /* =========================
+       INPUT DI DALAM TABEL
+    ========================= */
+
+    table input,
+    table select {
+        width: 100%;
+
+        min-width: 0;
+
+        padding: 5px 4px;
+
+        font-size: 9px;
+    }
+
+
+    /* =========================
+       DETAIL PESANAN
+    ========================= */
+
+    #tabelDetailPesanan {
+        width: 100%;
+        max-width: 100%;
+
+        table-layout: fixed;
+    }
+
+    #tabelDetailPesanan th,
+    #tabelDetailPesanan td {
+        padding: 6px 4px;
+
+        font-size: 9px;
+    }
+
+    /* Menu */
+
+    #tabelDetailPesanan th:nth-child(1),
+    #tabelDetailPesanan td:nth-child(1) {
+        width: 32%;
+    }
+
+    /* Harga */
+
+    #tabelDetailPesanan th:nth-child(2),
+    #tabelDetailPesanan td:nth-child(2) {
+        width: 18%;
+    }
+
+    /* Jumlah */
+
+    #tabelDetailPesanan th:nth-child(3),
+    #tabelDetailPesanan td:nth-child(3) {
+        width: 12%;
+    }
+
+    /* Subtotal */
+
+    #tabelDetailPesanan th:nth-child(4),
+    #tabelDetailPesanan td:nth-child(4) {
+        width: 22%;
+    }
+
+    /* Aksi */
+
+    #tabelDetailPesanan th:nth-child(5),
+    #tabelDetailPesanan td:nth-child(5) {
+        width: 16%;
+    }
+
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    button,
+    .btn {
+        min-height: 36px;
+
+        padding: 8px 11px;
+
+        font-size: 11px;
+    }
+
+    .actions {
+        gap: 6px;
+    }
+
+
+    /* =========================
+       CARD
+    ========================= */
+
+    .card {
+        padding: 18px;
+
+        border-radius: 13px;
+    }
+
+
+    /* =========================
+       STATS
+    ========================= */
+
     .stats {
         grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+        margin-top: 38px;
+
+        padding: 25px 13px;
+
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   HP KECIL
+   360px - 400px
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .site-header {
+        padding-left: 3.5%;
+        padding-right: 3.5%;
+    }
+
+    .brand h1 {
+        font-size: 23px;
+    }
+
+    .brand span {
+        font-size: 9px;
+
+        letter-spacing: 1px;
+    }
+
+    .container {
+        width: 95%;
+        max-width: 95%;
+
+        margin: 22px auto;
+    }
+
+    section {
+        padding: 15px;
+
+        border-radius: 12px;
+    }
+
+    section::before {
+        left: 15px;
+        right: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+
+        margin-bottom: 17px;
+    }
+
+    h3 {
+        font-size: 17px;
+    }
+
+    label {
+        font-size: 11px;
+    }
+
+    input,
+    select,
+    textarea {
+        padding: 8px 9px;
+
+        font-size: 11px;
+    }
+
+
+    /* TABEL HP KECIL */
+
+    th,
+    td {
+        padding: 6px 4px;
+
+        font-size: 9px;
+    }
+
+    th {
+        font-size: 9px;
+    }
+
+    table button,
+    table .btn {
+        min-height: 26px;
+
+        padding: 3px 5px;
+
+        font-size: 8px;
+    }
+
+
+    /* DETAIL PESANAN */
+
+    #tabelDetailPesanan th,
+    #tabelDetailPesanan td {
+        padding: 5px 3px;
+
+        font-size: 8px;
+    }
+
+    #tabelDetailPesanan input,
+    #tabelDetailPesanan select {
+        padding: 4px 3px;
+
+        font-size: 8px;
+    }
+
+    #tabelDetailPesanan button,
+    #tabelDetailPesanan .btn {
+        min-height: 24px;
+
+        padding: 3px 4px;
+
+        font-size: 7px;
+    }
+
+
+    /* ACTION */
+
+    .actions {
+        gap: 5px;
+    }
+
+    .actions button,
+    .actions .btn {
+        min-height: 33px;
+
+        padding: 7px 9px;
+
+        font-size: 10px;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+        padding: 23px 10px;
+
+        font-size: 10px;
     }
 }
