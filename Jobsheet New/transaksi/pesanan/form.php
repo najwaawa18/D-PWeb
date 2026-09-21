@@ -1,60 +1,36 @@
 <?php
 
-require __DIR__ . "/../../config/database.php";
+require_once __DIR__ . '/../../config/database.php';
 
-$id = $_GET['id'] ?? null;
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
-$edit = false;
+$aksi = $id > 0 ? 'edit' : 'tambah';
 
 $kode_pesanan = '';
+$tanggal_pesanan = date('Y-m-d\TH:i');
 $pelanggan_id = '';
 $meja_id = '';
 $status = 'Proses';
 
-$detail_pesanan = [];
+$detail_lama = [];
 
-/*
-|--------------------------------------------------------------------------
-| DATA PELANGGAN
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   DATA MASTER
+========================================================= */
 
-$queryPelanggan = $pdo->query("
-    SELECT
-        id,
-        kode_pelanggan,
-        nama
+$pelanggan = $pdo->query("
+    SELECT id, kode_pelanggan, nama
     FROM pelanggan
     ORDER BY nama ASC
-");
+")->fetchAll(PDO::FETCH_ASSOC);
 
-$pelanggan = $queryPelanggan->fetchAll();
-
-/*
-|--------------------------------------------------------------------------
-| DATA MEJA
-|--------------------------------------------------------------------------
-*/
-
-$queryMeja = $pdo->query("
-    SELECT
-        id,
-        nomor_meja,
-        kapasitas,
-        status
+$meja = $pdo->query("
+    SELECT id, nomor_meja, kapasitas, status
     FROM meja
     ORDER BY nomor_meja ASC
-");
+")->fetchAll(PDO::FETCH_ASSOC);
 
-$meja = $queryMeja->fetchAll();
-
-/*
-|--------------------------------------------------------------------------
-| DATA MENU
-|--------------------------------------------------------------------------
-*/
-
-$queryMenu = $pdo->query("
+$menu = $pdo->query("
     SELECT
         menu.id,
         menu.kode_menu,
@@ -68,17 +44,14 @@ $queryMenu = $pdo->query("
         ON menu.kategori_id = kategori.id
     WHERE menu.status = 'Tersedia'
     ORDER BY menu.nama_menu ASC
-");
+")->fetchAll(PDO::FETCH_ASSOC);
 
-$menu = $queryMenu->fetchAll();
 
-/*
-|--------------------------------------------------------------------------
-| MODE EDIT
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   MODE EDIT
+========================================================= */
 
-if ($id !== null) {
+if ($id > 0) {
 
     $stmt = $pdo->prepare("
         SELECT
@@ -86,6 +59,7 @@ if ($id !== null) {
             kode_pesanan,
             pelanggan_id,
             meja_id,
+            tanggal_pesanan,
             status
         FROM pesanan
         WHERE id = :id
@@ -95,25 +69,26 @@ if ($id !== null) {
         ':id' => $id
     ]);
 
-    $data = $stmt->fetch();
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$data) {
-        header("Location: index.php?pesan=gagal");
+        header('Location: index.php');
         exit;
     }
-
-    $edit = true;
 
     $kode_pesanan = $data['kode_pesanan'];
     $pelanggan_id = $data['pelanggan_id'];
     $meja_id = $data['meja_id'];
     $status = $data['status'];
 
-    /*
-    |--------------------------------------------------------------------------
-    | DETAIL PESANAN
-    |--------------------------------------------------------------------------
-    */
+    if (!empty($data['tanggal_pesanan'])) {
+        $tanggal_pesanan = date(
+            'Y-m-d\TH:i',
+            strtotime($data['tanggal_pesanan'])
+        );
+    }
+
+    /* Ambil detail pesanan */
 
     $stmtDetail = $pdo->prepare("
         SELECT
@@ -122,7 +97,10 @@ if ($id !== null) {
             detail_pesanan.jumlah,
             detail_pesanan.harga,
             detail_pesanan.subtotal,
-            menu.nama_menu
+            menu.kode_menu,
+            menu.nama_menu,
+            menu.stok,
+            menu.status
         FROM detail_pesanan
         INNER JOIN menu
             ON detail_pesanan.menu_id = menu.id
@@ -134,311 +112,367 @@ if ($id !== null) {
         ':pesanan_id' => $id
     ]);
 
-    $detail_pesanan = $stmtDetail->fetchAll();
+    $detail_lama = $stmtDetail->fetchAll(PDO::FETCH_ASSOC);
 }
-
-$page_title = $edit
-    ? "Detail Pesanan"
-    : "Tambah Pesanan";
 
 ?>
 
-<?php require __DIR__ . "/../../layout/header.php"; ?>
+<?php require_once __DIR__ . '/../../layout/header.php'; ?>
+
+<div class="container">
+
+    <!-- =====================================================
+         HEADER HALAMAN
+    ====================================================== -->
+
+    <section>
+        <h2>
+            <?= $aksi === 'edit' ? 'Edit Pesanan' : 'Tambah Pesanan'; ?>
+        </h2>
+
+        <p>
+            <?= $aksi === 'edit'
+                ? 'Perbarui informasi pesanan dan detail menu.'
+                : 'Tambahkan pesanan baru ke dalam sistem.'; ?>
+        </p>
+    </section>
 
 
-<!-- =========================================================
-     JUDUL
-========================================================= -->
+    <!-- =====================================================
+         FORM PESANAN
+    ====================================================== -->
 
-<section>
+    <section>
 
-    <h2>
-        <?= $edit ? 'Detail Pesanan' : 'Tambah Pesanan'; ?>
-    </h2>
-
-    <p>
-        <?= $edit
-            ? 'Lihat dan perbarui transaksi Cafe_Najwa.'
-            : 'Buat transaksi pesanan baru.';
-        ?>
-    </p>
-
-</section>
-
-
-<!-- =========================================================
-     FORM PESANAN
-========================================================= -->
-
-<section>
-
-    <form
-        action="proses.php"
-        method="POST"
-        id="formPesanan">
-
-        <?php if ($edit): ?>
+        <form
+            action="proses.php"
+            method="POST"
+            id="formPesanan"
+        >
 
             <input
                 type="hidden"
-                name="id"
-                value="<?= htmlspecialchars($id); ?>">
+                name="aksi"
+                value="<?= htmlspecialchars($aksi); ?>"
+            >
 
-        <?php endif; ?>
+            <?php if ($id > 0): ?>
 
-
-        <input
-            type="hidden"
-            name="aksi"
-            value="<?= $edit ? 'edit' : 'tambah'; ?>">
-
-
-        <!-- =================================================
-             KODE PESANAN
-        ================================================== -->
-
-        <div>
-
-            <label for="kode_pesanan">
-                Kode Pesanan
-            </label>
-
-            <input
-                type="text"
-                id="kode_pesanan"
-                name="kode_pesanan"
-                value="<?= htmlspecialchars($kode_pesanan); ?>"
-                placeholder="Contoh: PS001"
-                maxlength="20"
-                required>
-
-        </div>
-
-
-        <!-- =================================================
-             PELANGGAN
-        ================================================== -->
-
-        <div>
-
-            <label for="pelanggan_id">
-                Pelanggan
-            </label>
-
-            <select
-                id="pelanggan_id"
-                name="pelanggan_id">
-
-                <option value="">
-                    -- Pilih Pelanggan --
-                </option>
-
-                <?php if (count($pelanggan) > 0): ?>
-
-                    <?php foreach ($pelanggan as $dataPelanggan): ?>
-
-                        <option
-                            value="<?= $dataPelanggan['id']; ?>"
-                            <?= (string)$pelanggan_id ===
-                                (string)$dataPelanggan['id']
-                                ? 'selected'
-                                : '';
-                            ?>>
-
-                            <?= htmlspecialchars(
-                                $dataPelanggan['kode_pelanggan']
-                            ); ?>
-
-                            -
-                            
-                            <?= htmlspecialchars(
-                                $dataPelanggan['nama']
-                            ); ?>
-
-                        </option>
-
-                    <?php endforeach; ?>
-
-                <?php endif; ?>
-
-            </select>
-
-            <?php if (count($pelanggan) === 0): ?>
-
-                <small>
-                    Belum ada data pelanggan.
-                    Tambahkan pelanggan terlebih dahulu.
-                </small>
+                <input
+                    type="hidden"
+                    name="id"
+                    value="<?= $id; ?>"
+                >
 
             <?php endif; ?>
 
-        </div>
+
+            <!-- INFORMASI PESANAN -->
+
+            <div class="form-grid">
+
+                <div>
+                    <label for="kode_pesanan">
+                        Kode Pesanan
+                    </label>
+
+                    <input
+                        type="text"
+                        id="kode_pesanan"
+                        name="kode_pesanan"
+                        value="<?= htmlspecialchars($kode_pesanan); ?>"
+                        placeholder="Contoh: PSN-001"
+                        required
+                    >
+                </div>
 
 
-        <!-- =================================================
-             MEJA
-        ================================================== -->
+                <div>
+                    <label for="tanggal_pesanan">
+                        Tanggal Pemesanan
+                    </label>
 
-        <div>
-
-            <label for="meja_id">
-                Meja
-            </label>
-
-            <select
-                id="meja_id"
-                name="meja_id">
-
-                <option value="">
-                    -- Pilih Meja --
-                </option>
-
-                <?php foreach ($meja as $dataMeja): ?>
-
-                    <option
-                        value="<?= $dataMeja['id']; ?>"
-                        <?= (string)$meja_id ===
-                            (string)$dataMeja['id']
-                            ? 'selected'
-                            : '';
-                        ?>>
-
-                        <?= htmlspecialchars(
-                            $dataMeja['nomor_meja']
-                        ); ?>
-
-                        -
-                        kapasitas
-                        <?= htmlspecialchars(
-                            $dataMeja['kapasitas']
-                        ); ?>
-                        orang
-
-                        (<?= htmlspecialchars(
-                            $dataMeja['status']
-                        ); ?>)
-
-                    </option>
-
-                <?php endforeach; ?>
-
-            </select>
-
-        </div>
+                    <input
+                        type="datetime-local"
+                        id="tanggal_pesanan"
+                        name="tanggal_pesanan"
+                        value="<?= htmlspecialchars($tanggal_pesanan); ?>"
+                        required
+                    >
+                </div>
 
 
-        <!-- =================================================
-             STATUS PESANAN
-        ================================================== -->
+                <div>
+                    <label for="pelanggan_id">
+                        Pelanggan
+                    </label>
 
-        <div>
+                    <select
+                        id="pelanggan_id"
+                        name="pelanggan_id"
+                        required
+                    >
 
-            <label for="status">
-                Status Pesanan
-            </label>
+                        <option value="">
+                            -- Pilih Pelanggan --
+                        </option>
 
-            <select
-                id="status"
-                name="status"
-                required>
+                        <?php foreach ($pelanggan as $p): ?>
 
-                <option
-                    value="Proses"
-                    <?= $status === 'Proses'
-                        ? 'selected'
-                        : '';
-                    ?>>
-                    Proses
-                </option>
+                            <option
+                                value="<?= $p['id']; ?>"
+                                <?= (string)$pelanggan_id === (string)$p['id']
+                                    ? 'selected'
+                                    : ''; ?>
+                            >
+                                <?= htmlspecialchars(
+                                    $p['kode_pelanggan'] . ' - ' . $p['nama']
+                                ); ?>
+                            </option>
 
-                <option
-                    value="Selesai"
-                    <?= $status === 'Selesai'
-                        ? 'selected'
-                        : '';
-                    ?>>
-                    Selesai
-                </option>
+                        <?php endforeach; ?>
 
-                <option
-                    value="Dibatalkan"
-                    <?= $status === 'Dibatalkan'
-                        ? 'selected'
-                        : '';
-                    ?>>
-                    Dibatalkan
-                </option>
-
-            </select>
-
-        </div>
+                    </select>
+                </div>
 
 
-        <hr>
+                <div>
+                    <label for="meja_id">
+                        Meja
+                    </label>
+
+                    <select
+                        id="meja_id"
+                        name="meja_id"
+                        required
+                    >
+
+                        <option value="">
+                            -- Pilih Meja --
+                        </option>
+
+                        <?php foreach ($meja as $m): ?>
+
+                            <option
+                                value="<?= $m['id']; ?>"
+                                <?= (string)$meja_id === (string)$m['id']
+                                    ? 'selected'
+                                    : ''; ?>
+                            >
+                                <?= htmlspecialchars(
+                                    'Meja ' . $m['nomor_meja']
+                                    . ' - Kapasitas '
+                                    . $m['kapasitas']
+                                ); ?>
+                            </option>
+
+                        <?php endforeach; ?>
+
+                    </select>
+                </div>
 
 
-        <!-- =================================================
-             DETAIL PESANAN
-        ================================================== -->
+                <div>
+                    <label for="status">
+                        Status Pesanan
+                    </label>
 
-        <h3>
-            Detail Pesanan
-        </h3>
+                    <select
+                        id="status"
+                        name="status"
+                        required
+                    >
 
-        <p>
-            Pilih menu yang dipesan dan jumlahnya.
-        </p>
+                        <option
+                            value="Proses"
+                            <?= $status === 'Proses' ? 'selected' : ''; ?>
+                        >
+                            Proses
+                        </option>
 
+                        <option
+                            value="Selesai"
+                            <?= $status === 'Selesai' ? 'selected' : ''; ?>
+                        >
+                            Selesai
+                        </option>
 
-        <div class="table-responsive">
+                        <option
+                            value="Dibatalkan"
+                            <?= $status === 'Dibatalkan' ? 'selected' : ''; ?>
+                        >
+                            Dibatalkan
+                        </option>
 
-            <table id="tabelDetailPesanan">
+                    </select>
+                </div>
 
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Menu
-                        </th>
-
-                        <th>
-                            Harga
-                        </th>
-
-                        <th>
-                            Jumlah
-                        </th>
-
-                        <th>
-                            Subtotal
-                        </th>
-
-                        <th>
-                            Aksi
-                        </th>
-
-                    </tr>
-
-                </thead>
+            </div>
 
 
-                <tbody id="detailContainer">
+            <hr>
 
 
-                    <?php if (
-                        $edit &&
-                        count($detail_pesanan) > 0
-                    ): ?>
+            <!-- =================================================
+                 DETAIL PESANAN
+            ================================================== -->
+
+            <div>
+
+                <h3>Detail Pesanan</h3>
+
+                <p>
+                    Pilih menu dan tentukan jumlah pesanan.
+                </p>
+
+            </div>
 
 
-                        <!-- =================================
-                             DETAIL SAAT EDIT
-                        ================================== -->
+            <div class="table-wrapper">
 
-                        <?php foreach (
-                            $detail_pesanan as $detail
-                        ): ?>
+                <table id="tabelDetailPesanan">
+
+                    <thead>
+
+                        <tr>
+                            <th>Menu</th>
+                            <th>Harga</th>
+                            <th>Jumlah</th>
+                            <th>Subtotal</th>
+                            <th>Aksi</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="detailContainer">
+
+                        <?php if (!empty($detail_lama)): ?>
+
+                            <?php foreach ($detail_lama as $detail): ?>
+
+                                <tr class="detail-row">
+
+                                    <td>
+
+                                        <select
+                                            name="menu_id[]"
+                                            class="menu-select"
+                                            required
+                                        >
+
+                                            <option value="">
+                                                -- Pilih Menu --
+                                            </option>
+
+                                            <?php foreach ($menu as $m): ?>
+
+                                                <option
+                                                    value="<?= $m['id']; ?>"
+                                                    data-harga="<?= $m['harga']; ?>"
+                                                    <?= (string)$detail['menu_id'] === (string)$m['id']
+                                                        ? 'selected'
+                                                        : ''; ?>
+                                                >
+                                                    <?= htmlspecialchars(
+                                                        $m['kode_menu']
+                                                        . ' - '
+                                                        . $m['nama_menu']
+                                                    ); ?>
+                                                </option>
+
+                                            <?php endforeach; ?>
+
+                                            <?php
+                                            /*
+                                             * Jika menu lama sudah tidak
+                                             * berstatus Tersedia, tetap
+                                             * tampilkan sebagai pilihan.
+                                             */
+                                            $menuLamaAda = false;
+
+                                            foreach ($menu as $m) {
+                                                if ((string)$m['id'] === (string)$detail['menu_id']) {
+                                                    $menuLamaAda = true;
+                                                    break;
+                                                }
+                                            }
+                                            ?>
+
+                                            <?php if (!$menuLamaAda): ?>
+
+                                                <option
+                                                    value="<?= $detail['menu_id']; ?>"
+                                                    data-harga="<?= $detail['harga']; ?>"
+                                                    selected
+                                                >
+                                                    <?= htmlspecialchars(
+                                                        $detail['kode_menu']
+                                                        . ' - '
+                                                        . $detail['nama_menu']
+                                                    ); ?>
+                                                </option>
+
+                                            <?php endif; ?>
+
+                                        </select>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <input
+                                            type="number"
+                                            class="harga-input"
+                                            value="<?= htmlspecialchars($detail['harga']); ?>"
+                                            readonly
+                                        >
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <input
+                                            type="number"
+                                            name="jumlah[]"
+                                            class="jumlah-input"
+                                            value="<?= htmlspecialchars($detail['jumlah']); ?>"
+                                            min="1"
+                                            required
+                                        >
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <input
+                                            type="number"
+                                            class="subtotal-input"
+                                            value="<?= htmlspecialchars($detail['subtotal']); ?>"
+                                            readonly
+                                        >
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <button
+                                            type="button"
+                                            class="btn-danger btn-hapus-detail"
+                                        >
+                                            Hapus
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+                            <?php endforeach; ?>
+
+                        <?php else: ?>
 
                             <tr class="detail-row">
 
@@ -447,39 +481,24 @@ $page_title = $edit
                                     <select
                                         name="menu_id[]"
                                         class="menu-select"
-                                        required>
+                                        required
+                                    >
 
                                         <option value="">
                                             -- Pilih Menu --
                                         </option>
 
-
-                                        <?php foreach (
-                                            $menu as $dataMenu
-                                        ): ?>
+                                        <?php foreach ($menu as $m): ?>
 
                                             <option
-                                                value="<?= $dataMenu['id']; ?>"
-                                                data-harga="<?= $dataMenu['harga']; ?>"
-                                                <?= (string)$detail['menu_id'] ===
-                                                    (string)$dataMenu['id']
-                                                    ? 'selected'
-                                                    : '';
-                                                ?>>
-
+                                                value="<?= $m['id']; ?>"
+                                                data-harga="<?= $m['harga']; ?>"
+                                            >
                                                 <?= htmlspecialchars(
-                                                    $dataMenu['nama_menu']
+                                                    $m['kode_menu']
+                                                    . ' - '
+                                                    . $m['nama_menu']
                                                 ); ?>
-
-                                                -
-                                                Rp
-                                                <?= number_format(
-                                                    $dataMenu['harga'],
-                                                    0,
-                                                    ',',
-                                                    '.'
-                                                ); ?>
-
                                             </option>
 
                                         <?php endforeach; ?>
@@ -492,15 +511,10 @@ $page_title = $edit
                                 <td>
 
                                     <input
-                                        type="text"
-                                        class="harga-display"
-                                        value="Rp <?= number_format(
-                                            $detail['harga'],
-                                            0,
-                                            ',',
-                                            '.'
-                                        ); ?>"
-                                        readonly>
+                                        type="number"
+                                        class="harga-input"
+                                        readonly
+                                    >
 
                                 </td>
 
@@ -511,9 +525,10 @@ $page_title = $edit
                                         type="number"
                                         name="jumlah[]"
                                         class="jumlah-input"
-                                        value="<?= $detail['jumlah']; ?>"
+                                        value="1"
                                         min="1"
-                                        required>
+                                        required
+                                    >
 
                                 </td>
 
@@ -521,15 +536,10 @@ $page_title = $edit
                                 <td>
 
                                     <input
-                                        type="text"
-                                        class="subtotal-display"
-                                        value="Rp <?= number_format(
-                                            $detail['subtotal'],
-                                            0,
-                                            ',',
-                                            '.'
-                                        ); ?>"
-                                        readonly>
+                                        type="number"
+                                        class="subtotal-input"
+                                        readonly
+                                    >
 
                                 </td>
 
@@ -538,608 +548,248 @@ $page_title = $edit
 
                                     <button
                                         type="button"
-                                        class="btn-hapus-detail">
-
+                                        class="btn-danger btn-hapus-detail"
+                                    >
                                         Hapus
-
                                     </button>
 
                                 </td>
 
                             </tr>
 
-                        <?php endforeach; ?>
+                        <?php endif; ?>
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
 
-                    <?php else: ?>
+            <!-- TAMBAH MENU -->
+
+            <div style="margin-top: 15px;">
+
+                <button
+                    type="button"
+                    id="btnTambahDetail"
+                >
+                    + Tambah Menu
+                </button>
+
+            </div>
 
 
-                        <!-- =================================
-                             DETAIL SAAT TAMBAH
-                        ================================== -->
+            <!-- TOTAL -->
 
-                        <tr class="detail-row">
+            <div style="
+                margin-top: 22px;
+                padding: 18px;
+                background: #faf5ef;
+                border-radius: 10px;
+                text-align: right;
+            ">
 
-                            <td>
+                <strong>Total Pesanan</strong>
 
-                                <select
-                                    name="menu_id[]"
-                                    class="menu-select"
-                                    required>
-
-                                    <option value="">
-                                        -- Pilih Menu --
-                                    </option>
-
-
-                                    <?php foreach (
-                                        $menu as $dataMenu
-                                    ): ?>
-
-                                        <option
-                                            value="<?= $dataMenu['id']; ?>"
-                                            data-harga="<?= $dataMenu['harga']; ?>">
-
-                                            <?= htmlspecialchars(
-                                                $dataMenu['nama_menu']
-                                            ); ?>
-
-                                            -
-                                            Rp
-                                            <?= number_format(
-                                                $dataMenu['harga'],
-                                                0,
-                                                ',',
-                                                '.'
-                                            ); ?>
-
-                                        </option>
-
-                                    <?php endforeach; ?>
-
-                                </select>
-
-                            </td>
-
-
-                            <td>
-
-                                <input
-                                    type="text"
-                                    class="harga-display"
-                                    value="Rp 0"
-                                    readonly>
-
-                            </td>
-
-
-                            <td>
-
-                                <input
-                                    type="number"
-                                    name="jumlah[]"
-                                    class="jumlah-input"
-                                    value="1"
-                                    min="1"
-                                    required>
-
-                            </td>
-
-
-                            <td>
-
-                                <input
-                                    type="text"
-                                    class="subtotal-display"
-                                    value="Rp 0"
-                                    readonly>
-
-                            </td>
-
-
-                            <td>
-
-                                <button
-                                    type="button"
-                                    class="btn-hapus-detail">
-
-                                    Hapus
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                    <?php endif; ?>
-
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-
-        <!-- =================================================
-             TAMBAH MENU
-        ================================================== -->
-
-        <div style="margin-top: 15px;">
-
-            <button
-                type="button"
-                id="tambahDetail">
-
-                + Tambah Menu
-
-            </button>
-
-        </div>
-
-
-        <!-- =================================================
-             TOTAL
-        ================================================== -->
-
-        <div style="margin-top: 20px;">
-
-            <h3>
-
-                Total:
-
-                <span id="totalDisplay">
+                <div id="totalDisplay">
                     Rp 0
-                </span>
+                </div>
 
-            </h3>
-
-        </div>
+            </div>
 
 
-        <!-- =================================================
-             TOMBOL
-        ================================================== -->
+            <!-- ACTION -->
 
-        <div class="actions">
+            <div class="actions">
 
-            <button type="submit">
+                <button type="submit">
+                    <?= $aksi === 'edit'
+                        ? 'Simpan Perubahan'
+                        : 'Simpan Pesanan'; ?>
+                </button>
 
-                <?= $edit
-                    ? 'Simpan Perubahan'
-                    : 'Simpan Pesanan';
-                ?>
+                <a
+                    href="index.php"
+                    class="btn btn-secondary"
+                >
+                    Batal
+                </a>
 
-            </button>
+            </div>
 
+        </form>
 
-            <a
-                href="index.php"
-                class="btn">
+    </section>
 
-                Batal
+</div>
 
-            </a>
-
-        </div>
-
-
-    </form>
-
-</section>
-
-
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
 
 <script>
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener('DOMContentLoaded', function () {
 
-        const container =
-            document.getElementById(
-                "detailContainer"
-            );
-
-        const tombolTambah =
-            document.getElementById(
-                "tambahDetail"
-            );
-
-        const totalDisplay =
-            document.getElementById(
-                "totalDisplay"
-            );
+    const container = document.getElementById('detailContainer');
+    const btnTambah = document.getElementById('btnTambahDetail');
+    const totalDisplay = document.getElementById('totalDisplay');
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | FORMAT RUPIAH
-        |--------------------------------------------------------------------------
-        */
+    function formatRupiah(angka) {
 
-        function formatRupiah(angka) {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(angka);
 
-            return "Rp " +
-                Number(angka || 0)
-                    .toLocaleString("id-ID");
+    }
 
+
+    function hitungBaris(row) {
+
+        const select = row.querySelector('.menu-select');
+        const hargaInput = row.querySelector('.harga-input');
+        const jumlahInput = row.querySelector('.jumlah-input');
+        const subtotalInput = row.querySelector('.subtotal-input');
+
+        if (!select || !hargaInput || !jumlahInput || !subtotalInput) {
+            return 0;
         }
 
+        const option = select.options[select.selectedIndex];
 
-        /*
-        |--------------------------------------------------------------------------
-        | HITUNG SATU BARIS
-        |--------------------------------------------------------------------------
-        */
+        const harga = parseFloat(
+            option?.dataset?.harga || 0
+        );
 
-        function hitungBaris(row) {
+        const jumlah = parseInt(
+            jumlahInput.value || 0
+        );
 
-            const select =
-                row.querySelector(
-                    ".menu-select"
-                );
+        const subtotal = harga * jumlah;
 
-            const jumlahInput =
-                row.querySelector(
-                    ".jumlah-input"
-                );
+        hargaInput.value = harga;
+        subtotalInput.value = subtotal;
 
-            const hargaDisplay =
-                row.querySelector(
-                    ".harga-display"
-                );
+        return subtotal;
+    }
 
-            const subtotalDisplay =
-                row.querySelector(
-                    ".subtotal-display"
-                );
 
+    function hitungTotal() {
 
-            if (
-                !select ||
-                !jumlahInput ||
-                !hargaDisplay ||
-                !subtotalDisplay
-            ) {
-                return 0;
-            }
-
-
-            const option =
-                select.options[
-                    select.selectedIndex
-                ];
-
-
-            let harga = 0;
-
-
-            if (option) {
-
-                harga = Number(
-                    option.getAttribute(
-                        "data-harga"
-                    ) || 0
-                );
-
-            }
-
-
-            const jumlah =
-                Number(
-                    jumlahInput.value || 0
-                );
-
-
-            const subtotal =
-                harga * jumlah;
-
-
-            hargaDisplay.value =
-                formatRupiah(harga);
-
-
-            subtotalDisplay.value =
-                formatRupiah(subtotal);
-
-
-            return subtotal;
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | HITUNG TOTAL
-        |--------------------------------------------------------------------------
-        */
-
-        function hitungTotal() {
-
-            let total = 0;
-
-
-            const rows =
-                container.querySelectorAll(
-                    ".detail-row"
-                );
-
-
-            rows.forEach(
-                function (row) {
-
-                    total +=
-                        hitungBaris(row);
-
-                }
-            );
-
-
-            totalDisplay.textContent =
-                formatRupiah(total);
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | PASANG EVENT KE BARIS
-        |--------------------------------------------------------------------------
-        */
-
-        function pasangEvent(row) {
-
-            const select =
-                row.querySelector(
-                    ".menu-select"
-                );
-
-            const jumlah =
-                row.querySelector(
-                    ".jumlah-input"
-                );
-
-            const tombolHapus =
-                row.querySelector(
-                    ".btn-hapus-detail"
-                );
-
-
-            if (select) {
-
-                select.addEventListener(
-                    "change",
-                    function () {
-
-                        hitungTotal();
-
-                    }
-                );
-
-            }
-
-
-            if (jumlah) {
-
-                jumlah.addEventListener(
-                    "input",
-                    function () {
-
-                        hitungTotal();
-
-                    }
-                );
-
-            }
-
-
-            if (tombolHapus) {
-
-                tombolHapus.addEventListener(
-                    "click",
-                    function () {
-
-                        const semuaBaris =
-                            container.querySelectorAll(
-                                ".detail-row"
-                            );
-
-
-                        /*
-                        | Jangan sampai semua baris
-                        | terhapus.
-                        */
-
-                        if (
-                            semuaBaris.length <= 1
-                        ) {
-
-                            alert(
-                                "Minimal harus ada satu menu."
-                            );
-
-                            return;
-
-                        }
-
-
-                        row.remove();
-
-                        hitungTotal();
-
-                    }
-                );
-
-            }
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | PASANG EVENT BARIS YANG SUDAH ADA
-        |--------------------------------------------------------------------------
-        */
+        let total = 0;
 
         document
-            .querySelectorAll(
-                ".detail-row"
-            )
-            .forEach(
-                function (row) {
+            .querySelectorAll('.detail-row')
+            .forEach(function (row) {
 
-                    pasangEvent(row);
+                total += hitungBaris(row);
 
+            });
+
+        totalDisplay.textContent = formatRupiah(total);
+
+    }
+
+
+    function pasangEvent(row) {
+
+        const select = row.querySelector('.menu-select');
+        const jumlah = row.querySelector('.jumlah-input');
+        const tombolHapus = row.querySelector('.btn-hapus-detail');
+
+        if (select) {
+
+            select.addEventListener('change', function () {
+                hitungTotal();
+            });
+
+        }
+
+        if (jumlah) {
+
+            jumlah.addEventListener('input', function () {
+                hitungTotal();
+            });
+
+        }
+
+        if (tombolHapus) {
+
+            tombolHapus.addEventListener('click', function () {
+
+                const rows = document.querySelectorAll('.detail-row');
+
+                if (rows.length <= 1) {
+
+                    alert('Minimal harus ada satu menu.');
+
+                    return;
                 }
-            );
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | TAMBAH BARIS MENU
-        |--------------------------------------------------------------------------
-        */
-
-        tombolTambah.addEventListener(
-            "click",
-            function () {
-
-                const row =
-                    document.createElement(
-                        "tr"
-                    );
-
-
-                row.classList.add(
-                    "detail-row"
-                );
-
-
-                row.innerHTML = `
-
-                    <td>
-
-                        <select
-                            name="menu_id[]"
-                            class="menu-select"
-                            required>
-
-                            <option value="">
-                                -- Pilih Menu --
-                            </option>
-
-                            <?php foreach ($menu as $dataMenu): ?>
-
-                                <option
-                                    value="<?= $dataMenu['id']; ?>"
-                                    data-harga="<?= $dataMenu['harga']; ?>">
-
-                                    <?= htmlspecialchars(
-                                        $dataMenu['nama_menu']
-                                    ); ?>
-
-                                    -
-                                    Rp
-                                    <?= number_format(
-                                        $dataMenu['harga'],
-                                        0,
-                                        ',',
-                                        '.'
-                                    ); ?>
-
-                                </option>
-
-                            <?php endforeach; ?>
-
-                        </select>
-
-                    </td>
-
-
-                    <td>
-
-                        <input
-                            type="text"
-                            class="harga-display"
-                            value="Rp 0"
-                            readonly>
-
-                    </td>
-
-
-                    <td>
-
-                        <input
-                            type="number"
-                            name="jumlah[]"
-                            class="jumlah-input"
-                            value="1"
-                            min="1"
-                            required>
-
-                    </td>
-
-
-                    <td>
-
-                        <input
-                            type="text"
-                            class="subtotal-display"
-                            value="Rp 0"
-                            readonly>
-
-                    </td>
-
-
-                    <td>
-
-                        <button
-                            type="button"
-                            class="btn-hapus-detail">
-
-                            Hapus
-
-                        </button>
-
-                    </td>
-
-                `;
-
-
-                container.appendChild(row);
-
-
-                /*
-                | Pasang event untuk baris
-                | yang baru dibuat.
-                */
-
-                pasangEvent(row);
-
+                row.remove();
 
                 hitungTotal();
 
-            }
-        );
+            });
+
+        }
+
+    }
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | HITUNG TOTAL SAAT HALAMAN DIBUKA
-        |--------------------------------------------------------------------------
-        */
+    document
+        .querySelectorAll('.detail-row')
+        .forEach(function (row) {
+
+            pasangEvent(row);
+
+        });
+
+
+    btnTambah.addEventListener('click', function () {
+
+        const rowPertama =
+            document.querySelector('.detail-row');
+
+        const rowBaru =
+            rowPertama.cloneNode(true);
+
+
+        rowBaru
+            .querySelector('.menu-select')
+            .selectedIndex = 0;
+
+
+        rowBaru
+            .querySelector('.harga-input')
+            .value = '';
+
+
+        rowBaru
+            .querySelector('.jumlah-input')
+            .value = 1;
+
+
+        rowBaru
+            .querySelector('.subtotal-input')
+            .value = '';
+
+
+        container.appendChild(rowBaru);
+
+        pasangEvent(rowBaru);
 
         hitungTotal();
 
-    }
-);
+    });
+
+
+    hitungTotal();
+
+});
 
 </script>
 
 
-<?php require __DIR__ . "/../../layout/footer.php"; ?>
+<?php require_once __DIR__ . '/../../layout/footer.php'; ?>
