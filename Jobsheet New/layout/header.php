@@ -8,15 +8,28 @@ $page_title = $page_title ?? "Dashboard";
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>
         Cafe_Najwa
-        <?php echo $page_title ? " | " . htmlspecialchars($page_title) : ""; ?>
+        <?php
+        echo $page_title
+            ? " | " . htmlspecialchars($page_title)
+            : "";
+        ?>
     </title>
 
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link
+        rel="stylesheet"
+        href="/Jobsheet%20New/assets/css/style.css"
+    >
+
 </head>
 
 <body>
@@ -24,14 +37,26 @@ $page_title = $page_title ?? "Dashboard";
 <header class="site-header">
 
     <div class="brand">
-        <h1>Cafe_Najwa</h1>
+
+        <h1>
+            Cafe_Najwa
+        </h1>
 
         <span>
             Sistem Informasi Manajemen Cafe
         </span>
+
     </div>
 
-    <?php include __DIR__ . "/navbar.php"; ?>
+    <?php
+
+    $navbar = __DIR__ . "/navbar.php";
+
+    if (file_exists($navbar)) {
+        include $navbar;
+    }
+
+    ?>
 
 </header>
 

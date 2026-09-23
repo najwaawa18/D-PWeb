@@ -9,7 +9,9 @@
 
 </footer>
 
-<script src="/assets/js/app.js"></script>
+<script
+    src="/Jobsheet%20New/assets/js/app.js">
+</script>
 
 </body>
 </html>

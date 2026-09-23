@@ -22,11 +22,8 @@
     --muted: #8b7972;
     --border: #e5d9cc;
 
-    --shadow:
-        0 10px 35px rgba(61, 35, 29, 0.08);
-
-    --shadow-hover:
-        0 16px 42px rgba(61, 35, 29, 0.13);
+    --shadow: 0 10px 35px rgba(61, 35, 29, 0.08);
+    --shadow-hover: 0 16px 42px rgba(61, 35, 29, 0.13);
 }
 
 
@@ -160,7 +157,6 @@ a {
 
     font-size: 34px;
     font-weight: 500;
-
     letter-spacing: 0.5px;
 
     color: #fffaf2;
@@ -192,11 +188,9 @@ a {
 
 nav {
     position: relative;
-
     z-index: 100;
 
     display: flex;
-
     align-items: center;
 
     gap: 5px;
@@ -207,19 +201,22 @@ nav {
 }
 
 nav > a,
-.nav-group > span {
+.nav-group > button {
     position: relative;
 
     display: flex;
-
     align-items: center;
 
     padding: 11px 15px;
 
+    border: 0;
     border-radius: 6px;
+
+    background: transparent;
 
     color: #f9eee7;
 
+    font-family: inherit;
     font-size: 13px;
     font-weight: 500;
 
@@ -232,14 +229,13 @@ nav > a,
 }
 
 nav > a::after,
-.nav-group > span::after {
+.nav-group > button::after {
     content: "";
 
     position: absolute;
 
     left: 15px;
     right: 15px;
-
     bottom: 4px;
 
     height: 1px;
@@ -247,7 +243,6 @@ nav > a::after,
     background: var(--gold-light);
 
     transform: scaleX(0);
-
     transform-origin: center;
 
     transition:
@@ -255,7 +250,7 @@ nav > a::after,
 }
 
 nav > a:hover,
-.nav-group > span:hover {
+.nav-group > button:hover {
     color: white;
 
     background:
@@ -265,7 +260,7 @@ nav > a:hover,
 }
 
 nav > a:hover::after,
-.nav-group > span:hover::after {
+.nav-group > button:hover::after {
     transform: scaleX(1);
 }
 
@@ -276,6 +271,10 @@ nav > a:hover::after,
 
 .nav-group {
     position: relative;
+}
+
+.nav-dropdown-toggle {
+    cursor: pointer;
 }
 
 .dropdown {
@@ -311,7 +310,6 @@ nav > a:hover::after,
 
     left: 0;
     right: 0;
-
     top: 100%;
 
     height: 8px;
@@ -325,7 +323,6 @@ nav > a:hover::after,
     position: relative;
 
     display: flex;
-
     align-items: center;
 
     padding: 11px 13px;
@@ -451,7 +448,6 @@ h2::after {
     display: block;
 
     width: 48px;
-
     height: 2px;
 
     margin-top: 11px;
@@ -503,7 +499,6 @@ button,
     font-family: inherit;
 
     font-size: 13px;
-
     font-weight: 600;
 
     letter-spacing: 0.2px;
@@ -536,6 +531,19 @@ button:hover,
 
 
 /* =========================================================
+   NAV DROPDOWN BUTTON
+========================================================= */
+
+.nav-dropdown-toggle {
+    box-shadow: none;
+}
+
+.nav-dropdown-toggle:hover {
+    box-shadow: none;
+}
+
+
+/* =========================================================
    SECONDARY BUTTON
 ========================================================= */
 
@@ -564,7 +572,6 @@ button:hover,
 
 form {
     display: grid;
-
     gap: 18px;
 }
 
@@ -576,7 +583,6 @@ label {
     color: var(--coffee-light);
 
     font-size: 13px;
-
     font-weight: 600;
 
     letter-spacing: 0.15px;
@@ -650,7 +656,6 @@ select {
 
 select option {
     background: white;
-
     color: var(--coffee);
 
     pointer-events: auto;
@@ -986,16 +991,16 @@ td {
     body {
         width: 100%;
         max-width: 100%;
+
         overflow-x: hidden;
     }
 
 
-    /* =========================
-       HEADER
-    ========================= */
+    /* HEADER */
 
     .site-header {
         width: 100%;
+
         padding: 24px 4% 0;
     }
 
@@ -1005,13 +1010,12 @@ td {
 
     .brand span {
         font-size: 11px;
+
         letter-spacing: 1.5px;
     }
 
 
-    /* =========================
-       NAVBAR
-    ========================= */
+    /* NAVBAR */
 
     .nav-toggle {
         display: inline-flex;
@@ -1040,7 +1044,7 @@ td {
     }
 
     nav > a,
-    .nav-group > span {
+    .nav-group > button {
         width: 100%;
     }
 
@@ -1052,6 +1056,7 @@ td {
         position: static;
 
         width: 100%;
+
         min-width: 0;
 
         margin-top: 3px;
@@ -1074,9 +1079,7 @@ td {
     }
 
 
-    /* =========================
-       CONTAINER
-    ========================= */
+    /* CONTAINER */
 
     .container {
         width: 94%;
@@ -1086,9 +1089,7 @@ td {
     }
 
 
-    /* =========================
-       SECTION
-    ========================= */
+    /* SECTION */
 
     section {
         width: 100%;
@@ -1106,9 +1107,7 @@ td {
     }
 
 
-    /* =========================
-       HEADING
-    ========================= */
+    /* HEADING */
 
     h1 {
         font-size: 26px;
@@ -1125,9 +1124,7 @@ td {
     }
 
 
-    /* =========================
-       FORM
-    ========================= */
+    /* FORM */
 
     form {
         width: 100%;
@@ -1137,6 +1134,7 @@ td {
 
     form > div {
         width: 100%;
+
         min-width: 0;
     }
 
@@ -1150,6 +1148,7 @@ td {
     select,
     textarea {
         width: 100%;
+
         min-width: 0;
 
         padding: 9px 11px;
@@ -1158,12 +1157,11 @@ td {
     }
 
 
-    /* =========================
-       TABLE - FIT HP
-    ========================= */
+    /* TABLE */
 
     .table-responsive {
         width: 100%;
+
         max-width: 100%;
 
         overflow: hidden;
@@ -1173,6 +1171,7 @@ td {
 
     table {
         width: 100%;
+
         max-width: 100%;
 
         table-layout: fixed;
@@ -1204,9 +1203,7 @@ td {
     }
 
 
-    /* =========================
-       TOMBOL DI DALAM TABEL
-    ========================= */
+    /* BUTTON DALAM TABEL */
 
     table button,
     table .btn {
@@ -1220,9 +1217,7 @@ td {
     }
 
 
-    /* =========================
-       INPUT DI DALAM TABEL
-    ========================= */
+    /* INPUT DALAM TABEL */
 
     table input,
     table select {
@@ -1236,12 +1231,11 @@ td {
     }
 
 
-    /* =========================
-       DETAIL PESANAN
-    ========================= */
+    /* DETAIL PESANAN */
 
     #tabelDetailPesanan {
         width: 100%;
+
         max-width: 100%;
 
         table-layout: fixed;
@@ -1254,35 +1248,25 @@ td {
         font-size: 9px;
     }
 
-    /* Menu */
-
     #tabelDetailPesanan th:nth-child(1),
     #tabelDetailPesanan td:nth-child(1) {
         width: 32%;
     }
-
-    /* Harga */
 
     #tabelDetailPesanan th:nth-child(2),
     #tabelDetailPesanan td:nth-child(2) {
         width: 18%;
     }
 
-    /* Jumlah */
-
     #tabelDetailPesanan th:nth-child(3),
     #tabelDetailPesanan td:nth-child(3) {
         width: 12%;
     }
 
-    /* Subtotal */
-
     #tabelDetailPesanan th:nth-child(4),
     #tabelDetailPesanan td:nth-child(4) {
         width: 22%;
     }
-
-    /* Aksi */
 
     #tabelDetailPesanan th:nth-child(5),
     #tabelDetailPesanan td:nth-child(5) {
@@ -1290,9 +1274,7 @@ td {
     }
 
 
-    /* =========================
-       BUTTON
-    ========================= */
+    /* BUTTON */
 
     button,
     .btn {
@@ -1308,9 +1290,7 @@ td {
     }
 
 
-    /* =========================
-       CARD
-    ========================= */
+    /* CARD */
 
     .card {
         padding: 18px;
@@ -1319,9 +1299,7 @@ td {
     }
 
 
-    /* =========================
-       STATS
-    ========================= */
+    /* STATS */
 
     .stats {
         grid-template-columns: 1fr;
@@ -1334,9 +1312,7 @@ td {
     }
 
 
-    /* =========================
-       FOOTER
-    ========================= */
+    /* FOOTER */
 
     footer {
         margin-top: 38px;
