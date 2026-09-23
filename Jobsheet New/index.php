@@ -1,3 +1,30 @@
+<?php
+
+$page_title = "Dashboard";
+
+require __DIR__ . "/config/database.php";
+require __DIR__ . "/layout/header.php";
+
+?>
+
+<section>
+
+    <h2>
+        Selamat Datang di Cafe_Najwa ☕
+    </h2>
+
+    <p>
+        Sistem Informasi Manajemen Cafe
+    </p>
+
+    <p>
+        Silakan gunakan menu navigasi
+        untuk mengelola data cafe.
+    </p>
+
+</section>
+
+
 <section>
 
     <h2>
@@ -51,3 +78,10 @@
     </div>
 
 </section>
+
+
+<?php
+
+require __DIR__ . "/layout/footer.php";
+
+?>
