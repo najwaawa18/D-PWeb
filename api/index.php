@@ -1,19 +1,18 @@
 <?php
 
-$uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
-$uri = urldecode($uri);
+$uri = parse_url(
+    $_SERVER['REQUEST_URI'] ?? '/',
+    PHP_URL_PATH
+);
 
-/*
-|--------------------------------------------------------------------------
-| Tentukan file PHP yang diminta
-|--------------------------------------------------------------------------
-*/
+$uri = urldecode($uri);
 
 $basePath = dirname(__DIR__);
 
+
 /*
 |--------------------------------------------------------------------------
-| Jobsheet 7
+| JOBSHEET 7
 |--------------------------------------------------------------------------
 */
 
@@ -27,7 +26,10 @@ if (str_starts_with($uri, '/Jobsheet7')) {
 
     $file = $basePath . '/Jobsheet7' . $relativePath;
 
-    if (is_file($file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+    if (
+        is_file($file) &&
+        pathinfo($file, PATHINFO_EXTENSION) === 'php'
+    ) {
         require $file;
         exit;
     }
@@ -36,7 +38,7 @@ if (str_starts_with($uri, '/Jobsheet7')) {
 
 /*
 |--------------------------------------------------------------------------
-| Jobsheet 8
+| JOBSHEET 8
 |--------------------------------------------------------------------------
 */
 
@@ -50,7 +52,10 @@ if (str_starts_with($uri, '/Jobsheet8')) {
 
     $file = $basePath . '/Jobsheet8' . $relativePath;
 
-    if (is_file($file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+    if (
+        is_file($file) &&
+        pathinfo($file, PATHINFO_EXTENSION) === 'php'
+    ) {
         require $file;
         exit;
     }
@@ -59,13 +64,15 @@ if (str_starts_with($uri, '/Jobsheet8')) {
 
 /*
 |--------------------------------------------------------------------------
-| Jobsheet New
+| JOBSHEET NEW
+|--------------------------------------------------------------------------
+| Mencakup:
+| master/
+| transaksi/
+| laporan/
+| dan semua subfolder di dalamnya.
 |--------------------------------------------------------------------------
 */
-
-if (str_starts_with($uri, '/Jobsheet%20New')) {
-    $uri = urldecode($uri);
-}
 
 if (str_starts_with($uri, '/Jobsheet New')) {
 
@@ -77,20 +84,69 @@ if (str_starts_with($uri, '/Jobsheet New')) {
 
     $file = $basePath . '/Jobsheet New' . $relativePath;
 
-    if (is_file($file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
-        require $file;
-        exit;
+    if (is_file($file)) {
+
+        $extension = strtolower(
+            pathinfo($file, PATHINFO_EXTENSION)
+        );
+
+        /*
+         * PHP
+         */
+        if ($extension === 'php') {
+            require $file;
+            exit;
+        }
+
+        /*
+         * CSS
+         */
+        if ($extension === 'css') {
+            header('Content-Type: text/css');
+            readfile($file);
+            exit;
+        }
+
+        /*
+         * JavaScript
+         */
+        if ($extension === 'js') {
+            header('Content-Type: application/javascript');
+            readfile($file);
+            exit;
+        }
+
+        /*
+         * Images
+         */
+        $mimeTypes = [
+            'png'  => 'image/png',
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'gif'  => 'image/gif',
+            'svg'  => 'image/svg+xml',
+            'ico'  => 'image/x-icon',
+            'webp' => 'image/webp'
+        ];
+
+        if (isset($mimeTypes[$extension])) {
+            header('Content-Type: ' . $mimeTypes[$extension]);
+            readfile($file);
+            exit;
+        }
     }
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| PHP file lainnya
+| PHP FILE LAINNYA
 |--------------------------------------------------------------------------
 */
 
-if (pathinfo($uri, PATHINFO_EXTENSION) === 'php') {
+if (
+    pathinfo($uri, PATHINFO_EXTENSION) === 'php'
+) {
 
     $file = $basePath . $uri;
 
@@ -103,7 +159,7 @@ if (pathinfo($uri, PATHINFO_EXTENSION) === 'php') {
 
 /*
 |--------------------------------------------------------------------------
-| Tidak ditemukan
+| 404
 |--------------------------------------------------------------------------
 */
 
