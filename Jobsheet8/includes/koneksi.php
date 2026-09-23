@@ -1,10 +1,10 @@
 <?php
 
-$host = getenv('DB_HOST');
-$port = getenv('DB_PORT');
-$db   = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASSWORD');
+$host = getenv('SIMPS_DB_HOST');
+$port = getenv('SIMPS_DB_PORT');
+$db   = getenv('SIMPS_DB_NAME');
+$user = getenv('SIMPS_DB_USER');
+$pass = getenv('SIMPS_DB_PASSWORD');
 
 try {
     $pdo = new PDO(
