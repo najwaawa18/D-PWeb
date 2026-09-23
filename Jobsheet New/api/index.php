@@ -9,28 +9,48 @@ $path = urldecode($path);
 
 $basePath = dirname(__DIR__);
 
-if ($path === '/' || $path === '') {
+/*
+|--------------------------------------------------------------------------
+| Jobsheet New
+|--------------------------------------------------------------------------
+*/
 
-    require $basePath . '/index.php';
+if (str_starts_with($path, '/Jobsheet New')) {
 
-    exit;
+    $relativePath = substr($path, strlen('/Jobsheet New'));
+
+    if ($relativePath === '' || $relativePath === '/') {
+        $relativePath = '/index.php';
+    }
+
+    $file = $basePath . '/Jobsheet New' . $relativePath;
+
+    if (
+        pathinfo($file, PATHINFO_EXTENSION) === 'php' &&
+        is_file($file)
+    ) {
+        require $file;
+        exit;
+    }
 }
 
 
-// Buang query string dan cari file PHP yang diminta
+/*
+|--------------------------------------------------------------------------
+| File PHP lainnya
+|--------------------------------------------------------------------------
+*/
+
 $file = $basePath . $path;
 
 if (
     pathinfo($file, PATHINFO_EXTENSION) === 'php' &&
     is_file($file)
 ) {
-
     require $file;
-
     exit;
 }
 
 
 http_response_code(404);
-
 echo "404 - Halaman tidak ditemukan.";

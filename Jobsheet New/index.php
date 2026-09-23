@@ -35,42 +35,42 @@ require __DIR__ . "/layout/header.php";
 
         <a
             class="btn"
-            href="/master/kategori/index.php">
+            href="/Jobsheet%20New/master/kategori/index.php">
             Kategori
         </a>
 
 
         <a
             class="btn"
-            href="/master/menu/index.php">
+            href="/Jobsheet%20New/master/menu/index.php">
             Menu
         </a>
 
 
         <a
             class="btn"
-            href="/master/pelanggan/index.php">
+            href="/Jobsheet%20New/master/pelanggan/index.php">
             Pelanggan
         </a>
 
 
         <a
             class="btn"
-            href="/master/meja/index.php">
+            href="/Jobsheet%20New/master/meja/index.php">
             Meja
         </a>
 
 
         <a
             class="btn"
-            href="/transaksi/pesanan/index.php">
+            href="/Jobsheet%20New/transaksi/pesanan/index.php">
             Pesanan
         </a>
 
 
         <a
             class="btn"
-            href="/transaksi/pembayaran/index.php">
+            href="/Jobsheet%20New/transaksi/pembayaran/index.php">
             Pembayaran
         </a>
 
