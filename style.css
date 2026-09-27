@@ -1,5 +1,5 @@
 /* =====================================================
-   RESET
+   NAJWA — EDITORIAL PORTFOLIO
 ===================================================== */
 
 * {
@@ -8,30 +8,20 @@
     box-sizing: border-box;
 }
 
-
-/* =====================================================
-   ROOT
-===================================================== */
-
 :root {
-    --burgundy: #641c2b;
-    --burgundy-dark: #42121c;
-    --burgundy-light: #87394a;
+    --wine: #581827;
+    --wine-dark: #351019;
+    --wine-soft: #7b3b4c;
 
-    --cream: #f8f3ec;
-    --cream-dark: #eee4d8;
+    --cream: #f4eee5;
+    --paper: #fbf9f5;
+    --line: #d9cec3;
 
-    --coffee: #342522;
+    --gold: #b18b54;
+    --gold-light: #d8c29e;
 
-    --gold: #b99763;
-    --gold-light: #d7bd91;
-
-    --text: #49393a;
-    --muted: #806f70;
-
-    --white: #ffffff;
-
-    --border: #e7dcd7;
+    --ink: #302528;
+    --muted: #76696a;
 }
 
 
@@ -43,203 +33,159 @@ body {
     font-family:
         "Segoe UI",
         Arial,
-        Helvetica,
         sans-serif;
 
-    background:
-        linear-gradient(
-            180deg,
-            #f8f3ec 0%,
-            #fbf8f4 45%,
-            #f4ebe2 100%
-        );
+    background: var(--cream);
 
-    color: var(--text);
+    color: var(--ink);
 
     min-height: 100vh;
-
-    position: relative;
 
     overflow-x: hidden;
 }
 
 
-/* dekorasi background */
-
-body::before {
-    content: "";
-
-    position: fixed;
-
-    width: 420px;
-    height: 420px;
-
-    border: 1px solid rgba(100, 28, 43, 0.06);
-
-    border-radius: 50%;
-
-    top: -220px;
-    right: -140px;
-
-    pointer-events: none;
-}
-
-
-body::after {
-    content: "";
-
-    position: fixed;
-
-    width: 320px;
-    height: 320px;
-
-    border: 1px solid rgba(185, 151, 99, 0.09);
-
-    border-radius: 50%;
-
-    bottom: -180px;
-    left: -130px;
-
-    pointer-events: none;
-}
-
-
 /* =====================================================
-   CONTAINER
+   MAIN CONTAINER
 ===================================================== */
 
 .container {
-    width: min(980px, 90%);
+    width: min(1080px, 90%);
 
     margin: auto;
 
-    padding: 75px 0 55px;
-
-    position: relative;
-
-    z-index: 1;
+    padding: 65px 0 50px;
 }
 
 
 /* =====================================================
-   HEADER / HERO
+   HERO
 ===================================================== */
 
 .header {
-    text-align: center;
+    min-height: 420px;
 
-    margin-bottom: 55px;
+    display: grid;
+
+    grid-template-columns: 1.4fr 0.6fr;
+
+    align-items: end;
+
+    gap: 50px;
+
+    padding: 45px 0 65px;
+
+    border-bottom: 1px solid var(--line);
 
     position: relative;
 }
 
 
-/* badge */
+/* vertical label */
+
+.header::before {
+    content: "D&P WEB";
+
+    position: absolute;
+
+    left: -55px;
+    top: 75px;
+
+    writing-mode: vertical-rl;
+
+    letter-spacing: 4px;
+
+    font-size: 9px;
+
+    color: var(--gold);
+}
+
+
+/* =====================================================
+   BADGE
+===================================================== */
 
 .badge {
-    display: inline-flex;
+    display: inline-block;
 
-    align-items: center;
-
-    gap: 8px;
-
-    padding: 8px 17px;
-
-    border-radius: 30px;
-
-    background: rgba(100, 28, 43, 0.07);
-
-    border: 1px solid rgba(100, 28, 43, 0.12);
-
-    color: var(--burgundy);
+    color: var(--gold);
 
     font-size: 10px;
 
     font-weight: 700;
 
-    letter-spacing: 2.5px;
+    letter-spacing: 4px;
+
+    margin-bottom: 25px;
 
     text-transform: uppercase;
-
-    margin-bottom: 20px;
 }
 
 
-.badge::before {
-    content: "✦";
-
-    color: var(--gold);
-
-    font-size: 11px;
-}
-
-
-/* title */
+/* =====================================================
+   HERO TITLE
+===================================================== */
 
 .header h1 {
-    color: var(--burgundy-dark);
+    max-width: 720px;
 
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    font-size: clamp(34px, 5vw, 52px);
+    color: var(--wine-dark);
 
-    font-weight: 600;
+    font-size: clamp(48px, 7vw, 78px);
 
-    line-height: 1.15;
+    font-weight: 500;
 
-    letter-spacing: -0.8px;
+    line-height: 0.98;
 
-    margin-bottom: 13px;
+    letter-spacing: -3px;
 }
 
 
 /* identity */
 
 .identity {
-    color: var(--burgundy-light);
+    margin-top: 25px;
 
-    font-size: 15px;
+    color: var(--wine-soft);
 
-    font-weight: 500;
+    font-size: 14px;
 
-    letter-spacing: 0.3px;
+    letter-spacing: 1px;
 }
 
 
 /* divider */
 
 .divider {
-    width: 70px;
+    width: 85px;
 
-    height: 2px;
+    height: 1px;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--gold),
-            transparent
-        );
+    background: var(--gold);
 
-    margin: 22px auto;
+    margin: 25px 0;
 }
 
 
 /* description */
 
 .description {
-    max-width: 630px;
-
-    margin: auto;
+    max-width: 390px;
 
     color: var(--muted);
 
-    font-size: 14px;
+    font-size: 13px;
 
-    line-height: 1.85;
+    line-height: 1.8;
+
+    align-self: end;
+
+    padding-bottom: 4px;
 }
 
 
@@ -248,105 +194,51 @@ body::after {
 ===================================================== */
 
 .project-list {
+    padding-top: 65px;
+
     display: flex;
 
     flex-direction: column;
 
-    gap: 18px;
+    gap: 0;
 }
 
 
 /* =====================================================
-   PROJECT CARD
+   PROJECT
 ===================================================== */
 
 .project {
-    display: flex;
+    min-height: 230px;
+
+    display: grid;
+
+    grid-template-columns: 100px 1fr 120px;
 
     align-items: center;
 
-    gap: 25px;
+    gap: 35px;
+
+    padding: 38px 10px;
+
+    border-bottom: 1px solid var(--line);
 
     position: relative;
 
-    overflow: hidden;
-
-    background:
-        rgba(255, 255, 255, 0.88);
-
-    border: 1px solid var(--border);
-
-    border-left: 4px solid var(--burgundy);
-
-    border-radius: 16px;
-
-    padding: 25px 27px;
-
-    box-shadow:
-        0 5px 18px rgba(66, 18, 28, 0.035);
-
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
+        padding 0.3s ease,
+        background 0.3s ease;
 }
 
 
-/* garis dekorasi dalam card */
-
-.project::after {
-    content: "";
-
-    position: absolute;
-
-    width: 100px;
-    height: 100px;
-
-    border: 1px solid rgba(185, 151, 99, 0.08);
-
-    border-radius: 50%;
-
-    right: -45px;
-    bottom: -55px;
-
-    pointer-events: none;
-}
-
-
-/* hover */
+/* hover area */
 
 .project:hover {
-    transform: translateY(-4px);
+    padding-left: 25px;
 
-    border-color: #d6c1b9;
+    padding-right: 25px;
 
-    box-shadow:
-        0 15px 35px rgba(66, 18, 28, 0.09);
-}
-
-
-/* =====================================================
-   FEATURED
-===================================================== */
-
-.project.featured {
-    background:
-        linear-gradient(
-            135deg,
-            #fffdf9,
-            #faf2eb
-        );
-
-    border-left-color: var(--gold);
-}
-
-
-/* =====================================================
-   SECONDARY
-===================================================== */
-
-.project.secondary {
-    border-left-color: var(--burgundy-light);
+    background: rgba(255, 255, 255, 0.45);
 }
 
 
@@ -355,56 +247,27 @@ body::after {
 ===================================================== */
 
 .project-number {
-    width: 62px;
-
-    min-width: 62px;
-
-    height: 62px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f5e9dc,
-            #ead9ca
-        );
-
-    border: 1px solid #dfcbbb;
-
-    color: var(--burgundy);
-
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    font-size: 17px;
+    font-size: 42px;
 
-    font-weight: 600;
+    font-weight: 400;
 
-    position: relative;
+    color: var(--gold);
 
-    z-index: 2;
+    line-height: 1;
 }
 
 
 /* =====================================================
-   PROJECT CONTENT
+   CONTENT
 ===================================================== */
 
 .project-content {
-    flex: 1;
-
     position: relative;
-
-    z-index: 2;
 }
 
 
@@ -413,52 +276,50 @@ body::after {
 .project-type {
     display: block;
 
-    margin-bottom: 6px;
+    color: var(--wine-soft);
 
-    color: var(--gold);
-
-    font-size: 10px;
+    font-size: 9px;
 
     font-weight: 700;
 
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
 
     text-transform: uppercase;
+
+    margin-bottom: 9px;
 }
 
 
 /* title */
 
 .project-content h2 {
-    color: var(--burgundy-dark);
-
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    font-size: 22px;
+    color: var(--wine-dark);
 
-    font-weight: 600;
+    font-size: 27px;
 
-    line-height: 1.3;
+    font-weight: 500;
 
-    margin-bottom: 8px;
+    line-height: 1.2;
+
+    margin-bottom: 10px;
 }
 
 
 /* description */
 
 .project-content p {
-    max-width: 680px;
+    max-width: 590px;
 
     color: var(--muted);
 
-    font-size: 13.5px;
+    font-size: 13px;
 
     line-height: 1.7;
-
-    margin-bottom: 17px;
 }
 
 
@@ -467,72 +328,148 @@ body::after {
 ===================================================== */
 
 .button {
+    justify-self: end;
+
     display: inline-flex;
 
     align-items: center;
 
-    gap: 10px;
+    gap: 9px;
 
-    padding: 10px 17px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--burgundy),
-            var(--burgundy-light)
-        );
-
-    color: #ffffff;
+    color: var(--wine);
 
     text-decoration: none;
 
-    border: 1px solid rgba(66, 18, 28, 0.1);
+    font-size: 11px;
 
-    border-radius: 8px;
+    font-weight: 700;
 
-    font-size: 12px;
+    letter-spacing: 0.8px;
 
-    font-weight: 600;
+    white-space: nowrap;
 
-    letter-spacing: 0.2px;
+    padding-bottom: 6px;
 
-    box-shadow:
-        0 5px 12px rgba(100, 28, 43, 0.12);
+    border-bottom: 1px solid var(--gold);
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+        gap 0.25s ease,
+        color 0.25s ease;
 }
 
 
 .button span {
-    font-size: 16px;
+    font-size: 17px;
 
     line-height: 1;
-
-    transition:
-        transform 0.2s ease;
 }
 
 
 .button:hover {
-    background:
-        linear-gradient(
-            135deg,
-            var(--burgundy-dark),
-            var(--burgundy)
-        );
+    color: var(--gold);
 
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 8px 18px rgba(100, 28, 43, 0.18);
+    gap: 15px;
 }
 
 
-.button:hover span {
-    transform: translateX(3px);
+/* =====================================================
+   FEATURED — CAFE_NAJWA
+===================================================== */
+
+.project.featured {
+    margin-bottom: 25px;
+
+    padding: 45px 40px;
+
+    min-height: 300px;
+
+    grid-template-columns: 110px 1fr 130px;
+
+    background: var(--wine);
+
+    border: none;
+
+    color: white;
+}
+
+
+/* featured number */
+
+.project.featured .project-number {
+    color: var(--gold-light);
+}
+
+
+/* featured type */
+
+.project.featured .project-type {
+    color: var(--gold-light);
+}
+
+
+/* featured title */
+
+.project.featured .project-content h2 {
+    color: #fffaf3;
+
+    font-size: 34px;
+}
+
+
+/* featured description */
+
+.project.featured .project-content p {
+    color: #d8c9c7;
+
+    max-width: 620px;
+}
+
+
+/* featured button */
+
+.project.featured .button {
+    color: #fffaf3;
+
+    border-color: var(--gold-light);
+}
+
+
+/* =====================================================
+   SECONDARY / BOOTSTRAP
+===================================================== */
+
+.project.secondary {
+    background: transparent;
+}
+
+
+/* =====================================================
+   DECORATIVE LINE
+===================================================== */
+
+.project-content::before {
+    content: "";
+
+    position: absolute;
+
+    width: 25px;
+
+    height: 1px;
+
+    background: var(--gold);
+
+    left: -35px;
+
+    top: 6px;
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
+}
+
+
+.project:hover .project-content::before {
+    opacity: 1;
 }
 
 
@@ -541,19 +478,23 @@ body::after {
 ===================================================== */
 
 footer {
-    text-align: center;
+    display: flex;
 
-    margin-top: 55px;
+    justify-content: space-between;
 
-    padding-top: 28px;
+    align-items: center;
 
-    border-top: 1px solid var(--border);
+    margin-top: 70px;
 
-    color: #987f82;
+    padding-top: 25px;
 
-    font-size: 12px;
+    border-top: 1px solid var(--line);
 
-    line-height: 1.8;
+    color: #8c7d7e;
+
+    font-size: 11px;
+
+    letter-spacing: 0.5px;
 }
 
 
@@ -563,113 +504,140 @@ footer span {
 
 
 /* =====================================================
-   RESPONSIVE
+   MOBILE
 ===================================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
     .container {
-        width: 90%;
-
-        padding-top: 50px;
+        width: 88%;
     }
 
 
     .header {
-        margin-bottom: 40px;
+        min-height: auto;
+
+        display: block;
+
+        padding: 35px 0 50px;
+    }
+
+
+    .header::before {
+        display: none;
     }
 
 
     .header h1 {
-        font-size: 34px;
-    }
+        font-size: 52px;
 
-
-    .identity {
-        font-size: 14px;
+        letter-spacing: -2px;
     }
 
 
     .description {
-        font-size: 13px;
+        margin-top: 30px;
+
+        max-width: 500px;
     }
 
 
     .project {
-        gap: 17px;
+        grid-template-columns: 70px 1fr;
 
-        padding: 20px;
+        gap: 20px;
+
+        padding: 30px 5px;
     }
 
 
     .project-number {
-        width: 50px;
-
-        min-width: 50px;
-
-        height: 50px;
-
-        font-size: 14px;
+        font-size: 30px;
     }
 
 
-    .project-content h2 {
-        font-size: 19px;
+    .button {
+        grid-column: 2;
+
+        justify-self: start;
+
+        margin-top: 10px;
     }
 
 
-    .project-content p {
-        font-size: 13px;
+    .project.featured {
+        grid-template-columns: 70px 1fr;
+
+        padding: 35px 25px;
+    }
+
+
+    .project.featured .button {
+        grid-column: 2;
     }
 
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
 
     .container {
-        width: 92%;
+        width: 90%;
 
-        padding-top: 40px;
+        padding-top: 35px;
+    }
+
+
+    .header h1 {
+        font-size: 41px;
     }
 
 
     .project {
-        align-items: flex-start;
+        grid-template-columns: 48px 1fr;
 
         gap: 15px;
-
-        padding: 18px;
     }
 
 
     .project-number {
-        width: 43px;
-
-        min-width: 43px;
-
-        height: 43px;
-
-        font-size: 12px;
+        font-size: 25px;
     }
 
 
     .project-content h2 {
-        font-size: 17px;
+        font-size: 21px;
     }
 
 
     .project-content p {
-        font-size: 12.5px;
-
-        line-height: 1.6;
+        font-size: 12px;
     }
 
 
-    .button {
-        padding: 9px 13px;
+    .project.featured {
+        grid-template-columns: 48px 1fr;
 
-        font-size: 11px;
+        padding: 28px 20px;
+    }
+
+
+    .project.featured .project-content h2 {
+        font-size: 26px;
+    }
+
+
+    footer {
+        display: block;
+
+        text-align: center;
+    }
+
+
+    footer span {
+        display: block;
+
+        margin-top: 5px;
     }
 
 }
