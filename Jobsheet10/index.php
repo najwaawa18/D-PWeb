@@ -10,7 +10,7 @@ require __DIR__ . "/layout/header.php";
 <section>
 
     <h2>
-        Selamat Datang di Jobsheet 9
+        Selamat Datang di Cafe_Najwa 
     </h2>
 
     <p>
@@ -28,7 +28,7 @@ require __DIR__ . "/layout/header.php";
 <section>
 
     <h2>
-        Modul Jobsheet 9
+        Modul Cafe_Najwa
     </h2>
 
     <div class="actions">
