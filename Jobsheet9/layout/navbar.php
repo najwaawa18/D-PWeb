@@ -10,7 +10,7 @@
 <nav id="mainNav">
 
     <!-- DASHBOARD -->
-    <a href="/Jobsheet%20New/index.php">
+    <a href="/Jobsheet9/index.php">
         Dashboard
     </a>
 
@@ -30,19 +30,19 @@
 
         <div class="dropdown">
 
-            <a href="/Jobsheet%20New/master/kategori/index.php">
+            <a href="/Jobsheet9/master/kategori/index.php">
                 Kategori
             </a>
 
-            <a href="/Jobsheet%20New/master/menu/index.php">
+            <a href="/Jobsheet9/master/menu/index.php">
                 Menu
             </a>
 
-            <a href="/Jobsheet%20New/master/pelanggan/index.php">
+            <a href="/Jobsheet9/master/pelanggan/index.php">
                 Pelanggan
             </a>
 
-            <a href="/Jobsheet%20New/master/meja/index.php">
+            <a href="/Jobsheet9/master/meja/index.php">
                 Meja
             </a>
 
@@ -66,11 +66,11 @@
 
         <div class="dropdown">
 
-            <a href="/Jobsheet%20New/transaksi/pesanan/index.php">
+            <a href="/Jobsheet9/transaksi/pesanan/index.php">
                 Pesanan
             </a>
 
-            <a href="/Jobsheet%20New/transaksi/pembayaran/index.php">
+            <a href="/Jobsheet9/transaksi/pembayaran/index.php">
                 Pembayaran
             </a>
 
@@ -94,15 +94,15 @@
 
         <div class="dropdown">
 
-            <a href="/Jobsheet%20New/laporan/penjualan.php">
+            <a href="/Jobsheet9/laporan/penjualan.php">
                 Penjualan
             </a>
 
-            <a href="/Jobsheet%20New/laporan/menu_terlaris.php">
+            <a href="/Jobsheet9/laporan/menu_terlaris.php">
                 Menu Terlaris
             </a>
 
-            <a href="/Jobsheet%20New/laporan/pelanggan.php">
+            <a href="/Jobsheet9/laporan/pelanggan.php">
                 Pelanggan
             </a>
 
