@@ -1,277 +1,44 @@
 /* =========================================================
-   JOBSHEET 9
-   SEARCH + TABLE + PAGINATION
-   FINAL UI
-========================================================= */
-
-/* =========================
-   SEARCH
-========================= */
-
-.search-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    margin-bottom: 20px !important;
-    padding: 6px;
-    background: #fffdf9;
-    border: 1px solid #e7ddd2;
-    border-radius: 10px;
-    box-shadow: 0 4px 14px rgba(47, 33, 30, 0.05);
-}
-
-.search-form input {
-    flex: 1;
-    min-width: 220px;
-    height: 40px;
-    margin: 0;
-    padding: 0 13px;
-
-    border: none;
-    outline: none;
-    background: transparent;
-
-    color: #2f211e;
-    font-family: inherit;
-    font-size: 13px;
-}
-
-.search-form input::placeholder {
-    color: #9b8d84;
-}
-
-.search-form input:focus {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    background: transparent;
-}
-
-.search-form .btn {
-    flex-shrink: 0;
-    min-height: 38px;
-    padding: 8px 17px;
-}
-
-/* RESET */
-
-.search-form a.btn {
-    background: #f1e8df;
-    border: 1px solid #dfd1c4;
-    color: #4b3a35;
-    box-shadow: none;
-}
-
-.search-form a.btn:hover {
-    background: #e8dbcf;
-    border-color: #cdb8a7;
-    color: #641c2b;
-    box-shadow: none;
-}
-
-
-/* =========================
-   TABLE
-========================= */
-
-.table-responsive {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-
-    border: 1px solid #e5d9ce;
-    border-radius: 12px;
-
-    background: #fffdf9;
-    box-shadow: 0 5px 18px rgba(47, 33, 30, 0.055);
-}
-
-.table-responsive table {
-    width: 100%;
-    min-width: 850px;
-
-    border-collapse: separate;
-    border-spacing: 0;
-    table-layout: auto;
-}
-
-.table-responsive th,
-.table-responsive td {
-    padding: 14px 15px;
-
-    text-align: left;
-    vertical-align: middle;
-
-    border-bottom: 1px solid #eee5dc;
-
-    font-size: 13px;
-}
-
-.table-responsive th {
-    background: #641c2b;
-    color: #fffaf4;
-
-    font-size: 11px;
-    font-weight: 600;
-
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
-.table-responsive th:first-child {
-    border-top-left-radius: 11px;
-}
-
-.table-responsive th:last-child {
-    border-top-right-radius: 11px;
-}
-
-.table-responsive td {
-    background: #fffdf9;
-    color: #3d2d28;
-}
-
-.table-responsive tbody tr:hover td {
-    background: #faf3eb;
-}
-
-.table-responsive tbody tr:last-child td {
-    border-bottom: none;
-}
-
-
-/* =========================
-   MENU TABLE KHUSUS
-========================= */
-
-#tabelMenu th:first-child,
-#tabelMenu td:first-child {
-    width: 55px;
-    text-align: center;
-}
-
-#tabelMenu td:nth-child(5) {
-    color: #641c2b;
-    font-weight: 600;
-}
-
-#tabelMenu td:nth-child(7) {
-    color: #641c2b;
-    font-weight: 600;
-}
-
-
-/* =========================
-   ACTION BUTTON
-========================= */
-
-.actions {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    flex-wrap: nowrap;
-}
-
-.actions .btn {
-    min-height: 33px;
-    padding: 7px 11px;
-
-    border-radius: 7px;
-
-    font-size: 11px;
-}
-
-/* EDIT */
-
-.actions a.btn {
-    background: #f1e8df;
-    border: 1px solid #dfd1c4;
-    color: #4b3a35;
-    box-shadow: none;
-}
-
-.actions a.btn:hover {
-    background: #e7d8ca;
-    border-color: #c8af9a;
-    color: #641c2b;
-    box-shadow: none;
-}
-
-/* DELETE */
-
-.form-hapus {
-    display: inline-flex;
-    margin: 0;
-}
-
-.form-hapus .btn-hapus {
-    background: #641c2b;
-    border: 1px solid #641c2b;
-    color: #ffffff;
-
-    cursor: pointer;
-    box-shadow: none;
-}
-
-.form-hapus .btn-hapus:hover {
-    background: #4d1521;
-    border-color: #4d1521;
-}
-
-
-/* =========================================================
-   PAGINATION
+   JOBSHEET 9 - PAGINATION FINAL
 ========================================================= */
 
 .pagination-wrapper {
     width: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    margin-top: 25px;
-    margin-bottom: 10px;
+    margin: 28px 0 12px;
 }
 
 .pagination {
     display: flex;
-    align-items: center;
     justify-content: center;
-
-    gap: 5px;
-
-    padding: 5px;
-
-    background: #fffdf9;
-    border: 1px solid #e5d9ce;
-    border-radius: 10px;
-
-    box-shadow: 0 4px 14px rgba(47, 33, 30, 0.05);
+    align-items: center;
+    gap: 8px;
 }
 
 
-/* SEMUA LINK PAGINATION */
+/* =========================
+   SEMUA TOMBOL PAGINATION
+========================= */
 
 .pagination a {
     box-sizing: border-box;
 
     display: inline-flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
-    min-width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
 
-    padding: 0 11px;
+    padding: 0;
 
-    border: 1px solid transparent;
-    border-radius: 7px;
+    background: #fffdf9;
+    border: 1px solid #d9c9bb;
+    border-radius: 8px;
 
-    background: transparent;
-
-    color: #5b4942;
+    color: #641c2b;
 
     font-family: inherit;
     font-size: 12px;
@@ -282,157 +49,93 @@
 
     cursor: pointer;
 
-    transition: all 0.18s ease;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 
-/* NOMOR HALAMAN HOVER */
+/* =========================
+   HOVER
+========================= */
 
 .pagination a:hover {
-    background: #f3ebe3;
-    border-color: #dfd0c2;
-
+    background: #f4ebe2;
+    border-color: #641c2b;
     color: #641c2b;
 
     text-decoration: none;
+    transform: translateY(-1px);
 }
 
 
-/* HALAMAN AKTIF */
+/* =========================
+   HALAMAN AKTIF
+========================= */
 
 .pagination a.active {
     background: #641c2b;
     border-color: #641c2b;
-
     color: #ffffff;
 
-    box-shadow: none;
+    box-shadow: 0 3px 8px rgba(100, 28, 43, 0.18);
+
+    transform: none;
 }
 
 
-/* PREVIOUS / NEXT */
+/* =========================
+   SEBELUMNYA & BERIKUTNYA
+========================= */
 
 .pagination a:first-child,
 .pagination a:last-child {
-    padding-left: 14px;
-    padding-right: 14px;
+    width: auto;
+    min-width: 92px;
+    height: 38px;
+
+    padding: 0 14px;
 }
 
 
-/* PREVIOUS / NEXT HOVER */
+/* HOVER PREVIOUS / NEXT */
 
 .pagination a:first-child:hover,
 .pagination a:last-child:hover {
-    background: #f3ebe3;
-    border-color: #dfd0c2;
+    background: #f4ebe2;
+    border-color: #641c2b;
     color: #641c2b;
 }
 
 
 /* =========================
-   RESPONSIVE
+   MOBILE
 ========================= */
 
-@media (max-width: 700px) {
-
-    .search-form {
-        gap: 7px;
-        padding: 5px;
-    }
-
-    .search-form input {
-        min-width: 150px;
-        height: 36px;
-        font-size: 11px;
-    }
-
-    .search-form .btn {
-        min-height: 35px;
-        padding: 7px 11px;
-        font-size: 10px;
-    }
-
-    .table-responsive {
-        border-radius: 10px;
-    }
-
-    .table-responsive th,
-    .table-responsive td {
-        padding: 10px 9px;
-        font-size: 10px;
-    }
-
-    .table-responsive th {
-        font-size: 9px;
-    }
-
-    .actions {
-        gap: 5px;
-    }
-
-    .actions .btn {
-        min-height: 29px;
-        padding: 5px 8px;
-        font-size: 9px;
-    }
+@media (max-width: 600px) {
 
     .pagination-wrapper {
         margin-top: 20px;
     }
 
     .pagination {
-        gap: 4px;
-        padding: 4px;
+        gap: 6px;
     }
 
     .pagination a {
-        min-width: 32px;
-        height: 32px;
-        padding: 0 9px;
-        font-size: 10px;
+        width: 34px;
+        height: 34px;
+
+        font-size: 11px;
     }
 
     .pagination a:first-child,
     .pagination a:last-child {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-}
+        min-width: 76px;
+        height: 34px;
 
-
-/* =========================
-   SMALL MOBILE
-========================= */
-
-@media (max-width: 420px) {
-
-    .search-form {
-        flex-wrap: wrap;
-    }
-
-    .search-form input {
-        flex-basis: 100%;
-        min-width: 100%;
-    }
-
-    .search-form .btn {
-        flex: 1;
-    }
-
-    .pagination {
-        gap: 3px;
-    }
-
-    .pagination a {
-        min-width: 29px;
-        height: 29px;
-        padding: 0 7px;
-        font-size: 9px;
-    }
-
-    .pagination a:first-child,
-    .pagination a:last-child {
-        padding-left: 8px;
-        padding-right: 8px;
+        padding: 0 10px;
     }
 }
