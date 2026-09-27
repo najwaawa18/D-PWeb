@@ -1,5 +1,6 @@
 /* =====================================================
-   NAJWA — EDITORIAL PORTFOLIO
+   NAJWA — PROJECT TIMELINE
+   Cafe_Najwa → Jobsheet 9 → Jobsheet 10
 ===================================================== */
 
 * {
@@ -9,25 +10,24 @@
 }
 
 :root {
-    --wine: #581827;
-    --wine-dark: #351019;
-    --wine-soft: #7b3b4c;
+    --wine: #641c2b;
+    --wine-dark: #42121c;
+    --wine-soft: #8b5964;
 
-    --cream: #f4eee5;
-    --paper: #fbf9f5;
-    --line: #d9cec3;
+    --cream: #f5efe6;
+    --paper: #fcfaf7;
 
-    --gold: #b18b54;
-    --gold-light: #d8c29e;
+    --line: #d8cec4;
+    --gold: #b99763;
+    --gold-light: #d8c49f;
 
-    --ink: #302528;
-    --muted: #76696a;
+    --ink: #30272a;
+    --muted: #786e6f;
 }
 
-
-/* =====================================================
-   BODY
-===================================================== */
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family:
@@ -36,98 +36,48 @@ body {
         sans-serif;
 
     background: var(--cream);
-
     color: var(--ink);
 
     min-height: 100vh;
-
     overflow-x: hidden;
 }
 
 
 /* =====================================================
-   MAIN CONTAINER
+   CONTAINER
 ===================================================== */
 
 .container {
     width: min(1080px, 90%);
-
     margin: auto;
-
-    padding: 65px 0 50px;
+    padding: 65px 0 55px;
 }
 
 
 /* =====================================================
-   HERO
+   HEADER
 ===================================================== */
 
 .header {
-    min-height: 420px;
-
-    display: grid;
-
-    grid-template-columns: 1.4fr 0.6fr;
-
-    align-items: end;
-
-    gap: 50px;
-
-    padding: 45px 0 65px;
-
+    padding: 30px 0 70px;
     border-bottom: 1px solid var(--line);
-
-    position: relative;
 }
-
-
-/* vertical label */
-
-.header::before {
-    content: "D&P WEB";
-
-    position: absolute;
-
-    left: -55px;
-    top: 75px;
-
-    writing-mode: vertical-rl;
-
-    letter-spacing: 4px;
-
-    font-size: 9px;
-
-    color: var(--gold);
-}
-
-
-/* =====================================================
-   BADGE
-===================================================== */
 
 .badge {
     display: inline-block;
 
+    margin-bottom: 22px;
+
     color: var(--gold);
 
     font-size: 10px;
-
     font-weight: 700;
-
     letter-spacing: 4px;
-
-    margin-bottom: 25px;
-
     text-transform: uppercase;
 }
 
-
-/* =====================================================
-   HERO TITLE
-===================================================== */
-
 .header h1 {
-    max-width: 720px;
+    max-width: 780px;
 
     font-family:
         Georgia,
@@ -136,56 +86,37 @@ body {
 
     color: var(--wine-dark);
 
-    font-size: clamp(48px, 7vw, 78px);
-
+    font-size: clamp(48px, 7vw, 76px);
     font-weight: 500;
-
     line-height: 0.98;
-
     letter-spacing: -3px;
 }
 
-
-/* identity */
-
 .identity {
-    margin-top: 25px;
+    margin-top: 23px;
 
     color: var(--wine-soft);
 
     font-size: 14px;
-
     letter-spacing: 1px;
 }
 
-
-/* divider */
-
 .divider {
-    width: 85px;
-
+    width: 75px;
     height: 1px;
 
-    background: var(--gold);
-
     margin: 25px 0;
+
+    background: var(--gold);
 }
 
-
-/* description */
-
 .description {
-    max-width: 390px;
+    max-width: 480px;
 
     color: var(--muted);
 
     font-size: 13px;
-
     line-height: 1.8;
-
-    align-self: end;
-
-    padding-bottom: 4px;
 }
 
 
@@ -194,71 +125,105 @@ body {
 ===================================================== */
 
 .project-list {
-    padding-top: 65px;
+    position: relative;
 
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 0;
+    padding-top: 70px;
 }
 
 
 /* =====================================================
-   PROJECT
+   GARIS UTAMA TIMELINE
+===================================================== */
+
+.project-list::before {
+    content: "";
+
+    position: absolute;
+
+    left: 85px;
+    top: 105px;
+    bottom: 100px;
+
+    width: 1px;
+
+    background: var(--line);
+}
+
+
+/* =====================================================
+   SEMUA PROJECT
 ===================================================== */
 
 .project {
-    min-height: 230px;
+    position: relative;
 
     display: grid;
 
-    grid-template-columns: 100px 1fr 120px;
-
-    align-items: center;
+    grid-template-columns: 170px 1fr;
 
     gap: 35px;
 
-    padding: 38px 10px;
+    min-height: 170px;
+
+    padding: 35px 0;
 
     border-bottom: 1px solid var(--line);
 
-    position: relative;
+    background: transparent;
 
     transition:
-        padding 0.3s ease,
-        background 0.3s ease;
-}
-
-
-/* hover area */
-
-.project:hover {
-    padding-left: 25px;
-
-    padding-right: 25px;
-
-    background: rgba(255, 255, 255, 0.45);
+        background 0.3s ease,
+        padding-left 0.3s ease;
 }
 
 
 /* =====================================================
-   PROJECT NUMBER
+   NOMOR
 ===================================================== */
 
 .project-number {
+    position: relative;
+
+    padding-left: 58px;
+    padding-top: 3px;
+
+    color: var(--gold);
+
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    font-size: 42px;
-
-    font-weight: 400;
-
-    color: var(--gold);
-
+    font-size: 25px;
     line-height: 1;
+}
+
+
+/* TITIK TIMELINE */
+
+.project-number::before {
+    content: "";
+
+    position: absolute;
+
+    left: 85px;
+    top: 4px;
+
+    width: 10px;
+    height: 10px;
+
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+
+    background: var(--cream);
+
+    transform: translateX(-50%);
+
+    z-index: 2;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
 }
 
 
@@ -267,59 +232,45 @@ body {
 ===================================================== */
 
 .project-content {
-    position: relative;
+    padding-right: 35px;
 }
-
-
-/* type */
 
 .project-type {
     display: block;
 
+    margin-bottom: 9px;
+
     color: var(--wine-soft);
 
     font-size: 9px;
-
     font-weight: 700;
-
     letter-spacing: 2.5px;
 
     text-transform: uppercase;
-
-    margin-bottom: 9px;
 }
 
-
-/* title */
-
 .project-content h2 {
+    margin-bottom: 10px;
+
+    color: var(--wine-dark);
+
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    color: var(--wine-dark);
-
     font-size: 27px;
-
     font-weight: 500;
-
     line-height: 1.2;
-
-    margin-bottom: 10px;
 }
 
-
-/* description */
-
 .project-content p {
-    max-width: 590px;
+    max-width: 650px;
 
     color: var(--muted);
 
     font-size: 13px;
-
-    line-height: 1.7;
+    line-height: 1.75;
 }
 
 
@@ -328,148 +279,241 @@ body {
 ===================================================== */
 
 .button {
-    justify-self: end;
-
     display: inline-flex;
-
     align-items: center;
+    gap: 8px;
 
-    gap: 9px;
+    margin-top: 17px;
+    padding-bottom: 5px;
 
     color: var(--wine);
 
+    border-bottom: 1px solid var(--gold);
+
     text-decoration: none;
 
-    font-size: 11px;
-
+    font-size: 10px;
     font-weight: 700;
-
-    letter-spacing: 0.8px;
-
-    white-space: nowrap;
-
-    padding-bottom: 6px;
-
-    border-bottom: 1px solid var(--gold);
+    letter-spacing: 1px;
 
     transition:
         gap 0.25s ease,
         color 0.25s ease;
 }
 
-
 .button span {
-    font-size: 17px;
-
-    line-height: 1;
+    font-size: 16px;
 }
 
-
 .button:hover {
+    gap: 14px;
     color: var(--gold);
-
-    gap: 15px;
 }
 
 
 /* =====================================================
-   FEATURED — CAFE_NAJWA
+   HOVER
+===================================================== */
+
+.project:hover {
+    padding-left: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+}
+
+.project:hover .project-number::before {
+    background: var(--gold);
+    transform:
+        translateX(-50%)
+        scale(1.15);
+}
+
+
+/* =====================================================
+   JOBSHEET 1–8
+   BAGIAN PEMBELAJARAN
+===================================================== */
+
+.project:not(.featured):nth-child(-n + 9) {
+    min-height: 145px;
+}
+
+.project:not(.featured):nth-child(-n + 9)
+.project-content h2 {
+    font-size: 23px;
+}
+
+
+/* =====================================================
+   CAFE_NAJWA
+   PROJECT UTAMA
 ===================================================== */
 
 .project.featured {
-    margin-bottom: 25px;
 
-    padding: 45px 40px;
+    margin-top: 55px;
 
-    min-height: 300px;
+    min-height: 310px;
 
-    grid-template-columns: 110px 1fr 130px;
+    padding: 55px 0;
 
-    background: var(--wine);
+    grid-template-columns: 170px 1fr;
 
-    border: none;
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
 
-    color: white;
-}
-
-
-/* featured number */
-
-.project.featured .project-number {
-    color: var(--gold-light);
-}
-
-
-/* featured type */
-
-.project.featured .project-type {
-    color: var(--gold-light);
-}
-
-
-/* featured title */
-
-.project.featured .project-content h2 {
-    color: #fffaf3;
-
-    font-size: 34px;
-}
-
-
-/* featured description */
-
-.project.featured .project-content p {
-    color: #d8c9c7;
-
-    max-width: 620px;
-}
-
-
-/* featured button */
-
-.project.featured .button {
-    color: #fffaf3;
-
-    border-color: var(--gold-light);
-}
-
-
-/* =====================================================
-   SECONDARY / BOOTSTRAP
-===================================================== */
-
-.project.secondary {
     background: transparent;
 }
 
 
-/* =====================================================
-   DECORATIVE LINE
-===================================================== */
+/* Label */
 
-.project-content::before {
-    content: "";
+.project.featured::after {
+    content: "PROJECT UTAMA";
 
     position: absolute;
 
-    width: 25px;
+    left: 0;
+    top: 0;
 
-    height: 1px;
+    transform: translateY(-50%);
 
-    background: var(--gold);
+    padding-right: 15px;
 
-    left: -35px;
+    background: var(--cream);
 
-    top: 6px;
+    color: var(--gold);
 
-    opacity: 0;
-
-    transition: opacity 0.25s ease;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
 }
 
 
-.project:hover .project-content::before {
-    opacity: 1;
+/* Nomor */
+
+.project.featured .project-number {
+    color: var(--gold);
+}
+
+.project.featured .project-number::before {
+    width: 14px;
+    height: 14px;
+
+    background: var(--wine);
+
+    border-color: var(--wine);
+}
+
+
+/* Type */
+
+.project.featured .project-type {
+    color: var(--gold);
+}
+
+
+/* Judul */
+
+.project.featured .project-content h2 {
+    margin-bottom: 17px;
+
+    color: var(--wine-dark);
+
+    font-size: clamp(38px, 5vw, 55px);
+    line-height: 1;
+}
+
+
+/* Deskripsi */
+
+.project.featured .project-content p {
+    max-width: 670px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+
+/* =====================================================
+   JS9 & JS10
+   UPDATE DARI CAFE_NAJWA
+===================================================== */
+
+
+/*
+    Beri jarak dari Cafe_Najwa
+    agar terlihat sebagai tahap pengembangan baru.
+*/
+
+.project.featured + .project {
+    margin-top: 45px;
+
+    border-top: 1px solid var(--line);
+}
+
+
+/*
+    Label UPDATE
+*/
+
+.project.featured + .project::before {
+    content: "PEMBARUAN PROJECT";
+
+    position: absolute;
+
+    left: 170px;
+    top: 0;
+
+    transform: translateY(-50%);
+
+    padding: 0 14px;
+
+    background: var(--cream);
+
+    color: var(--gold);
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+}
+
+
+/*
+    JS9 dan JS10 sedikit lebih menonjol
+*/
+
+.project.featured ~ .project .project-content h2 {
+    font-size: 29px;
+}
+
+.project.featured ~ .project .project-number {
+    font-size: 21px;
+}
+
+
+/* =====================================================
+   JS9
+===================================================== */
+
+.project.featured + .project {
+    border-bottom: 1px solid var(--line);
+}
+
+
+/* =====================================================
+   JS10
+===================================================== */
+
+.project.featured + .project + .project {
+    min-height: 190px;
 }
 
 
@@ -479,24 +523,19 @@ body {
 
 footer {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
 
     margin-top: 70px;
-
     padding-top: 25px;
 
     border-top: 1px solid var(--line);
 
-    color: #8c7d7e;
+    color: #8b7d7e;
 
     font-size: 11px;
-
     letter-spacing: 0.5px;
 }
-
 
 footer span {
     color: var(--gold);
@@ -504,7 +543,7 @@ footer span {
 
 
 /* =====================================================
-   MOBILE
+   TABLET
 ===================================================== */
 
 @media (max-width: 800px) {
@@ -513,131 +552,170 @@ footer span {
         width: 88%;
     }
 
-
-    .header {
-        min-height: auto;
-
-        display: block;
-
-        padding: 35px 0 50px;
-    }
-
-
-    .header::before {
-        display: none;
-    }
-
-
     .header h1 {
         font-size: 52px;
-
-        letter-spacing: -2px;
     }
 
-
-    .description {
-        margin-top: 30px;
-
-        max-width: 500px;
+    .project-list::before {
+        left: 55px;
     }
-
 
     .project {
-        grid-template-columns: 70px 1fr;
-
-        gap: 20px;
-
-        padding: 30px 5px;
+        grid-template-columns: 110px 1fr;
+        gap: 25px;
     }
-
 
     .project-number {
-        font-size: 30px;
+        padding-left: 27px;
     }
 
-
-    .button {
-        grid-column: 2;
-
-        justify-self: start;
-
-        margin-top: 10px;
+    .project-number::before {
+        left: 55px;
     }
 
+    .project-content {
+        padding-right: 0;
+    }
+
+    .project-content h2 {
+        font-size: 24px;
+    }
 
     .project.featured {
-        grid-template-columns: 70px 1fr;
-
-        padding: 35px 25px;
+        grid-template-columns: 110px 1fr;
     }
 
-
-    .project.featured .button {
-        grid-column: 2;
+    .project.featured + .project::before {
+        left: 110px;
     }
-
 }
 
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 500px) {
 
     .container {
         width: 90%;
-
-        padding-top: 35px;
+        padding-top: 40px;
     }
 
+    .header {
+        padding-bottom: 50px;
+    }
 
     .header h1 {
         font-size: 41px;
+        letter-spacing: -2px;
     }
 
+    .project-list {
+        padding-top: 55px;
+    }
+
+    .project-list::before {
+        left: 30px;
+        top: 85px;
+        bottom: 70px;
+    }
 
     .project {
-        grid-template-columns: 48px 1fr;
+        grid-template-columns: 65px 1fr;
 
-        gap: 15px;
+        gap: 18px;
+
+        min-height: auto;
+
+        padding: 28px 0;
     }
-
 
     .project-number {
-        font-size: 25px;
+        padding-left: 10px;
+
+        font-size: 19px;
     }
 
+    .project-number::before {
+        left: 30px;
+
+        width: 8px;
+        height: 8px;
+
+        border-width: 1px;
+    }
 
     .project-content h2 {
         font-size: 21px;
     }
-
 
     .project-content p {
         font-size: 12px;
     }
 
 
-    .project.featured {
-        grid-template-columns: 48px 1fr;
+    /* CAFE */
 
-        padding: 28px 20px;
+    .project.featured {
+        grid-template-columns: 65px 1fr;
+
+        gap: 18px;
+
+        margin-top: 45px;
+
+        padding: 45px 0;
     }
 
+    .project.featured .project-number {
+        padding-left: 10px;
+    }
+
+    .project.featured .project-number::before {
+        left: 30px;
+
+        width: 11px;
+        height: 11px;
+    }
 
     .project.featured .project-content h2 {
-        font-size: 26px;
+        font-size: 32px;
     }
 
+    .project.featured .project-content p {
+        font-size: 12px;
+    }
+
+    .project.featured::after {
+        font-size: 8px;
+    }
+
+
+    /* UPDATE LABEL */
+
+    .project.featured + .project {
+        margin-top: 38px;
+    }
+
+    .project.featured + .project::before {
+        left: 65px;
+
+        font-size: 8px;
+    }
+
+
+    /* FOOTER */
 
     footer {
         display: block;
 
         text-align: center;
-    }
 
+        line-height: 1.7;
+    }
 
     footer span {
         display: block;
-
         margin-top: 5px;
     }
-
 }
