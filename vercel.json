@@ -29,6 +29,11 @@
     },
 
     {
+      "src": "/Jobsheet10/?$",
+      "dest": "/api/index.php"
+    },
+
+    {
       "src": "/Jobsheet%20New/?$",
       "dest": "/api/index.php"
     }
