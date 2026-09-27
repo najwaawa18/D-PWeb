@@ -1,287 +1,222 @@
 /* =========================================================
    JOBSHEET 9
-   SEARCH • TABLE • PAGINATION
+   SEARCH + TABLE + PAGINATION
+   FINAL UI
 ========================================================= */
 
-/* =========================================================
+/* =========================
    SEARCH
-========================================================= */
+========================= */
 
 .search-form {
     display: flex;
     align-items: center;
     gap: 10px;
-
+    width: 100%;
     margin-bottom: 20px !important;
-    padding: 7px;
-
-    background: #faf5ee;
-
-    border: 1px solid var(--border);
-    border-radius: 12px;
-
-    box-shadow:
-        0 4px 15px rgba(61, 35, 29, 0.04);
+    padding: 6px;
+    background: #fffdf9;
+    border: 1px solid #e7ddd2;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(47, 33, 30, 0.05);
 }
 
 .search-form input {
     flex: 1;
-
     min-width: 220px;
-
+    height: 40px;
     margin: 0;
+    padding: 0 13px;
 
     border: none;
-
+    outline: none;
     background: transparent;
 
-    box-shadow: none;
+    color: #2f211e;
+    font-family: inherit;
+    font-size: 13px;
+}
 
-    padding: 11px 13px;
+.search-form input::placeholder {
+    color: #9b8d84;
 }
 
 .search-form input:focus {
     border: none;
-
-    background: transparent;
-
+    outline: none;
     box-shadow: none;
+    background: transparent;
 }
 
 .search-form .btn {
     flex-shrink: 0;
-
-    min-height: 39px;
-
-    padding: 9px 17px;
+    min-height: 38px;
+    padding: 8px 17px;
 }
 
+/* RESET */
+
 .search-form a.btn {
-    background: #eee4d9;
-
-    color: var(--coffee);
-
-    border-color: #dfd0c2;
-
+    background: #f1e8df;
+    border: 1px solid #dfd1c4;
+    color: #4b3a35;
     box-shadow: none;
 }
 
 .search-form a.btn:hover {
-    background: #e3d5c7;
-
-    color: var(--burgundy);
-
+    background: #e8dbcf;
+    border-color: #cdb8a7;
+    color: #641c2b;
     box-shadow: none;
 }
 
 
-/* =========================================================
-   TABLE WRAPPER
-========================================================= */
+/* =========================
+   TABLE
+========================= */
 
 .table-responsive {
     width: 100%;
     max-width: 100%;
-
     overflow-x: auto;
 
-    border: 1px solid var(--border);
-    border-radius: 14px;
+    border: 1px solid #e5d9ce;
+    border-radius: 12px;
 
-    background: var(--ivory);
-
-    box-shadow:
-        0 7px 24px rgba(61, 35, 29, 0.055);
+    background: #fffdf9;
+    box-shadow: 0 5px 18px rgba(47, 33, 30, 0.055);
 }
 
-
-/* =========================================================
-   TABLE
-========================================================= */
-
-table {
+.table-responsive table {
     width: 100%;
+    min-width: 850px;
 
     border-collapse: separate;
     border-spacing: 0;
-
     table-layout: auto;
 }
 
-th,
-td {
-    padding: 15px 16px;
+.table-responsive th,
+.table-responsive td {
+    padding: 14px 15px;
+
+    text-align: left;
+    vertical-align: middle;
 
     border-bottom: 1px solid #eee5dc;
 
-    text-align: left;
-
     font-size: 13px;
-
-    vertical-align: middle;
-
-    white-space: nowrap;
 }
 
-th {
-    background:
-        linear-gradient(
-            135deg,
-            #541521,
-            #641c2b
-        );
-
+.table-responsive th {
+    background: #641c2b;
     color: #fffaf4;
 
     font-size: 11px;
-
     font-weight: 600;
 
-    letter-spacing: 0.7px;
-
+    letter-spacing: 0.5px;
     text-transform: uppercase;
 }
 
-th:first-child {
-    border-top-left-radius: 13px;
+.table-responsive th:first-child {
+    border-top-left-radius: 11px;
 }
 
-th:last-child {
-    border-top-right-radius: 13px;
+.table-responsive th:last-child {
+    border-top-right-radius: 11px;
 }
 
-td {
-    background: #fffdf8;
-
-    color: var(--coffee);
-
-    transition:
-        background 0.2s ease;
+.table-responsive td {
+    background: #fffdf9;
+    color: #3d2d28;
 }
 
-tbody tr:last-child td {
+.table-responsive tbody tr:hover td {
+    background: #faf3eb;
+}
+
+.table-responsive tbody tr:last-child td {
     border-bottom: none;
 }
 
-tbody tr:hover td {
-    background: #faf3ea;
-}
 
-
-/* =========================================================
-   NOMOR
-========================================================= */
+/* =========================
+   MENU TABLE KHUSUS
+========================= */
 
 #tabelMenu th:first-child,
 #tabelMenu td:first-child {
     width: 55px;
-
     text-align: center;
-
-    color: var(--muted);
 }
-
-
-/* =========================================================
-   HARGA
-========================================================= */
 
 #tabelMenu td:nth-child(5) {
-    color: var(--burgundy);
-
+    color: #641c2b;
     font-weight: 600;
 }
-
-
-/* =========================================================
-   STATUS
-========================================================= */
 
 #tabelMenu td:nth-child(7) {
+    color: #641c2b;
     font-weight: 600;
-
-    color: var(--burgundy);
 }
 
 
-/* =========================================================
-   ACTION
-========================================================= */
+/* =========================
+   ACTION BUTTON
+========================= */
 
 .actions {
     display: flex;
-
     align-items: center;
-
     gap: 7px;
-
     flex-wrap: nowrap;
 }
 
 .actions .btn {
-    min-height: 34px;
-
-    padding: 7px 12px;
+    min-height: 33px;
+    padding: 7px 11px;
 
     border-radius: 7px;
 
     font-size: 11px;
 }
 
-
 /* EDIT */
 
 .actions a.btn {
-    background: #f1e6da;
-
-    border: 1px solid #dfcdbb;
-
-    color: var(--coffee);
-
+    background: #f1e8df;
+    border: 1px solid #dfd1c4;
+    color: #4b3a35;
     box-shadow: none;
 }
 
 .actions a.btn:hover {
     background: #e7d8ca;
-
-    border-color: var(--gold);
-
-    color: var(--burgundy);
-
+    border-color: #c8af9a;
+    color: #641c2b;
     box-shadow: none;
 }
 
-
-/* HAPUS */
+/* DELETE */
 
 .form-hapus {
     display: inline-flex;
-
     margin: 0;
 }
 
 .form-hapus .btn-hapus {
-    background:
-        linear-gradient(
-            135deg,
-            var(--burgundy),
-            var(--burgundy-dark)
-        );
-
-    color: white;
-
-    border: 1px solid transparent;
+    background: #641c2b;
+    border: 1px solid #641c2b;
+    color: #ffffff;
 
     cursor: pointer;
+    box-shadow: none;
 }
 
 .form-hapus .btn-hapus:hover {
-    background:
-        linear-gradient(
-            135deg,
-            var(--burgundy-light),
-            var(--burgundy)
-        );
+    background: #4d1521;
+    border-color: #4d1521;
 }
 
 
@@ -290,35 +225,39 @@ tbody tr:hover td {
 ========================================================= */
 
 .pagination-wrapper {
-    display: flex;
+    width: 100%;
 
+    display: flex;
     justify-content: center;
+    align-items: center;
 
     margin-top: 25px;
+    margin-bottom: 10px;
 }
 
 .pagination {
     display: flex;
-
     align-items: center;
+    justify-content: center;
 
-    gap: 6px;
+    gap: 5px;
 
-    padding: 6px;
+    padding: 5px;
 
-    background: #faf5ee;
+    background: #fffdf9;
+    border: 1px solid #e5d9ce;
+    border-radius: 10px;
 
-    border: 1px solid var(--border);
-
-    border-radius: 11px;
-
-    box-shadow:
-        0 5px 18px rgba(61, 35, 29, 0.05);
+    box-shadow: 0 4px 14px rgba(47, 33, 30, 0.05);
 }
 
-.pagination a {
-    display: inline-flex;
 
+/* SEMUA LINK PAGINATION */
+
+.pagination a {
+    box-sizing: border-box;
+
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
@@ -328,99 +267,103 @@ tbody tr:hover td {
     padding: 0 11px;
 
     border: 1px solid transparent;
-
     border-radius: 7px;
 
     background: transparent;
 
-    color: var(--coffee-light);
+    color: #5b4942;
 
+    font-family: inherit;
     font-size: 12px;
-
     font-weight: 600;
 
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
+    line-height: 1;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: all 0.18s ease;
 }
+
+
+/* NOMOR HALAMAN HOVER */
 
 .pagination a:hover {
-    background: #eee2d6;
+    background: #f3ebe3;
+    border-color: #dfd0c2;
 
-    color: var(--burgundy);
+    color: #641c2b;
 
-    border-color: #dfcdbb;
-
-    transform: translateY(-1px);
+    text-decoration: none;
 }
+
+
+/* HALAMAN AKTIF */
 
 .pagination a.active {
-    background:
-        linear-gradient(
-            135deg,
-            var(--burgundy),
-            var(--burgundy-dark)
-        );
+    background: #641c2b;
+    border-color: #641c2b;
 
-    color: #fffaf4;
+    color: #ffffff;
 
-    border-color: var(--burgundy);
-
-    box-shadow:
-        0 4px 10px rgba(100, 28, 43, 0.16);
+    box-shadow: none;
 }
 
 
-/* =========================================================
-   RESPONSIVE - JS9
-========================================================= */
+/* PREVIOUS / NEXT */
+
+.pagination a:first-child,
+.pagination a:last-child {
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+
+/* PREVIOUS / NEXT HOVER */
+
+.pagination a:first-child:hover,
+.pagination a:last-child:hover {
+    background: #f3ebe3;
+    border-color: #dfd0c2;
+    color: #641c2b;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 700px) {
 
     .search-form {
-        padding: 6px;
-
         gap: 7px;
-
-        border-radius: 10px;
+        padding: 5px;
     }
 
     .search-form input {
         min-width: 150px;
-
-        padding: 9px 10px;
-
+        height: 36px;
         font-size: 11px;
     }
 
     .search-form .btn {
         min-height: 35px;
-
-        padding: 7px 10px;
-
+        padding: 7px 11px;
         font-size: 10px;
     }
-
 
     .table-responsive {
         border-radius: 10px;
-
-        overflow-x: auto;
     }
 
-    th,
-    td {
+    .table-responsive th,
+    .table-responsive td {
         padding: 10px 9px;
-
         font-size: 10px;
     }
 
-    th {
+    .table-responsive th {
         font-size: 9px;
-
-        letter-spacing: 0.4px;
     }
 
     .actions {
@@ -429,46 +372,46 @@ tbody tr:hover td {
 
     .actions .btn {
         min-height: 29px;
-
         padding: 5px 8px;
-
         font-size: 9px;
     }
 
-
     .pagination-wrapper {
-        margin-top: 18px;
+        margin-top: 20px;
     }
 
     .pagination {
         gap: 4px;
-
-        padding: 5px;
+        padding: 4px;
     }
 
     .pagination a {
-        min-width: 31px;
-
-        height: 31px;
-
-        padding: 0 8px;
-
+        min-width: 32px;
+        height: 32px;
+        padding: 0 9px;
         font-size: 10px;
+    }
+
+    .pagination a:first-child,
+    .pagination a:last-child {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }
 
 
-@media (max-width: 400px) {
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 420px) {
 
     .search-form {
-        align-items: stretch;
-
         flex-wrap: wrap;
     }
 
     .search-form input {
         flex-basis: 100%;
-
         min-width: 100%;
     }
 
@@ -476,31 +419,20 @@ tbody tr:hover td {
         flex: 1;
     }
 
-
-    th,
-    td {
-        padding: 8px 6px;
-
-        font-size: 9px;
-    }
-
-    th {
-        font-size: 8px;
-    }
-
-    .actions .btn {
-        min-height: 27px;
-
-        padding: 4px 6px;
-
-        font-size: 8px;
+    .pagination {
+        gap: 3px;
     }
 
     .pagination a {
         min-width: 29px;
-
         height: 29px;
-
+        padding: 0 7px;
         font-size: 9px;
+    }
+
+    .pagination a:first-child,
+    .pagination a:last-child {
+        padding-left: 8px;
+        padding-right: 8px;
     }
 }
