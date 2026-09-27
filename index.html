@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,11 @@
 
 <body>
 
-    <!-- =========================
+    <!-- =====================================================
          HALAMAN PEMBUKA
-    ========================== -->
+         TETAP ADA, TIDAK DIHILANGKAN SAAT EXPLORE
+    ====================================================== -->
+
     <main id="landing" class="landing">
 
         <div class="landing-line"></div>
@@ -52,18 +55,20 @@
 
         <div class="landing-footer reveal reveal-delay-3">
             <span>POLITEKNIK NEGERI MALANG</span>
-            <span>SCROLL / CLICK TO ENTER</span>
+            <span>SCROLL / CLICK TO EXPLORE</span>
         </div>
 
     </main>
 
 
-    <!-- =========================
-         ISI PORTOFOLIO
-    ========================== -->
+    <!-- =====================================================
+         PORTFOLIO
+    ====================================================== -->
+
     <section id="portfolio" class="portfolio">
 
-        <!-- HEADER -->
+        <!-- HEADER PORTFOLIO -->
+
         <header class="portfolio-header">
 
             <div>
@@ -84,26 +89,160 @@
         </header>
 
 
-        <!-- =========================
-             JOBSHEET 1 - 8
-        ========================== -->
-        <section class="project-section">
+        <!-- =================================================
+             3 KATEGORI UTAMA
+        ================================================== -->
 
-            <div class="section-heading">
+        <section id="categories" class="categories-section">
 
-                <span>01</span>
+            <div class="categories-intro">
+
+                <span>EXPLORE THE WORK</span>
+
+                <p>
+                    Pilih bagian portfolio untuk melihat
+                    proses dan project yang telah dikerjakan.
+                </p>
+
+            </div>
+
+
+            <div class="category-list">
+
+                <!-- CATEGORY 01 -->
+
+                <button
+                    class="category-card"
+                    data-target="learningPanel"
+                >
+
+                    <div class="category-number">
+                        01
+                    </div>
+
+                    <div class="category-content">
+
+                        <small>
+                            LEARNING PROCESS
+                        </small>
+
+                        <h3>
+                            Jobsheet 01 — 08
+                        </h3>
+
+                    </div>
+
+                    <span class="category-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- CATEGORY 02 -->
+
+                <button
+                    class="category-card"
+                    data-target="mainProjectPanel"
+                >
+
+                    <div class="category-number">
+                        02
+                    </div>
+
+                    <div class="category-content">
+
+                        <small>
+                            MAIN PROJECT
+                        </small>
+
+                        <h3>
+                            Cafe_Najwa
+                        </h3>
+
+                    </div>
+
+                    <span class="category-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- CATEGORY 03 -->
+
+                <button
+                    class="category-card"
+                    data-target="developmentPanel"
+                >
+
+                    <div class="category-number">
+                        03
+                    </div>
+
+                    <div class="category-content">
+
+                        <small>
+                            PROJECT DEVELOPMENT
+                        </small>
+
+                        <h3>
+                            Jobsheet 09 — 10
+                        </h3>
+
+                    </div>
+
+                    <span class="category-arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PANEL 01 — LEARNING PROCESS
+        ================================================== -->
+
+        <section
+            id="learningPanel"
+            class="portfolio-panel"
+        >
+
+            <button class="back-btn">
+                ← BACK TO CATEGORIES
+            </button>
+
+
+            <div class="panel-heading">
 
                 <div>
-                    <small>LEARNING PROCESS</small>
-                    <h3>Jobsheet 01 — 08</h3>
+                    <span>01 / LEARNING PROCESS</span>
+
+                    <h2>
+                        Jobsheet <em>01 — 08</em>
+                    </h2>
                 </div>
+
+                <p>
+                    Proses pembelajaran dan pengembangan
+                    dasar dalam Design & Pemrograman Web.
+                </p>
 
             </div>
 
 
             <div class="project-grid">
 
-                <article class="project-card">
+                <!-- JOBSHEET 01 -->
+
+                <a
+                    href="./Jobsheet1/"
+                    class="project-card"
+                >
 
                     <span class="number">01</span>
 
@@ -122,10 +261,15 @@
 
                     <span class="arrow">↗</span>
 
-                </article>
+                </a>
 
 
-                <article class="project-card">
+                <!-- JOBSHEET 02 -->
+
+                <a
+                    href="./Jobsheet2/"
+                    class="project-card"
+                >
 
                     <span class="number">02</span>
 
@@ -144,10 +288,15 @@
 
                     <span class="arrow">↗</span>
 
-                </article>
+                </a>
 
 
-                <article class="project-card">
+                <!-- JOBSHEET 03 -->
+
+                <a
+                    href="./Jobsheet3/"
+                    class="project-card"
+                >
 
                     <span class="number">03</span>
 
@@ -166,10 +315,15 @@
 
                     <span class="arrow">↗</span>
 
-                </article>
+                </a>
 
 
-                <article class="project-card">
+                <!-- JOBSHEET 04 -->
+
+                <a
+                    href="./Jobsheet4/"
+                    class="project-card"
+                >
 
                     <span class="number">04</span>
 
@@ -188,10 +342,15 @@
 
                     <span class="arrow">↗</span>
 
-                </article>
+                </a>
 
 
-                <article class="project-card">
+                <!-- JOBSHEET 05 -->
+
+                <a
+                    href="./Jobsheet5/"
+                    class="project-card"
+                >
 
                     <span class="number">05</span>
 
@@ -210,10 +369,15 @@
 
                     <span class="arrow">↗</span>
 
-                </article>
+                </a>
 
 
-                <article class="project-card">
+                <!-- JOBSHEET 06 -->
+
+                <a
+                    href="./Jobsheet6/"
+                    class="project-card"
+                >
 
                     <span class="number">06</span>
 
@@ -232,10 +396,15 @@
 
                     <span class="arrow">↗</span>
 
-                </article>
+                </a>
 
 
-                <article class="project-card">
+                <!-- JOBSHEET 07 -->
+
+                <a
+                    href="./Jobsheet7/"
+                    class="project-card"
+                >
 
                     <span class="number">07</span>
 
@@ -254,10 +423,15 @@
 
                     <span class="arrow">↗</span>
 
-                </article>
+                </a>
 
 
-                <article class="project-card">
+                <!-- JOBSHEET 08 -->
+
+                <a
+                    href="./Jobsheet8/"
+                    class="project-card"
+                >
 
                     <span class="number">08</span>
 
@@ -276,26 +450,41 @@
 
                     <span class="arrow">↗</span>
 
-                </article>
+                </a>
 
             </div>
 
         </section>
 
 
-        <!-- =========================
-             CAFE NAJWA
-        ========================== -->
-        <section class="featured-section">
+        <!-- =================================================
+             PANEL 02 — MAIN PROJECT
+        ================================================== -->
 
-            <div class="section-heading">
+        <section
+            id="mainProjectPanel"
+            class="portfolio-panel"
+        >
 
-                <span>02</span>
+            <button class="back-btn">
+                ← BACK TO CATEGORIES
+            </button>
+
+
+            <div class="panel-heading">
 
                 <div>
-                    <small>MAIN PROJECT</small>
-                    <h3>Project Utama</h3>
+                    <span>02 / MAIN PROJECT</span>
+
+                    <h2>
+                        Main <em>Project</em>
+                    </h2>
                 </div>
+
+                <p>
+                    Project utama yang dikembangkan sebagai
+                    sistem informasi manajemen berbasis web.
+                </p>
 
             </div>
 
@@ -345,27 +534,42 @@
         </section>
 
 
-        <!-- =========================
-             JOBSHEET 9 & 10
-        ========================== -->
-        <section class="updates-section">
+        <!-- =================================================
+             PANEL 03 — PROJECT DEVELOPMENT
+        ================================================== -->
 
-            <div class="section-heading">
+        <section
+            id="developmentPanel"
+            class="portfolio-panel"
+        >
 
-                <span>03</span>
+            <button class="back-btn">
+                ← BACK TO CATEGORIES
+            </button>
+
+
+            <div class="panel-heading">
 
                 <div>
-                    <small>PROJECT DEVELOPMENT</small>
-                    <h3>Updates</h3>
+                    <span>03 / PROJECT DEVELOPMENT</span>
+
+                    <h2>
+                        Project <em>Development</em>
+                    </h2>
                 </div>
+
+                <p>
+                    Pengembangan lanjutan dari Cafe_Najwa
+                    melalui fitur dan fungsi baru.
+                </p>
 
             </div>
 
 
             <div class="updates-grid">
 
+                <!-- JOBSHEET 09 -->
 
-                <!-- JOBSHEET 9 -->
                 <a
                     href="./Jobsheet9/"
                     class="update-card"
@@ -403,6 +607,7 @@
 
 
                 <!-- JOBSHEET 10 -->
+
                 <a
                     href="./Jobsheet10/"
                     class="update-card dark"
@@ -443,10 +648,12 @@
         </section>
 
 
+        <!-- FOOTER -->
+
         <footer>
 
             <span>
-                Najwa Adha Khairunissa Giarno
+                Najwa Adha Khairunnisa Giarno
             </span>
 
             <span>
@@ -461,4 +668,5 @@
     <script src="app.js"></script>
 
 </body>
+
 </html>

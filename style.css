@@ -27,12 +27,13 @@ body {
 }
 
 
-/* =====================================
+/* =====================================================
    LANDING PAGE
-===================================== */
+===================================================== */
 
 .landing {
     min-height: 100vh;
+
     padding: 35px 6vw 28px;
 
     display: flex;
@@ -70,6 +71,7 @@ body {
 .landing-footer {
 
     display: flex;
+
     justify-content: space-between;
 
     color: var(--maroon);
@@ -81,19 +83,24 @@ body {
 }
 
 
-/* HERO */
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero {
     width: min(1120px, 100%);
+
     margin: auto;
 
     padding: 80px 0;
 }
 
 .eyebrow {
+
     color: var(--gold);
 
     font-size: 10px;
+
     font-weight: 700;
 
     letter-spacing: 3px;
@@ -124,14 +131,18 @@ body {
 }
 
 
-/* BOTTOM HERO */
+/* =====================================================
+   HERO BOTTOM
+===================================================== */
 
 .hero-bottom {
 
     margin-top: 65px;
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: end;
 
     gap: 50px;
@@ -149,7 +160,9 @@ body {
 }
 
 
-/* BUTTON */
+/* =====================================================
+   EXPLORE BUTTON
+===================================================== */
 
 .explore-btn {
 
@@ -168,11 +181,13 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: space-between;
 
     gap: 35px;
 
     font-size: 10px;
+
     font-weight: 700;
 
     letter-spacing: 1.5px;
@@ -199,9 +214,9 @@ body {
 }
 
 
-/* =====================================
+/* =====================================================
    OPENING ANIMATION
-===================================== */
+===================================================== */
 
 .reveal {
 
@@ -231,15 +246,14 @@ body {
 
         opacity: 1;
 
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 }
 
 
-/* =====================================
+/* =====================================================
    PORTFOLIO
-===================================== */
+===================================================== */
 
 .portfolio {
 
@@ -251,7 +265,9 @@ body {
 }
 
 
-/* HEADER */
+/* =====================================================
+   PORTFOLIO HEADER
+===================================================== */
 
 .portfolio-header {
 
@@ -312,38 +328,119 @@ body {
 }
 
 
-/* =====================================
-   SECTION
-===================================== */
+/* =====================================================
+   3 CATEGORY SECTION
+===================================================== */
 
-.project-section,
-.featured-section,
-.updates-section {
+.categories-section {
 
-    padding-top: 85px;
+    padding-top: 80px;
+
+    transition:
+        opacity .45s ease,
+        transform .55s ease,
+        max-height .7s ease;
 }
 
-.section-heading {
+.categories-intro {
 
     display: flex;
 
-    align-items: center;
+    justify-content: space-between;
 
-    gap: 22px;
+    align-items: end;
 
-    margin-bottom: 35px;
+    gap: 40px;
+
+    margin-bottom: 32px;
 }
 
-.section-heading > span {
+.categories-intro > span {
+
+    color: var(--gold);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+.categories-intro p {
+
+    max-width: 330px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   CATEGORY LIST
+===================================================== */
+
+.category-list {
+
+    border-top: 1px solid var(--line);
+}
+
+.category-card {
+
+    width: 100%;
+
+    min-height: 150px;
+
+    padding: 28px 25px;
+
+    border: 0;
+
+    border-bottom: 1px solid var(--line);
+
+    background: transparent;
+
+    color: var(--ink);
+
+    display: grid;
+
+    grid-template-columns:
+        100px 1fr 50px;
+
+    align-items: center;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        padding .35s ease,
+        color .3s ease;
+}
+
+.category-card:hover {
+
+    background: var(--maroon);
+
+    color: white;
+
+    padding-left: 38px;
+
+    padding-right: 38px;
+}
+
+.category-number {
 
     color: var(--gold);
 
     font-family: Georgia, serif;
 
-    font-size: 28px;
+    font-size: 25px;
 }
 
-.section-heading small {
+.category-content small {
 
     color: var(--maroon);
 
@@ -352,27 +449,233 @@ body {
     font-weight: 700;
 
     letter-spacing: 2.5px;
+
+    transition: color .3s;
 }
 
-.section-heading h3 {
+.category-card:hover
+.category-content small {
 
-    margin-top: 5px;
+    color: var(--gold);
+}
 
-    color: var(--ink);
+.category-content h3 {
+
+    margin-top: 8px;
+
+    color: var(--maroon-dark);
 
     font-family: Georgia, serif;
 
-    font-size: 27px;
+    font-size: clamp(30px, 4vw, 48px);
 
     font-weight: 400;
+
+    letter-spacing: -1.5px;
+
+    transition: color .3s;
+}
+
+.category-card:hover
+.category-content h3 {
+
+    color: white;
+}
+
+.category-arrow {
+
+    justify-self: end;
+
+    color: var(--maroon);
+
+    font-size: 27px;
+
+    transition:
+        transform .3s,
+        color .3s;
+}
+
+.category-card:hover
+.category-arrow {
+
+    color: var(--gold);
+
+    transform: translateX(7px);
 }
 
 
-/* =====================================
+/* =====================================================
+   CATEGORY HIDE
+===================================================== */
+
+.category-hidden {
+
+    opacity: 0;
+
+    transform: translateY(-30px);
+
+    pointer-events: none;
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    padding-top: 0;
+}
+
+
+/* =====================================================
+   PORTFOLIO PANELS
+===================================================== */
+
+.portfolio-panel {
+
+    display: none;
+
+    padding-top: 70px;
+
+    opacity: 0;
+
+    transform: translateY(35px);
+}
+
+.portfolio-panel.panel-active {
+
+    display: block;
+
+    animation:
+        panelIn .65s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+}
+
+@keyframes panelIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(35px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-btn {
+
+    border: 0;
+
+    background: transparent;
+
+    padding: 0;
+
+    color: var(--maroon);
+
+    cursor: pointer;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    transition:
+        color .25s,
+        transform .25s;
+}
+
+.back-btn:hover {
+
+    color: var(--gold);
+
+    transform: translateX(-5px);
+}
+
+
+/* =====================================================
+   PANEL HEADING
+===================================================== */
+
+.panel-heading {
+
+    margin-top: 50px;
+
+    padding-bottom: 55px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 320px;
+
+    gap: 50px;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+.panel-heading > div > span {
+
+    color: var(--gold);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+.panel-heading h2 {
+
+    margin-top: 13px;
+
+    color: var(--maroon-dark);
+
+    font-family: Georgia, serif;
+
+    font-size:
+        clamp(48px, 6vw, 75px);
+
+    font-weight: 400;
+
+    line-height: .95;
+
+    letter-spacing: -3px;
+}
+
+.panel-heading h2 em {
+
+    color: var(--maroon);
+}
+
+.panel-heading > p {
+
+    align-self: end;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.9;
+}
+
+
+/* =====================================================
    JOBSHEET 1 - 8
-===================================== */
+===================================================== */
 
 .project-grid {
+
+    margin-top: 55px;
 
     display: grid;
 
@@ -400,6 +703,10 @@ body {
     gap: 15px;
 
     background: var(--paper);
+
+    color: inherit;
+
+    text-decoration: none;
 
     transition: .3s;
 }
@@ -477,11 +784,13 @@ body {
 }
 
 
-/* =====================================
+/* =====================================================
    CAFE NAJWA
-===================================== */
+===================================================== */
 
 .featured-card {
+
+    margin-top: 55px;
 
     min-height: 390px;
 
@@ -621,11 +930,13 @@ body {
 }
 
 
-/* =====================================
+/* =====================================================
    JOBSHEET 9 & 10
-===================================== */
+===================================================== */
 
 .updates-grid {
+
+    margin-top: 55px;
 
     display: grid;
 
@@ -749,9 +1060,9 @@ body {
 }
 
 
-/* =====================================
+/* =====================================================
    FOOTER
-===================================== */
+===================================================== */
 
 footer {
 
@@ -774,60 +1085,9 @@ footer {
 }
 
 
-/* =====================================
-   PAGE TRANSITION
-===================================== */
-
-body.entering .landing {
-
-    animation:
-        landingOut .75s
-        cubic-bezier(.77,0,.18,1)
-        forwards;
-}
-
-body.entering .portfolio {
-
-    animation:
-        portfolioIn .9s .2s
-        cubic-bezier(.22,1,.36,1)
-        both;
-}
-
-@keyframes landingOut {
-
-    to {
-
-        transform:
-            translateY(-100%);
-
-        opacity: 0;
-    }
-}
-
-@keyframes portfolioIn {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(90px);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-/* =====================================
+/* =====================================================
    RESPONSIVE
-===================================== */
+===================================================== */
 
 @media (max-width: 800px) {
 
@@ -845,7 +1105,8 @@ body.entering .portfolio {
     }
 
     .hero-bottom,
-    .portfolio-header {
+    .portfolio-header,
+    .panel-heading {
 
         display: grid;
 
@@ -857,9 +1118,23 @@ body.entering .portfolio {
         gap: 30px;
     }
 
-    .portfolio-header {
+    .portfolio-header,
+    .panel-heading {
 
         gap: 25px;
+    }
+
+    .category-card {
+
+        grid-template-columns:
+            65px 1fr 35px;
+
+        min-height: 125px;
+    }
+
+    .category-content h3 {
+
+        font-size: 32px;
     }
 
     .project-grid,
@@ -919,6 +1194,42 @@ body.entering .portfolio {
     .portfolio-header h2 {
 
         font-size: 55px;
+    }
+
+    .categories-section {
+
+        padding-top: 60px;
+    }
+
+    .categories-intro {
+
+        display: block;
+    }
+
+    .categories-intro p {
+
+        margin-top: 15px;
+    }
+
+    .category-card {
+
+        grid-template-columns:
+            45px 1fr 25px;
+
+        padding: 22px 12px;
+    }
+
+    .category-card:hover {
+
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .category-content h3 {
+
+        font-size: 25px;
+
+        letter-spacing: -1px;
     }
 
     .project-card {
