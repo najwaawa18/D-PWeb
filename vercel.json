@@ -24,12 +24,12 @@
     },
 
     {
-      "src": "/Jobsheet%20New/?$",
+      "src": "/Jobsheet9/?$",
       "dest": "/api/index.php"
     },
 
     {
-      "src": "/Jobsheet9/?$",
+      "src": "/Jobsheet%20New/?$",
       "dest": "/api/index.php"
     }
   ]

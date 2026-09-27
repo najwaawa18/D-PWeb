@@ -10,16 +10,16 @@ require __DIR__ . "/layout/header.php";
 <section>
 
     <h2>
-        Selamat Datang di Cafe_Najwa ☕
+        Selamat Datang di Jobsheet 9
     </h2>
 
     <p>
-        Sistem Informasi Manajemen Cafe
+        Sistem Informasi Manajemen dengan PostgreSQL
     </p>
 
     <p>
         Silakan gunakan menu navigasi
-        untuk mengelola data cafe.
+        untuk mengelola data.
     </p>
 
 </section>
@@ -28,50 +28,50 @@ require __DIR__ . "/layout/header.php";
 <section>
 
     <h2>
-        Modul Cafe_Najwa
+        Modul Jobsheet 9
     </h2>
 
     <div class="actions">
 
         <a
             class="btn"
-            href="/Jobsheet%20New/master/kategori/index.php">
+            href="/Jobsheet9/master/kategori/index.php">
             Kategori
         </a>
 
         <a
             class="btn"
-            href="/Jobsheet%20New/master/menu/index.php">
+            href="/Jobsheet9/master/menu/index.php">
             Menu
         </a>
 
         <a
             class="btn"
-            href="/Jobsheet%20New/master/pelanggan/index.php">
+            href="/Jobsheet9/master/pelanggan/index.php">
             Pelanggan
         </a>
 
         <a
             class="btn"
-            href="/Jobsheet%20New/master/meja/index.php">
+            href="/Jobsheet9/master/meja/index.php">
             Meja
         </a>
 
         <a
             class="btn"
-            href="/Jobsheet%20New/transaksi/pesanan/index.php">
+            href="/Jobsheet9/transaksi/pesanan/index.php">
             Pesanan
         </a>
 
         <a
             class="btn"
-            href="/Jobsheet%20New/transaksi/pembayaran/index.php">
+            href="/Jobsheet9/transaksi/pembayaran/index.php">
             Pembayaran
         </a>
 
         <a
             class="btn"
-            href="/Jobsheet%20New/laporan/index.php">
+            href="/Jobsheet9/laporan/index.php">
             Laporan
         </a>
 
