@@ -1,664 +1,97 @@
 /* =========================================================
-   CAFE_NAJWA
-   Luxury Coffee House
-   Elegant • Warm • Premium
+   JOBSHEET 9
+   SEARCH • TABLE • PAGINATION
 ========================================================= */
-
-:root {
-    --cream: #f6f0e7;
-    --cream-light: #fbf8f2;
-    --ivory: #fffdf8;
-
-    --burgundy: #641c2b;
-    --burgundy-dark: #42121c;
-    --burgundy-light: #87394a;
-
-    --coffee: #2f211e;
-    --coffee-light: #604b43;
-
-    --gold: #b99763;
-    --gold-light: #d7bd91;
-
-    --muted: #8b7972;
-    --border: #e5d9cc;
-
-    --shadow: 0 10px 35px rgba(61, 35, 29, 0.08);
-    --shadow-hover: 0 16px 42px rgba(61, 35, 29, 0.13);
-}
-
 
 /* =========================================================
-   RESET
+   SEARCH
 ========================================================= */
 
-* {
-    box-sizing: border-box;
-}
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-html {
-    scroll-behavior: smooth;
-}
+    margin-bottom: 20px !important;
+    padding: 7px;
 
-body {
-    margin: 0;
-    min-height: 100vh;
+    background: #faf5ee;
 
-    font-family:
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
-    color: var(--coffee);
-
-    background:
-        radial-gradient(
-            circle at 10% 0%,
-            rgba(185, 151, 99, 0.09),
-            transparent 25%
-        ),
-        radial-gradient(
-            circle at 100% 30%,
-            rgba(100, 28, 43, 0.05),
-            transparent 28%
-        ),
-        var(--cream);
-
-    line-height: 1.6;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.site-header {
-    position: relative;
-
-    padding: 34px 5% 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            #351018 0%,
-            #541521 45%,
-            #691e2d 75%,
-            #48121d 100%
-        );
-
-    color: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
 
     box-shadow:
-        0 8px 30px rgba(54, 15, 24, 0.18);
-
-    overflow: visible;
+        0 4px 15px rgba(61, 35, 29, 0.04);
 }
 
-.site-header::before {
-    content: "";
+.search-form input {
+    flex: 1;
 
-    position: absolute;
+    min-width: 220px;
 
-    width: 260px;
-    height: 260px;
-
-    top: -150px;
-    right: 8%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(215, 189, 145, 0.16),
-            transparent 70%
-        );
-
-    pointer-events: none;
-}
-
-.site-header::after {
-    content: "";
-
-    display: block;
-
-    height: 1px;
-
-    margin-top: 28px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(215, 189, 145, 0.7),
-            transparent
-        );
-}
-
-
-/* =========================================================
-   BRAND
-========================================================= */
-
-.brand {
-    position: relative;
-    z-index: 2;
-}
-
-.brand h1 {
     margin: 0;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 34px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-
-    color: #fffaf2;
-}
-
-.brand h1::first-letter {
-    color: var(--gold-light);
-}
-
-.brand span {
-    display: block;
-
-    margin-top: 4px;
-
-    color: #ddc8b9;
-
-    font-family: Georgia, serif;
-
-    font-size: 13px;
-    font-style: italic;
-
-    letter-spacing: 2px;
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-nav {
-    position: relative;
-    z-index: 100;
-
-    display: flex;
-    align-items: center;
-
-    gap: 5px;
-
-    flex-wrap: wrap;
-
-    margin-top: 25px;
-}
-
-nav > a,
-.nav-group > button {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    padding: 11px 15px;
-
-    border: 0;
-    border-radius: 6px;
+    border: none;
 
     background: transparent;
 
-    color: #f9eee7;
-
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 500;
-
-    letter-spacing: 0.2px;
-
-    transition:
-        background 0.25s ease,
-        color 0.25s ease,
-        transform 0.25s ease;
-}
-
-nav > a::after,
-.nav-group > button::after {
-    content: "";
-
-    position: absolute;
-
-    left: 15px;
-    right: 15px;
-    bottom: 4px;
-
-    height: 1px;
-
-    background: var(--gold-light);
-
-    transform: scaleX(0);
-    transform-origin: center;
-
-    transition:
-        transform 0.25s ease;
-}
-
-nav > a:hover,
-.nav-group > button:hover {
-    color: white;
-
-    background:
-        rgba(255, 255, 255, 0.07);
-
-    transform: translateY(-1px);
-}
-
-nav > a:hover::after,
-.nav-group > button:hover::after {
-    transform: scaleX(1);
-}
-
-
-/* =========================================================
-   DROPDOWN
-========================================================= */
-
-.nav-group {
-    position: relative;
-}
-
-.nav-dropdown-toggle {
-    cursor: pointer;
-}
-
-.dropdown {
-    display: none;
-
-    position: absolute;
-
-    top: calc(100% + 4px);
-    left: 0;
-
-    min-width: 215px;
-
-    padding: 9px;
-
-    background:
-        rgba(255, 253, 248, 0.98);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 10px;
-
-    box-shadow:
-        0 18px 45px rgba(45, 25, 20, 0.18);
-
-    z-index: 9999;
-}
-
-.nav-group::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    top: 100%;
-
-    height: 8px;
-}
-
-.nav-group:hover .dropdown {
-    display: block;
-}
-
-.dropdown a {
-    position: relative;
-
-    display: flex;
-    align-items: center;
+    box-shadow: none;
 
     padding: 11px 13px;
+}
 
-    border-radius: 7px;
+.search-form input:focus {
+    border: none;
+
+    background: transparent;
+
+    box-shadow: none;
+}
+
+.search-form .btn {
+    flex-shrink: 0;
+
+    min-height: 39px;
+
+    padding: 9px 17px;
+}
+
+.search-form a.btn {
+    background: #eee4d9;
 
     color: var(--coffee);
 
-    font-size: 13px;
+    border-color: #dfd0c2;
 
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        padding-left 0.2s ease;
+    box-shadow: none;
 }
 
-.dropdown a:hover {
-    background:
-        linear-gradient(
-            90deg,
-            #f5e9dc,
-            #fbf5ee
-        );
+.search-form a.btn:hover {
+    background: #e3d5c7;
 
     color: var(--burgundy);
 
-    padding-left: 17px;
-}
-
-
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
-
-.container {
-    width: min(1180px, 91%);
-
-    margin: 48px auto;
-}
-
-
-/* =========================================================
-   SECTION
-========================================================= */
-
-section {
-    position: relative;
-
-    padding: 31px;
-
-    margin-bottom: 28px;
-
-    background:
-        rgba(255, 253, 248, 0.95);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 18px;
-
-    box-shadow: var(--shadow);
-}
-
-section::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: 34px;
-    right: 34px;
-
-    height: 1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(185, 151, 99, 0.45),
-            transparent
-        );
-}
-
-
-/* =========================================================
-   HEADINGS
-========================================================= */
-
-h1,
-h2,
-h3,
-h4 {
-    margin-top: 0;
-
-    color: var(--coffee);
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-weight: 500;
-}
-
-h1 {
-    font-size: 31px;
-}
-
-h2 {
-    position: relative;
-
-    margin-bottom: 27px;
-
-    font-size: 27px;
-
-    letter-spacing: -0.2px;
-}
-
-h2::after {
-    content: "";
-
-    display: block;
-
-    width: 48px;
-    height: 2px;
-
-    margin-top: 11px;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--burgundy),
-            var(--gold)
-        );
-
-    border-radius: 5px;
-}
-
-h3 {
-    font-size: 21px;
-}
-
-
-/* =========================================================
-   BUTTON
-========================================================= */
-
-button,
-.btn {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    min-height: 40px;
-
-    padding: 10px 17px;
-
-    border:
-        1px solid transparent;
-
-    border-radius: 7px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--burgundy),
-            var(--burgundy-dark)
-        );
-
-    color: white;
-
-    font-family: inherit;
-
-    font-size: 13px;
-    font-weight: 600;
-
-    letter-spacing: 0.2px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 5px 14px rgba(100, 28, 43, 0.16);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
-}
-
-button:hover,
-.btn:hover {
-    transform: translateY(-2px);
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--burgundy-light),
-            var(--burgundy)
-        );
-
-    box-shadow:
-        0 9px 20px rgba(100, 28, 43, 0.22);
-}
-
-
-/* =========================================================
-   NAV DROPDOWN BUTTON
-========================================================= */
-
-.nav-dropdown-toggle {
-    box-shadow: none;
-}
-
-.nav-dropdown-toggle:hover {
     box-shadow: none;
 }
 
 
 /* =========================================================
-   SECONDARY BUTTON
+   TABLE WRAPPER
 ========================================================= */
 
-.btn-secondary {
-    background: #eee5da;
-
-    color: var(--coffee);
-
-    box-shadow: none;
-
-    border-color: #dfd0c2;
-}
-
-.btn-secondary:hover {
-    background: #e4d8ca;
-
-    color: var(--coffee);
-
-    box-shadow: none;
-}
-
-
-/* =========================================================
-   FORM
-========================================================= */
-
-form {
-    display: grid;
-    gap: 18px;
-}
-
-label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: var(--coffee-light);
-
-    font-size: 13px;
-    font-weight: 600;
-
-    letter-spacing: 0.15px;
-}
-
-input,
-select,
-textarea {
+.table-responsive {
     width: 100%;
+    max-width: 100%;
 
-    padding: 12px 14px;
+    overflow-x: auto;
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
 
-    border-radius: 8px;
-
-    background:
-        rgba(251, 248, 242, 0.9);
-
-    color: var(--coffee);
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
-}
-
-input:hover,
-select:hover,
-textarea:hover {
-    border-color: #d5c3b3;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    background: white;
-
-    border-color: var(--gold);
+    background: var(--ivory);
 
     box-shadow:
-        0 0 0 3px rgba(185, 151, 99, 0.12);
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: #aa9890;
-}
-
-
-/* =========================================================
-   SELECT
-========================================================= */
-
-select {
-    position: relative !important;
-
-    z-index: 9999 !important;
-
-    pointer-events: auto !important;
-
-    cursor: pointer !important;
-}
-
-select option {
-    background: white;
-    color: var(--coffee);
-
-    pointer-events: auto;
+        0 7px 24px rgba(61, 35, 29, 0.055);
 }
 
 
@@ -666,77 +99,108 @@ select option {
    TABLE
 ========================================================= */
 
-.table-responsive {
-    width: 100%;
-    max-width: 100%;
-
-    overflow: hidden;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 4px 16px rgba(61, 35, 29, 0.04);
-}
-
 table {
     width: 100%;
-    max-width: 100%;
 
     border-collapse: separate;
     border-spacing: 0;
 
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 th,
 td {
-    padding: 14px 15px;
+    padding: 15px 16px;
+
+    border-bottom: 1px solid #eee5dc;
 
     text-align: left;
 
     font-size: 13px;
 
-    border-bottom:
-        1px solid #eee5dc;
-
     vertical-align: middle;
 
-    word-break: break-word;
+    white-space: nowrap;
 }
 
 th {
     background:
         linear-gradient(
             135deg,
-            var(--burgundy-dark),
-            var(--burgundy)
+            #541521,
+            #641c2b
         );
 
     color: #fffaf4;
 
+    font-size: 11px;
+
     font-weight: 600;
 
-    letter-spacing: 0.2px;
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+}
+
+th:first-child {
+    border-top-left-radius: 13px;
+}
+
+th:last-child {
+    border-top-right-radius: 13px;
 }
 
 td {
-    background: var(--ivory);
-}
+    background: #fffdf8;
 
-tbody tr {
+    color: var(--coffee);
+
     transition:
-        transform 0.15s ease;
-}
-
-tbody tr:hover td {
-    background: #fbf3ea;
+        background 0.2s ease;
 }
 
 tbody tr:last-child td {
     border-bottom: none;
+}
+
+tbody tr:hover td {
+    background: #faf3ea;
+}
+
+
+/* =========================================================
+   NOMOR
+========================================================= */
+
+#tabelMenu th:first-child,
+#tabelMenu td:first-child {
+    width: 55px;
+
+    text-align: center;
+
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   HARGA
+========================================================= */
+
+#tabelMenu td:nth-child(5) {
+    color: var(--burgundy);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+#tabelMenu td:nth-child(7) {
+    font-weight: 600;
+
+    color: var(--burgundy);
 }
 
 
@@ -747,9 +211,11 @@ tbody tr:last-child td {
 .actions {
     display: flex;
 
+    align-items: center;
+
     gap: 7px;
 
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .actions .btn {
@@ -757,719 +223,284 @@ tbody tr:last-child td {
 
     padding: 7px 12px;
 
-    font-size: 12px;
+    border-radius: 7px;
+
+    font-size: 11px;
 }
 
 
-/* =========================================================
-   CARD
-========================================================= */
+/* EDIT */
 
-.card {
-    position: relative;
+.actions a.btn {
+    background: #f1e6da;
 
-    padding: 24px;
+    border: 1px solid #dfcdbb;
 
-    background:
-        linear-gradient(
-            145deg,
-            #fffefa,
-            #faf5ee
-        );
+    color: var(--coffee);
 
-    border:
-        1px solid var(--border);
-
-    border-radius: 15px;
-
-    box-shadow: var(--shadow);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+    box-shadow: none;
 }
 
-.card::before {
-    content: "";
+.actions a.btn:hover {
+    background: #e7d8ca;
 
-    position: absolute;
-
-    top: 0;
-
-    left: 22px;
-    right: 22px;
-
-    height: 1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--gold-light),
-            transparent
-        );
-}
-
-.card:hover {
-    transform: translateY(-4px);
-
-    box-shadow: var(--shadow-hover);
-}
-
-
-/* =========================================================
-   BADGE
-========================================================= */
-
-.badge {
-    display: inline-flex;
-
-    align-items: center;
-
-    padding: 5px 10px;
-
-    border:
-        1px solid rgba(185, 151, 99, 0.25);
-
-    border-radius: 30px;
-
-    background: #f3e8dc;
+    border-color: var(--gold);
 
     color: var(--burgundy);
 
-    font-size: 11px;
+    box-shadow: none;
+}
 
-    font-weight: 600;
 
-    letter-spacing: 0.3px;
+/* HAPUS */
+
+.form-hapus {
+    display: inline-flex;
+
+    margin: 0;
+}
+
+.form-hapus .btn-hapus {
+    background:
+        linear-gradient(
+            135deg,
+            var(--burgundy),
+            var(--burgundy-dark)
+        );
+
+    color: white;
+
+    border: 1px solid transparent;
+
+    cursor: pointer;
+}
+
+.form-hapus .btn-hapus:hover {
+    background:
+        linear-gradient(
+            135deg,
+            var(--burgundy-light),
+            var(--burgundy)
+        );
 }
 
 
 /* =========================================================
-   DASHBOARD
+   PAGINATION
 ========================================================= */
 
-.stats {
-    display: grid;
+.pagination-wrapper {
+    display: flex;
 
-    grid-template-columns:
-        repeat(auto-fit, minmax(210px, 1fr));
+    justify-content: center;
 
-    gap: 18px;
+    margin-top: 25px;
 }
 
-.stat-card {
-    position: relative;
+.pagination {
+    display: flex;
 
-    padding: 23px;
+    align-items: center;
 
-    background:
-        linear-gradient(
-            145deg,
-            #fffefa,
-            #f8f0e7
-        );
+    gap: 6px;
 
-    border:
-        1px solid var(--border);
+    padding: 6px;
 
-    border-radius: 15px;
+    background: #faf5ee;
 
-    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
 
-    overflow: hidden;
+    border-radius: 11px;
 
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+    box-shadow:
+        0 5px 18px rgba(61, 35, 29, 0.05);
 }
 
-.stat-card::after {
-    content: "";
+.pagination a {
+    display: inline-flex;
 
-    position: absolute;
+    align-items: center;
+    justify-content: center;
 
-    width: 100px;
-    height: 100px;
+    min-width: 36px;
+    height: 36px;
 
-    right: -35px;
-    top: -35px;
+    padding: 0 11px;
 
-    border-radius: 50%;
+    border: 1px solid transparent;
 
-    background:
-        rgba(185, 151, 99, 0.10);
-}
+    border-radius: 7px;
 
-.stat-card:hover {
-    transform: translateY(-4px);
+    background: transparent;
 
-    box-shadow: var(--shadow-hover);
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer {
-    position: relative;
-
-    margin-top: 60px;
-
-    padding: 34px 20px;
-
-    border-top:
-        1px solid var(--border);
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255, 250, 244, 0.8),
-            rgba(246, 238, 228, 0.95)
-        );
-
-    color: var(--muted);
-
-    text-align: center;
-
-    font-family: Georgia, serif;
+    color: var(--coffee-light);
 
     font-size: 12px;
 
-    letter-spacing: 0.3px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
 }
 
-footer::before {
-    content: "✦";
+.pagination a:hover {
+    background: #eee2d6;
 
-    display: block;
+    color: var(--burgundy);
 
-    margin-bottom: 7px;
+    border-color: #dfcdbb;
 
-    color: var(--gold);
-
-    font-size: 14px;
+    transform: translateY(-1px);
 }
 
+.pagination a.active {
+    background:
+        linear-gradient(
+            135deg,
+            var(--burgundy),
+            var(--burgundy-dark)
+        );
 
-/* =========================================================
-   HAMBURGER
-========================================================= */
+    color: #fffaf4;
 
-.nav-toggle {
-    display: none;
+    border-color: var(--burgundy);
 
-    width: auto;
-
-    margin-top: 14px;
-}
-
-
-/* =========================================================
-   GENERAL POSITION
-========================================================= */
-
-form,
-form div,
-.table-responsive,
-table,
-tbody,
-tr,
-td {
-    position: relative;
+    box-shadow:
+        0 4px 10px rgba(100, 28, 43, 0.16);
 }
 
 
 /* =========================================================
-   RESPONSIVE - TABLET / HP
+   RESPONSIVE - JS9
 ========================================================= */
 
 @media (max-width: 700px) {
 
-    html,
-    body {
-        width: 100%;
-        max-width: 100%;
+    .search-form {
+        padding: 6px;
 
-        overflow-x: hidden;
+        gap: 7px;
+
+        border-radius: 10px;
     }
 
+    .search-form input {
+        min-width: 150px;
 
-    /* HEADER */
+        padding: 9px 10px;
 
-    .site-header {
-        width: 100%;
-
-        padding: 24px 4% 0;
-    }
-
-    .brand h1 {
-        font-size: 28px;
-    }
-
-    .brand span {
         font-size: 11px;
-
-        letter-spacing: 1.5px;
     }
 
+    .search-form .btn {
+        min-height: 35px;
 
-    /* NAVBAR */
+        padding: 7px 10px;
 
-    .nav-toggle {
-        display: inline-flex;
-
-        width: auto;
-
-        margin-top: 13px;
+        font-size: 10px;
     }
 
-    nav {
-        display: none;
-
-        width: 100%;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-        gap: 3px;
-
-        margin-top: 14px;
-    }
-
-    nav.open {
-        display: flex;
-    }
-
-    nav > a,
-    .nav-group > button {
-        width: 100%;
-    }
-
-    .nav-group {
-        width: 100%;
-    }
-
-    .dropdown {
-        position: static;
-
-        width: 100%;
-
-        min-width: 0;
-
-        margin-top: 3px;
-
-        padding: 5px;
-
-        border: none;
-
-        box-shadow: none;
-
-        background: #f4e9de;
-    }
-
-    .nav-group:hover .dropdown {
-        display: none;
-    }
-
-    .nav-group:focus-within .dropdown {
-        display: block;
-    }
-
-
-    /* CONTAINER */
-
-    .container {
-        width: 94%;
-        max-width: 94%;
-
-        margin: 27px auto;
-    }
-
-
-    /* SECTION */
-
-    section {
-        width: 100%;
-
-        padding: 19px;
-
-        margin-bottom: 19px;
-
-        border-radius: 14px;
-    }
-
-    section::before {
-        left: 19px;
-        right: 19px;
-    }
-
-
-    /* HEADING */
-
-    h1 {
-        font-size: 26px;
-    }
-
-    h2 {
-        font-size: 23px;
-
-        margin-bottom: 20px;
-    }
-
-    h3 {
-        font-size: 18px;
-    }
-
-
-    /* FORM */
-
-    form {
-        width: 100%;
-
-        gap: 14px;
-    }
-
-    form > div {
-        width: 100%;
-
-        min-width: 0;
-    }
-
-    label {
-        margin-bottom: 5px;
-
-        font-size: 12px;
-    }
-
-    input,
-    select,
-    textarea {
-        width: 100%;
-
-        min-width: 0;
-
-        padding: 9px 11px;
-
-        font-size: 12px;
-    }
-
-
-    /* TABLE */
 
     .table-responsive {
-        width: 100%;
+        border-radius: 10px;
 
-        max-width: 100%;
-
-        overflow: hidden;
-
-        border-radius: 9px;
-    }
-
-    table {
-        width: 100%;
-
-        max-width: 100%;
-
-        table-layout: fixed;
+        overflow-x: auto;
     }
 
     th,
     td {
-        padding: 7px 5px;
+        padding: 10px 9px;
 
         font-size: 10px;
-
-        line-height: 1.35;
-
-        white-space: normal;
-
-        overflow-wrap: anywhere;
-
-        word-break: break-word;
-    }
-
-    th {
-        font-size: 10px;
-    }
-
-    td {
-        max-width: 0;
-
-        overflow: hidden;
-    }
-
-
-    /* BUTTON DALAM TABEL */
-
-    table button,
-    table .btn {
-        min-height: 28px;
-
-        padding: 4px 6px;
-
-        font-size: 9px;
-
-        white-space: normal;
-    }
-
-
-    /* INPUT DALAM TABEL */
-
-    table input,
-    table select {
-        width: 100%;
-
-        min-width: 0;
-
-        padding: 5px 4px;
-
-        font-size: 9px;
-    }
-
-
-    /* DETAIL PESANAN */
-
-    #tabelDetailPesanan {
-        width: 100%;
-
-        max-width: 100%;
-
-        table-layout: fixed;
-    }
-
-    #tabelDetailPesanan th,
-    #tabelDetailPesanan td {
-        padding: 6px 4px;
-
-        font-size: 9px;
-    }
-
-    #tabelDetailPesanan th:nth-child(1),
-    #tabelDetailPesanan td:nth-child(1) {
-        width: 32%;
-    }
-
-    #tabelDetailPesanan th:nth-child(2),
-    #tabelDetailPesanan td:nth-child(2) {
-        width: 18%;
-    }
-
-    #tabelDetailPesanan th:nth-child(3),
-    #tabelDetailPesanan td:nth-child(3) {
-        width: 12%;
-    }
-
-    #tabelDetailPesanan th:nth-child(4),
-    #tabelDetailPesanan td:nth-child(4) {
-        width: 22%;
-    }
-
-    #tabelDetailPesanan th:nth-child(5),
-    #tabelDetailPesanan td:nth-child(5) {
-        width: 16%;
-    }
-
-
-    /* BUTTON */
-
-    button,
-    .btn {
-        min-height: 36px;
-
-        padding: 8px 11px;
-
-        font-size: 11px;
-    }
-
-    .actions {
-        gap: 6px;
-    }
-
-
-    /* CARD */
-
-    .card {
-        padding: 18px;
-
-        border-radius: 13px;
-    }
-
-
-    /* STATS */
-
-    .stats {
-        grid-template-columns: 1fr;
-
-        gap: 12px;
-    }
-
-    .stat-card {
-        padding: 18px;
-    }
-
-
-    /* FOOTER */
-
-    footer {
-        margin-top: 38px;
-
-        padding: 25px 13px;
-
-        font-size: 11px;
-    }
-}
-
-
-/* =========================================================
-   HP KECIL
-   360px - 400px
-========================================================= */
-
-@media (max-width: 400px) {
-
-    .site-header {
-        padding-left: 3.5%;
-        padding-right: 3.5%;
-    }
-
-    .brand h1 {
-        font-size: 23px;
-    }
-
-    .brand span {
-        font-size: 9px;
-
-        letter-spacing: 1px;
-    }
-
-    .container {
-        width: 95%;
-        max-width: 95%;
-
-        margin: 22px auto;
-    }
-
-    section {
-        padding: 15px;
-
-        border-radius: 12px;
-    }
-
-    section::before {
-        left: 15px;
-        right: 15px;
-    }
-
-    h2 {
-        font-size: 20px;
-
-        margin-bottom: 17px;
-    }
-
-    h3 {
-        font-size: 17px;
-    }
-
-    label {
-        font-size: 11px;
-    }
-
-    input,
-    select,
-    textarea {
-        padding: 8px 9px;
-
-        font-size: 11px;
-    }
-
-
-    /* TABEL HP KECIL */
-
-    th,
-    td {
-        padding: 6px 4px;
-
-        font-size: 9px;
     }
 
     th {
         font-size: 9px;
+
+        letter-spacing: 0.4px;
     }
-
-    table button,
-    table .btn {
-        min-height: 26px;
-
-        padding: 3px 5px;
-
-        font-size: 8px;
-    }
-
-
-    /* DETAIL PESANAN */
-
-    #tabelDetailPesanan th,
-    #tabelDetailPesanan td {
-        padding: 5px 3px;
-
-        font-size: 8px;
-    }
-
-    #tabelDetailPesanan input,
-    #tabelDetailPesanan select {
-        padding: 4px 3px;
-
-        font-size: 8px;
-    }
-
-    #tabelDetailPesanan button,
-    #tabelDetailPesanan .btn {
-        min-height: 24px;
-
-        padding: 3px 4px;
-
-        font-size: 7px;
-    }
-
-
-    /* ACTION */
 
     .actions {
         gap: 5px;
     }
 
-    .actions button,
     .actions .btn {
-        min-height: 33px;
+        min-height: 29px;
 
-        padding: 7px 9px;
+        padding: 5px 8px;
 
-        font-size: 10px;
+        font-size: 9px;
     }
 
 
-    /* FOOTER */
+    .pagination-wrapper {
+        margin-top: 18px;
+    }
 
-    footer {
-        padding: 23px 10px;
+    .pagination {
+        gap: 4px;
+
+        padding: 5px;
+    }
+
+    .pagination a {
+        min-width: 31px;
+
+        height: 31px;
+
+        padding: 0 8px;
 
         font-size: 10px;
     }
 }
 
-/* =========================================================
-   JOBSHEET 9 - SEARCH & PAGINATION
-   ========================================================= */
-.search-form { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.search-form input { flex: 1; min-width: 220px; }
-.search-form .btn { flex-shrink: 0; }
-.pagination-wrapper { display: flex; justify-content: center; margin-top: 22px; }
-.pagination { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
-.pagination a { display: inline-flex; justify-content: center; align-items: center; min-width: 36px; min-height: 36px; padding: 0 11px; border: 1px solid rgba(185,151,99,.35); border-radius: 9px; background: #fffaf3; color: #641c2b; font-size: 12px; font-weight: 700; text-decoration: none; transition: .2s ease; }
-.pagination a:hover, .pagination a.active { border-color: #641c2b; background: #641c2b; color: #d7bd91; }
-.form-hapus { display: inline; margin: 0; }
-.form-hapus .btn-hapus { border: none; cursor: pointer; }
+
+@media (max-width: 400px) {
+
+    .search-form {
+        align-items: stretch;
+
+        flex-wrap: wrap;
+    }
+
+    .search-form input {
+        flex-basis: 100%;
+
+        min-width: 100%;
+    }
+
+    .search-form .btn {
+        flex: 1;
+    }
+
+
+    th,
+    td {
+        padding: 8px 6px;
+
+        font-size: 9px;
+    }
+
+    th {
+        font-size: 8px;
+    }
+
+    .actions .btn {
+        min-height: 27px;
+
+        padding: 4px 6px;
+
+        font-size: 8px;
+    }
+
+    .pagination a {
+        min-width: 29px;
+
+        height: 29px;
+
+        font-size: 9px;
+    }
+}
