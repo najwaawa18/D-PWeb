@@ -6,13 +6,6 @@ const categoryCards = document.querySelectorAll(".category-card");
 const panels = document.querySelectorAll(".portfolio-panel");
 const backButtons = document.querySelectorAll(".back-btn");
 
-
-// =====================================================
-// EXPLORE PORTFOLIO
-// HANYA SCROLL KE BAGIAN PORTFOLIO
-// LANDING TETAP ADA DI ATAS
-// =====================================================
-
 exploreBtn.addEventListener("click", () => {
 
     portfolio.scrollIntoView({
@@ -21,11 +14,6 @@ exploreBtn.addEventListener("click", () => {
     });
 
 });
-
-
-// =====================================================
-// BUKA KATEGORI
-// =====================================================
 
 categoryCards.forEach(card => {
 
@@ -36,18 +24,12 @@ categoryCards.forEach(card => {
 
         if (!targetPanel) return;
 
-
-        // Sembunyikan daftar kategori
         categories.classList.add("category-hidden");
 
-
-        // Tutup panel lain
         panels.forEach(panel => {
             panel.classList.remove("panel-active");
         });
 
-
-        // Buka panel yang dipilih
         setTimeout(() => {
 
             targetPanel.classList.add("panel-active");
@@ -63,11 +45,6 @@ categoryCards.forEach(card => {
 
 });
 
-
-// =====================================================
-// BACK TO CATEGORIES
-// =====================================================
-
 backButtons.forEach(button => {
 
     button.addEventListener("click", () => {
@@ -75,9 +52,7 @@ backButtons.forEach(button => {
         const currentPanel =
             button.closest(".portfolio-panel");
 
-
         currentPanel.classList.remove("panel-active");
-
 
         setTimeout(() => {
 

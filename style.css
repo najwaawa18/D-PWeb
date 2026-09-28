@@ -931,7 +931,7 @@ body {
 
 
 /* =====================================================
-   JOBSHEET 9 & 10
+   JOBSHEET 9 — 11
 ===================================================== */
 
 .updates-grid {
@@ -941,7 +941,7 @@ body {
     display: grid;
 
     grid-template-columns:
-        1fr 1fr;
+        repeat(2, 1fr);
 
     gap: 18px;
 }
