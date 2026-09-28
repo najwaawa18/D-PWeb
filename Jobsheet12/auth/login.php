@@ -12,6 +12,7 @@ if (isset($_SESSION['user_id'])) {
 $page_title = "Login";
 
 require __DIR__ . "/../config/database.php";
+require __DIR__ . "/../includes/csrf.php";
 require __DIR__ . "/../layout/header.php";
 
 $pesan = $_GET['pesan'] ?? '';
@@ -36,6 +37,8 @@ $pesan = $_GET['pesan'] ?? '';
     <?php endif; ?>
 
     <form action="process_login.php" method="POST">
+
+        <?= csrf_field() ?>
 
         <div>
             <label for="username">Username</label>
