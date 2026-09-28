@@ -33,7 +33,6 @@ body {
 
 .landing {
     min-height: 100vh;
-
     padding: 35px 6vw 28px;
 
     display: flex;
@@ -57,7 +56,6 @@ body {
 
 .landing-line {
     position: absolute;
-
     left: 0;
     top: 35px;
 
@@ -69,9 +67,7 @@ body {
 
 .landing-top,
 .landing-footer {
-
     display: flex;
-
     justify-content: space-between;
 
     color: var(--maroon);
@@ -89,25 +85,20 @@ body {
 
 .hero {
     width: min(1120px, 100%);
-
     margin: auto;
-
     padding: 80px 0;
 }
 
 .eyebrow {
-
     color: var(--gold);
 
     font-size: 10px;
-
     font-weight: 700;
 
     letter-spacing: 3px;
 }
 
 .hero h1 {
-
     margin-top: 18px;
 
     color: var(--maroon-dark);
@@ -124,9 +115,7 @@ body {
 }
 
 .hero h1 em {
-
     color: var(--maroon);
-
     font-weight: 400;
 }
 
@@ -136,26 +125,21 @@ body {
 ===================================================== */
 
 .hero-bottom {
-
     margin-top: 65px;
 
     display: flex;
-
     justify-content: space-between;
-
     align-items: end;
 
     gap: 50px;
 }
 
 .hero-bottom p {
-
     max-width: 390px;
 
     color: var(--muted);
 
     font-size: 13px;
-
     line-height: 1.9;
 }
 
@@ -165,11 +149,9 @@ body {
 ===================================================== */
 
 .explore-btn {
-
     border: 0;
 
     background: var(--maroon);
-
     color: white;
 
     padding: 16px 21px;
@@ -179,15 +161,12 @@ body {
     cursor: pointer;
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
     gap: 35px;
 
     font-size: 10px;
-
     font-weight: 700;
 
     letter-spacing: 1.5px;
@@ -196,14 +175,11 @@ body {
 }
 
 .explore-btn b {
-
     font-size: 18px;
-
     font-weight: 400;
 }
 
 .explore-btn:hover {
-
     background: var(--maroon-dark);
 
     transform: translateY(-4px);
@@ -219,7 +195,6 @@ body {
 ===================================================== */
 
 .reveal {
-
     opacity: 0;
 
     transform: translateY(22px);
@@ -241,11 +216,8 @@ body {
 }
 
 @keyframes reveal {
-
     to {
-
         opacity: 1;
-
         transform: translateY(0);
     }
 }
@@ -256,7 +228,6 @@ body {
 ===================================================== */
 
 .portfolio {
-
     width: min(1180px, 90%);
 
     margin: auto;
@@ -270,7 +241,6 @@ body {
 ===================================================== */
 
 .portfolio-header {
-
     display: grid;
 
     grid-template-columns:
@@ -285,18 +255,15 @@ body {
 }
 
 .section-label {
-
     color: var(--gold);
 
     font-size: 10px;
-
     font-weight: 700;
 
     letter-spacing: 3px;
 }
 
 .portfolio-header h2 {
-
     margin-top: 12px;
 
     color: var(--maroon-dark);
@@ -312,18 +279,15 @@ body {
 }
 
 .portfolio-header h2 em {
-
     color: var(--maroon);
 }
 
 .portfolio-header > p {
-
     align-self: end;
 
     color: var(--muted);
 
     font-size: 13px;
-
     line-height: 1.9;
 }
 
@@ -333,7 +297,6 @@ body {
 ===================================================== */
 
 .categories-section {
-
     padding-top: 80px;
 
     transition:
@@ -343,11 +306,9 @@ body {
 }
 
 .categories-intro {
-
     display: flex;
 
     justify-content: space-between;
-
     align-items: end;
 
     gap: 40px;
@@ -356,24 +317,20 @@ body {
 }
 
 .categories-intro > span {
-
     color: var(--gold);
 
     font-size: 9px;
-
     font-weight: 700;
 
     letter-spacing: 3px;
 }
 
 .categories-intro p {
-
     max-width: 330px;
 
     color: var(--muted);
 
     font-size: 12px;
-
     line-height: 1.8;
 }
 
@@ -383,12 +340,10 @@ body {
 ===================================================== */
 
 .category-list {
-
     border-top: 1px solid var(--line);
 }
 
 .category-card {
-
     width: 100%;
 
     min-height: 150px;
@@ -396,11 +351,9 @@ body {
     padding: 28px 25px;
 
     border: 0;
-
     border-bottom: 1px solid var(--line);
 
     background: transparent;
-
     color: var(--ink);
 
     display: grid;
@@ -421,18 +374,15 @@ body {
 }
 
 .category-card:hover {
-
     background: var(--maroon);
 
     color: white;
 
     padding-left: 38px;
-
     padding-right: 38px;
 }
 
 .category-number {
-
     color: var(--gold);
 
     font-family: Georgia, serif;
@@ -441,11 +391,9 @@ body {
 }
 
 .category-content small {
-
     color: var(--maroon);
 
     font-size: 9px;
-
     font-weight: 700;
 
     letter-spacing: 2.5px;
@@ -455,19 +403,18 @@ body {
 
 .category-card:hover
 .category-content small {
-
     color: var(--gold);
 }
 
 .category-content h3 {
-
     margin-top: 8px;
 
     color: var(--maroon-dark);
 
     font-family: Georgia, serif;
 
-    font-size: clamp(30px, 4vw, 48px);
+    font-size:
+        clamp(30px, 4vw, 48px);
 
     font-weight: 400;
 
@@ -478,12 +425,10 @@ body {
 
 .category-card:hover
 .category-content h3 {
-
     color: white;
 }
 
 .category-arrow {
-
     justify-self: end;
 
     color: var(--maroon);
@@ -497,7 +442,6 @@ body {
 
 .category-card:hover
 .category-arrow {
-
     color: var(--gold);
 
     transform: translateX(7px);
@@ -509,7 +453,6 @@ body {
 ===================================================== */
 
 .category-hidden {
-
     opacity: 0;
 
     transform: translateY(-30px);
@@ -529,7 +472,6 @@ body {
 ===================================================== */
 
 .portfolio-panel {
-
     display: none;
 
     padding-top: 70px;
@@ -540,7 +482,6 @@ body {
 }
 
 .portfolio-panel.panel-active {
-
     display: block;
 
     animation:
@@ -550,18 +491,13 @@ body {
 }
 
 @keyframes panelIn {
-
     from {
-
         opacity: 0;
-
         transform: translateY(35px);
     }
 
     to {
-
         opacity: 1;
-
         transform: translateY(0);
     }
 }
@@ -572,7 +508,6 @@ body {
 ===================================================== */
 
 .back-btn {
-
     border: 0;
 
     background: transparent;
@@ -584,7 +519,6 @@ body {
     cursor: pointer;
 
     font-size: 9px;
-
     font-weight: 700;
 
     letter-spacing: 2px;
@@ -595,7 +529,6 @@ body {
 }
 
 .back-btn:hover {
-
     color: var(--gold);
 
     transform: translateX(-5px);
@@ -607,7 +540,6 @@ body {
 ===================================================== */
 
 .panel-heading {
-
     margin-top: 50px;
 
     padding-bottom: 55px;
@@ -624,18 +556,15 @@ body {
 }
 
 .panel-heading > div > span {
-
     color: var(--gold);
 
     font-size: 9px;
-
     font-weight: 700;
 
     letter-spacing: 3px;
 }
 
 .panel-heading h2 {
-
     margin-top: 13px;
 
     color: var(--maroon-dark);
@@ -653,18 +582,15 @@ body {
 }
 
 .panel-heading h2 em {
-
     color: var(--maroon);
 }
 
 .panel-heading > p {
-
     align-self: end;
 
     color: var(--muted);
 
     font-size: 13px;
-
     line-height: 1.9;
 }
 
@@ -674,7 +600,6 @@ body {
 ===================================================== */
 
 .project-grid {
-
     margin-top: 55px;
 
     display: grid;
@@ -690,7 +615,6 @@ body {
 }
 
 .project-card {
-
     min-height: 190px;
 
     padding: 28px;
@@ -712,7 +636,6 @@ body {
 }
 
 .project-card:hover {
-
     background: var(--maroon);
 
     color: white;
@@ -728,7 +651,6 @@ body {
 }
 
 .project-card .number {
-
     color: var(--gold);
 
     font-family: Georgia, serif;
@@ -737,18 +659,15 @@ body {
 }
 
 .project-card small {
-
     color: var(--gold);
 
     font-size: 8px;
-
     font-weight: 700;
 
     letter-spacing: 2px;
 }
 
 .project-card h4 {
-
     margin: 10px 0;
 
     color: var(--maroon-dark);
@@ -761,16 +680,13 @@ body {
 }
 
 .project-card p {
-
     color: var(--muted);
 
     font-size: 12px;
-
     line-height: 1.7;
 }
 
 .project-card .arrow {
-
     color: var(--maroon);
 
     font-size: 21px;
@@ -779,7 +695,6 @@ body {
 .project-card:hover h4,
 .project-card:hover p,
 .project-card:hover .arrow {
-
     color: white;
 }
 
@@ -789,7 +704,6 @@ body {
 ===================================================== */
 
 .featured-card {
-
     margin-top: 55px;
 
     min-height: 390px;
@@ -819,7 +733,6 @@ body {
 }
 
 .featured-number {
-
     align-self: start;
 
     color: var(--gold);
@@ -830,18 +743,15 @@ body {
 }
 
 .featured-content > span {
-
     color: var(--gold);
 
     font-size: 9px;
-
     font-weight: 700;
 
     letter-spacing: 3px;
 }
 
 .featured-content h3 {
-
     margin: 15px 0 18px;
 
     font-family: Georgia, serif;
@@ -857,23 +767,19 @@ body {
 }
 
 .featured-content h3 em {
-
     color: #d8bd91;
 }
 
 .featured-content p {
-
     max-width: 590px;
 
     color: #eaded9;
 
     font-size: 13px;
-
     line-height: 1.9;
 }
 
 .main-button {
-
     display: inline-flex;
 
     align-items: center;
@@ -891,7 +797,6 @@ body {
     text-decoration: none;
 
     font-size: 9px;
-
     font-weight: 700;
 
     letter-spacing: 1.5px;
@@ -900,19 +805,16 @@ body {
 }
 
 .main-button span {
-
     font-size: 17px;
 }
 
 .main-button:hover {
-
     background: var(--gold);
 
     color: white;
 }
 
 .featured-mark {
-
     align-self: end;
 
     justify-self: end;
@@ -931,11 +833,10 @@ body {
 
 
 /* =====================================================
-   JOBSHEET 9 — 11
+   JOBSHEET 9 — 12
 ===================================================== */
 
 .updates-grid {
-
     margin-top: 55px;
 
     display: grid;
@@ -947,7 +848,6 @@ body {
 }
 
 .update-card {
-
     min-height: 300px;
 
     padding: 32px;
@@ -969,7 +869,6 @@ body {
 }
 
 .update-card:hover {
-
     transform:
         translateY(-8px);
 
@@ -982,14 +881,12 @@ body {
 }
 
 .update-card.dark {
-
     background: #332629;
 
     border-color: #332629;
 }
 
 .update-number {
-
     color: var(--gold);
 
     font-family: Georgia, serif;
@@ -998,23 +895,19 @@ body {
 }
 
 .update-card small {
-
     color: var(--maroon);
 
     font-size: 8px;
-
     font-weight: 700;
 
     letter-spacing: 2px;
 }
 
 .update-card.dark small {
-
     color: #d1b586;
 }
 
 .update-card h3 {
-
     margin: 18px 0;
 
     color: var(--maroon-dark);
@@ -1029,33 +922,27 @@ body {
 }
 
 .update-card.dark h3 {
-
     color: white;
 }
 
 .update-card p {
-
     color: var(--muted);
 
     font-size: 12px;
-
     line-height: 1.8;
 }
 
 .update-card.dark p {
-
     color: #c9bfc0;
 }
 
 .big-arrow {
-
     color: var(--maroon);
 
     font-size: 25px;
 }
 
 .dark .big-arrow {
-
     color: var(--gold);
 }
 
@@ -1065,7 +952,6 @@ body {
 ===================================================== */
 
 footer {
-
     margin-top: 110px;
 
     padding: 25px 0;
@@ -1092,40 +978,33 @@ footer {
 @media (max-width: 800px) {
 
     .landing {
-
         padding:
             28px 6%;
     }
 
     .hero h1 {
-
         font-size: 75px;
-
         letter-spacing: -4px;
     }
 
     .hero-bottom,
     .portfolio-header,
     .panel-heading {
-
         display: grid;
 
         grid-template-columns: 1fr;
     }
 
     .hero-bottom {
-
         gap: 30px;
     }
 
     .portfolio-header,
     .panel-heading {
-
         gap: 25px;
     }
 
     .category-card {
-
         grid-template-columns:
             65px 1fr 35px;
 
@@ -1133,18 +1012,15 @@ footer {
     }
 
     .category-content h3 {
-
         font-size: 32px;
     }
 
     .project-grid,
     .updates-grid {
-
         grid-template-columns: 1fr;
     }
 
     .featured-card {
-
         grid-template-columns:
             45px 1fr;
 
@@ -1152,7 +1028,6 @@ footer {
     }
 
     .featured-mark {
-
         display: none;
     }
 }
@@ -1162,57 +1037,46 @@ footer {
 
     .landing-top span:last-child,
     .landing-footer span:last-child {
-
         display: none;
     }
 
     .hero {
-
         padding: 55px 0;
     }
 
     .hero h1 {
-
         font-size: 58px;
     }
 
     .hero-bottom {
-
         margin-top: 45px;
     }
 
     .explore-btn {
-
         width: 100%;
     }
 
     .portfolio {
-
         padding-top: 70px;
     }
 
     .portfolio-header h2 {
-
         font-size: 55px;
     }
 
     .categories-section {
-
         padding-top: 60px;
     }
 
     .categories-intro {
-
         display: block;
     }
 
     .categories-intro p {
-
         margin-top: 15px;
     }
 
     .category-card {
-
         grid-template-columns:
             45px 1fr 25px;
 
@@ -1220,20 +1084,16 @@ footer {
     }
 
     .category-card:hover {
-
         padding-left: 18px;
         padding-right: 18px;
     }
 
     .category-content h3 {
-
         font-size: 25px;
-
         letter-spacing: -1px;
     }
 
     .project-card {
-
         min-height: 170px;
 
         padding: 22px;
@@ -1243,31 +1103,26 @@ footer {
     }
 
     .project-card h4 {
-
         font-size: 22px;
     }
 
     .featured-card {
-
         padding: 28px 22px;
 
         grid-template-columns: 1fr;
     }
 
     .featured-number {
-
         display: none;
     }
 
     .featured-content h3 {
-
         font-size: 48px;
 
         letter-spacing: -2px;
     }
 
     .update-card {
-
         min-height: 260px;
 
         grid-template-columns:
@@ -1277,19 +1132,16 @@ footer {
     }
 
     .update-card h3 {
-
         font-size: 28px;
     }
 
     footer {
-
         display: block;
 
         line-height: 1.8;
     }
 
     footer span {
-
         display: block;
     }
 }

@@ -174,35 +174,23 @@ if (str_starts_with($uri, '/Jobsheet10')) {
             pathinfo($file, PATHINFO_EXTENSION)
         );
 
-        /*
-         * PHP
-         */
         if ($extension === 'php') {
             require $file;
             exit;
         }
 
-        /*
-         * CSS
-         */
         if ($extension === 'css') {
             header('Content-Type: text/css');
             readfile($file);
             exit;
         }
 
-        /*
-         * JavaScript
-         */
         if ($extension === 'js') {
             header('Content-Type: application/javascript');
             readfile($file);
             exit;
         }
 
-        /*
-         * Images
-         */
         $mimeTypes = [
             'png'  => 'image/png',
             'jpg'  => 'image/jpeg',
@@ -237,6 +225,64 @@ if (str_starts_with($uri, '/Jobsheet11')) {
     }
 
     $file = $basePath . '/Jobsheet11' . $relativePath;
+
+    if (is_file($file)) {
+
+        $extension = strtolower(
+            pathinfo($file, PATHINFO_EXTENSION)
+        );
+
+        if ($extension === 'php') {
+            require $file;
+            exit;
+        }
+
+        if ($extension === 'css') {
+            header('Content-Type: text/css');
+            readfile($file);
+            exit;
+        }
+
+        if ($extension === 'js') {
+            header('Content-Type: application/javascript');
+            readfile($file);
+            exit;
+        }
+
+        $mimeTypes = [
+            'png'  => 'image/png',
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'gif'  => 'image/gif',
+            'svg'  => 'image/svg+xml',
+            'ico'  => 'image/x-icon',
+            'webp' => 'image/webp'
+        ];
+
+        if (isset($mimeTypes[$extension])) {
+            header('Content-Type: ' . $mimeTypes[$extension]);
+            readfile($file);
+            exit;
+        }
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| JOBSHEET 12
+|--------------------------------------------------------------------------
+*/
+
+if (str_starts_with($uri, '/Jobsheet12')) {
+
+    $relativePath = substr($uri, strlen('/Jobsheet12'));
+
+    if ($relativePath === '' || $relativePath === '/') {
+        $relativePath = '/index.php';
+    }
+
+    $file = $basePath . '/Jobsheet12' . $relativePath;
 
     if (is_file($file)) {
 

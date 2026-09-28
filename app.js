@@ -6,6 +6,11 @@ const categoryCards = document.querySelectorAll(".category-card");
 const panels = document.querySelectorAll(".portfolio-panel");
 const backButtons = document.querySelectorAll(".back-btn");
 
+
+/* =====================================================
+   EXPLORE PORTFOLIO
+===================================================== */
+
 exploreBtn.addEventListener("click", () => {
 
     portfolio.scrollIntoView({
@@ -15,20 +20,30 @@ exploreBtn.addEventListener("click", () => {
 
 });
 
+
+/* =====================================================
+   OPEN CATEGORY
+===================================================== */
+
 categoryCards.forEach(card => {
 
     card.addEventListener("click", () => {
 
         const targetId = card.dataset.target;
-        const targetPanel = document.getElementById(targetId);
+
+        const targetPanel =
+            document.getElementById(targetId);
 
         if (!targetPanel) return;
 
+
         categories.classList.add("category-hidden");
+
 
         panels.forEach(panel => {
             panel.classList.remove("panel-active");
         });
+
 
         setTimeout(() => {
 
@@ -45,6 +60,11 @@ categoryCards.forEach(card => {
 
 });
 
+
+/* =====================================================
+   BACK TO CATEGORIES
+===================================================== */
+
 backButtons.forEach(button => {
 
     button.addEventListener("click", () => {
@@ -53,6 +73,7 @@ backButtons.forEach(button => {
             button.closest(".portfolio-panel");
 
         currentPanel.classList.remove("panel-active");
+
 
         setTimeout(() => {
 
