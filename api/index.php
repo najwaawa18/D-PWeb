@@ -18,13 +18,21 @@ $basePath = dirname(__DIR__);
 
 if (str_starts_with($uri, '/Jobsheet7')) {
 
-    $relativePath = substr($uri, strlen('/Jobsheet7'));
+    $relativePath = substr(
+        $uri,
+        strlen('/Jobsheet7')
+    );
 
-    if ($relativePath === '' || $relativePath === '/') {
+    if (
+        $relativePath === '' ||
+        $relativePath === '/'
+    ) {
         $relativePath = '/index.php';
     }
 
-    $file = $basePath . '/Jobsheet7' . $relativePath;
+    $file = $basePath .
+        '/Jobsheet7' .
+        $relativePath;
 
     if (
         is_file($file) &&
@@ -44,13 +52,21 @@ if (str_starts_with($uri, '/Jobsheet7')) {
 
 if (str_starts_with($uri, '/Jobsheet8')) {
 
-    $relativePath = substr($uri, strlen('/Jobsheet8'));
+    $relativePath = substr(
+        $uri,
+        strlen('/Jobsheet8')
+    );
 
-    if ($relativePath === '' || $relativePath === '/') {
+    if (
+        $relativePath === '' ||
+        $relativePath === '/'
+    ) {
         $relativePath = '/index.php';
     }
 
-    $file = $basePath . '/Jobsheet8' . $relativePath;
+    $file = $basePath .
+        '/Jobsheet8' .
+        $relativePath;
 
     if (is_file($file)) {
 
@@ -102,13 +118,21 @@ if (str_starts_with($uri, '/Jobsheet8')) {
 
 if (str_starts_with($uri, '/Jobsheet9')) {
 
-    $relativePath = substr($uri, strlen('/Jobsheet9'));
+    $relativePath = substr(
+        $uri,
+        strlen('/Jobsheet9')
+    );
 
-    if ($relativePath === '' || $relativePath === '/') {
+    if (
+        $relativePath === '' ||
+        $relativePath === '/'
+    ) {
         $relativePath = '/index.php';
     }
 
-    $file = $basePath . '/Jobsheet9' . $relativePath;
+    $file = $basePath .
+        '/Jobsheet9' .
+        $relativePath;
 
     if (is_file($file)) {
 
@@ -160,13 +184,21 @@ if (str_starts_with($uri, '/Jobsheet9')) {
 
 if (str_starts_with($uri, '/Jobsheet10')) {
 
-    $relativePath = substr($uri, strlen('/Jobsheet10'));
+    $relativePath = substr(
+        $uri,
+        strlen('/Jobsheet10')
+    );
 
-    if ($relativePath === '' || $relativePath === '/') {
+    if (
+        $relativePath === '' ||
+        $relativePath === '/'
+    ) {
         $relativePath = '/index.php';
     }
 
-    $file = $basePath . '/Jobsheet10' . $relativePath;
+    $file = $basePath .
+        '/Jobsheet10' .
+        $relativePath;
 
     if (is_file($file)) {
 
@@ -218,13 +250,21 @@ if (str_starts_with($uri, '/Jobsheet10')) {
 
 if (str_starts_with($uri, '/Jobsheet11')) {
 
-    $relativePath = substr($uri, strlen('/Jobsheet11'));
+    $relativePath = substr(
+        $uri,
+        strlen('/Jobsheet11')
+    );
 
-    if ($relativePath === '' || $relativePath === '/') {
+    if (
+        $relativePath === '' ||
+        $relativePath === '/'
+    ) {
         $relativePath = '/index.php';
     }
 
-    $file = $basePath . '/Jobsheet11' . $relativePath;
+    $file = $basePath .
+        '/Jobsheet11' .
+        $relativePath;
 
     if (is_file($file)) {
 
@@ -276,13 +316,21 @@ if (str_starts_with($uri, '/Jobsheet11')) {
 
 if (str_starts_with($uri, '/Jobsheet12')) {
 
-    $relativePath = substr($uri, strlen('/Jobsheet12'));
+    $relativePath = substr(
+        $uri,
+        strlen('/Jobsheet12')
+    );
 
-    if ($relativePath === '' || $relativePath === '/') {
+    if (
+        $relativePath === '' ||
+        $relativePath === '/'
+    ) {
         $relativePath = '/index.php';
     }
 
-    $file = $basePath . '/Jobsheet12' . $relativePath;
+    $file = $basePath .
+        '/Jobsheet12' .
+        $relativePath;
 
     if (is_file($file)) {
 
@@ -340,6 +388,117 @@ if (str_starts_with($uri, '/Jobsheet12')) {
 
 /*
 |--------------------------------------------------------------------------
+| JOBSHEET 13
+|--------------------------------------------------------------------------
+| Deployment & Dokumentasi Cafe_Najwa
+|--------------------------------------------------------------------------
+*/
+
+if (str_starts_with($uri, '/Jobsheet13')) {
+
+    $relativePath = substr(
+        $uri,
+        strlen('/Jobsheet13')
+    );
+
+    if (
+        $relativePath === '' ||
+        $relativePath === '/'
+    ) {
+        $relativePath = '/index.html';
+    }
+
+    $file = $basePath .
+        '/Jobsheet13' .
+        $relativePath;
+
+    if (is_file($file)) {
+
+        $extension = strtolower(
+            pathinfo($file, PATHINFO_EXTENSION)
+        );
+
+        /*
+         * HTML
+         */
+        if ($extension === 'html') {
+
+            header(
+                'Content-Type: text/html; charset=UTF-8'
+            );
+
+            readfile($file);
+            exit;
+        }
+
+        /*
+         * CSS
+         */
+        if ($extension === 'css') {
+
+            header(
+                'Content-Type: text/css; charset=UTF-8'
+            );
+
+            readfile($file);
+            exit;
+        }
+
+        /*
+         * JavaScript
+         */
+        if ($extension === 'js') {
+
+            header(
+                'Content-Type: application/javascript'
+            );
+
+            readfile($file);
+            exit;
+        }
+
+        /*
+         * Markdown
+         */
+        if ($extension === 'md') {
+
+            header(
+                'Content-Type: text/plain; charset=UTF-8'
+            );
+
+            readfile($file);
+            exit;
+        }
+
+        /*
+         * Images
+         */
+        $mimeTypes = [
+            'png'  => 'image/png',
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'gif'  => 'image/gif',
+            'svg'  => 'image/svg+xml',
+            'ico'  => 'image/x-icon',
+            'webp' => 'image/webp'
+        ];
+
+        if (isset($mimeTypes[$extension])) {
+
+            header(
+                'Content-Type: ' .
+                $mimeTypes[$extension]
+            );
+
+            readfile($file);
+            exit;
+        }
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
 | JOBSHEET NEW
 |--------------------------------------------------------------------------
 | Mencakup:
@@ -352,13 +511,21 @@ if (str_starts_with($uri, '/Jobsheet12')) {
 
 if (str_starts_with($uri, '/Jobsheet New')) {
 
-    $relativePath = substr($uri, strlen('/Jobsheet New'));
+    $relativePath = substr(
+        $uri,
+        strlen('/Jobsheet New')
+    );
 
-    if ($relativePath === '' || $relativePath === '/') {
+    if (
+        $relativePath === '' ||
+        $relativePath === '/'
+    ) {
         $relativePath = '/index.php';
     }
 
-    $file = $basePath . '/Jobsheet New' . $relativePath;
+    $file = $basePath .
+        '/Jobsheet New' .
+        $relativePath;
 
     if (is_file($file)) {
 

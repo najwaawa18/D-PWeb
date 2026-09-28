@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobsheet 13 — Cafe_Najwa</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <header class="hero">
+        <nav class="navbar">
+            <a class="brand" href="./">Cafe_<span>Najwa</span></a>
+            <a class="nav-link" href="../Jobsheet12/">Buka Aplikasi ↗</a>
+        </nav>
+        <div class="hero-content">
+            <p class="eyebrow">JOBSHEET 13 · DEPLOYMENT & DOKUMENTASI</p>
+            <h1>Finalisasi<br><em>Cafe_Najwa</em></h1>
+            <p class="lead">Dokumentasi tahap akhir dari aplikasi Sistem Informasi Manajemen Cafe yang dikembangkan secara bertahap mulai dari Jobsheet 8 sampai Jobsheet 12.</p>
+            <div class="hero-actions">
+                <a class="btn primary" href="../Jobsheet12/">Buka Cafe_Najwa</a>
+                <a class="btn secondary" href="#dokumentasi">Lihat Dokumentasi</a>
+            </div>
+        </div>
+        <div class="coffee-mark">☕</div>
+    </header>
+
+    <main>
+        <section class="section intro" id="dokumentasi">
+            <div class="section-label">01 · OVERVIEW</div>
+            <div class="intro-grid">
+                <div>
+                    <h2>Dari pengembangan<br>menuju deployment.</h2>
+                </div>
+                <div>
+                    <p>Cafe_Najwa adalah aplikasi web untuk membantu pengelolaan data dan transaksi cafe. Pengembangan dilakukan bertahap, kemudian disempurnakan dengan keamanan, integrasi transaksi, stok, pembayaran, dan pengelolaan meja.</p>
+                    <p class="muted">Jobsheet 13 berfokus pada deployment dan dokumentasi hasil akhir, bukan menambahkan fitur baru.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section timeline">
+            <div class="section-label">02 · DEVELOPMENT JOURNEY</div>
+            <div class="timeline-list">
+                <article><span>08</span><div><small>JOBSHEET 08</small><h3>Implementasi awal Cafe_Najwa</h3><p>Struktur aplikasi, database, dan modul pengelolaan sistem mulai diterapkan.</p></div></article>
+                <article><span>09</span><div><small>JOBSHEET 09</small><h3>CRUD, Search & Pagination</h3><p>Pengelolaan data dilengkapi operasi CRUD, pencarian, dan pagination.</p></div></article>
+                <article><span>10</span><div><small>JOBSHEET 10</small><h3>Integrasi Database & Transaksi</h3><p>Modul transaksi dan hubungan antar data dikembangkan menjadi lebih terintegrasi.</p></div></article>
+                <article><span>11</span><div><small>JOBSHEET 11</small><h3>Security</h3><p>CSRF, XSS, SQL Injection, password hashing, dan session fixation ditangani.</p></div></article>
+                <article><span>12</span><div><small>JOBSHEET 12</small><h3>Transaction & Integration</h3><p>Pesanan, detail pesanan, stok, pembayaran, status pesanan, dan meja diintegrasikan.</p></div></article>
+                <article class="current"><span>13</span><div><small>JOBSHEET 13 · CURRENT</small><h3>Deployment & Documentation</h3><p>Project final didokumentasikan dan disiapkan untuk deployment.</p></div></article>
+            </div>
+        </section>
+
+        <section class="section features">
+            <div class="section-label">03 · FINAL SYSTEM</div>
+            <div class="feature-grid">
+                <article class="feature-card"><span>MASTER</span><h3>Data Management</h3><p>Kategori, menu, pelanggan, dan meja.</p></article>
+                <article class="feature-card"><span>TRANSACTION</span><h3>Order & Payment</h3><p>Pesanan, detail pesanan, pembayaran, dan stok menu.</p></article>
+                <article class="feature-card"><span>TABLE</span><h3>Table Status</h3><p>Meja tetap terisi sampai pelanggan selesai makan dan meja dikosongkan.</p></article>
+                <article class="feature-card"><span>SECURITY</span><h3>Application Security</h3><p>CSRF, XSS, SQL Injection, password hashing, dan session fixation.</p></article>
+                <article class="feature-card"><span>REPORT</span><h3>Reports</h3><p>Penjualan, pelanggan, dan menu terlaris.</p></article>
+                <article class="feature-card"><span>STACK</span><h3>Web Technology</h3><p>PHP Native, PostgreSQL, JavaScript, Supabase, dan Vercel.</p></article>
+            </div>
+        </section>
+
+        <section class="section flow">
+            <div class="section-label">04 · TRANSACTION FLOW</div>
+            <h2>Alur transaksi Cafe_Najwa</h2>
+            <div class="flow-box">
+                <div>Pilih Meja</div><b>→</b><div>Buat Pesanan</div><b>→</b><div>Meja Terisi</div><b>→</b><div>Proses</div><b>→</b><div>Bayar</div><b>→</b><div>Lunas</div><b>→</b><div>Selesai</div><b>→</b><div>Kosongkan Meja</div>
+            </div>
+            <p class="note">Pembayaran Lunas tidak otomatis mengubah pesanan menjadi Selesai. Meja tetap Terisi sampai pelanggan selesai makan.</p>
+        </section>
+
+        <section class="section deployment">
+            <div class="section-label">05 · DEPLOYMENT</div>
+            <div class="deployment-card">
+                <div><span class="status-dot"></span><span>FINAL PROJECT</span><h2>Ready for Deployment</h2><p>Frontend dan aplikasi dideploy melalui Vercel, sedangkan database menggunakan PostgreSQL pada Supabase.</p></div>
+                <a class="btn primary" href="../Jobsheet12/">Open App ↗</a>
+            </div>
+        </section>
+
+        <section class="section docs">
+            <div class="section-label">06 · DOCUMENTATION</div>
+            <div class="doc-grid">
+                <a href="./docs/deployment.md" class="doc-card"><span>01</span><div><small>DEPLOYMENT</small><h3>Deployment Guide</h3><p>Konfigurasi dan checklist deployment.</p></div><b>↗</b></a>
+                <a href="./docs/manual-pengguna.md" class="doc-card"><span>02</span><div><small>USER GUIDE</small><h3>Manual Pengguna</h3><p>Panduan penggunaan fitur Cafe_Najwa.</p></div><b>↗</b></a>
+                <a href="./docs/testing.md" class="doc-card"><span>03</span><div><small>TESTING</small><h3>Testing</h3><p>Daftar pengujian final aplikasi.</p></div><b>↗</b></a>
+                <a href="./README.md" class="doc-card"><span>04</span><div><small>README</small><h3>README Project</h3><p>Dokumentasi lengkap Jobsheet 13.</p></div><b>↗</b></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div><strong>Cafe_Najwa</strong><span>Jobsheet 13 · Deployment & Dokumentasi</span></div>
+        <a href="../">← Portfolio</a>
+    </footer>
+</body>
+</html>

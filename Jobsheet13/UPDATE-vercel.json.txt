@@ -1,0 +1,33 @@
+Tambahkan object route berikut ke array "routes" pada vercel.json,
+setelah route Jobsheet12 dan sebelum route Jobsheet%20New.
+
+{
+  "src": "/Jobsheet13/?$",
+  "dest": "/api/index.php"
+},
+{
+  "src": "/Jobsheet13/(.*)",
+  "dest": "/api/index.php"
+}
+
+Contoh posisi akhirnya:
+
+{
+  "src": "/Jobsheet12/?$",
+  "dest": "/api/index.php"
+},
+{
+  "src": "/Jobsheet13/?$",
+  "dest": "/api/index.php"
+},
+{
+  "src": "/Jobsheet13/(.*)",
+  "dest": "/api/index.php"
+},
+{
+  "src": "/Jobsheet%20New/?$",
+  "dest": "/api/index.php"
+}
+
+JANGAN mengganti seluruh vercel.json dengan potongan ini. Pertahankan
+route Jobsheet7–Jobsheet12, Jobsheet New, dan route PHP yang sudah ada.
