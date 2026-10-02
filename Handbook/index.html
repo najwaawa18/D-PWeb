@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handbook UTS — Cafe_Najwa</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">CAFE_<span>NAJWA</span></div>
+  <div class="meta">HANDBOOK UTS / D&P WEB / TI-2D</div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="search">
+    <input id="searchInput" type="search" placeholder="Cari: PDO, CSRF, pagination...">
+  </div>
+  <nav id="toc">
+    <a href="#start">00 · Cara Pakai</a>
+    <a href="#architecture">01 · Arsitektur</a>
+    <a href="#php">02 · PHP Fundamental</a>
+    <a href="#database">03 · Database & SQL</a>
+    <a href="#crud">04 · CRUD</a>
+    <a href="#search">05 · Search & Pagination</a>
+    <a href="#auth">06 · Authentication & Session</a>
+    <a href="#security">07 · Security</a>
+    <a href="#transaction">08 · Transaction JS12</a>
+    <a href="#frontend">09 · HTML/CSS/JS</a>
+    <a href="#deployment">10 · Deployment</a>
+    <a href="#filemap">11 · Peta File</a>
+    <a href="#troubleshoot">12 · Troubleshooting</a>
+    <a href="#questions">13 · Bank Pertanyaan UTS</a>
+    <a href="#simulation">14 · Simulasi Tanya Jawab</a>
+    <a href="#cheatsheet">15 · Cheat Sheet</a><a href="#deepdive">16 · Code-by-Code</a>
+  </nav>
+</aside>
+
+<main class="content">
+
+<section id="start" class="hero section">
+  <div class="eyebrow">HANDBOOK BELAJAR + DOKUMENTASI KODE</div>
+  <h1>Kalau bapak menunjuk kode,<br><em>kamu tahu kenapa.</em></h1>
+  <p>
+    Handbook ini disusun dari source code project yang diberikan, bukan dari contoh
+    textbook generik. Fokusnya adalah memahami <strong>apa yang dilakukan kode,
+    mengapa ditulis seperti itu, hubungan antar-file, dan apa yang terjadi jika
+    bagian tersebut diubah atau dihapus.</strong>
+  </p>
+  <div class="notice">
+    <strong>Target UTS:</strong> jangan menghafal baris kode. Pahami pola:
+    <b>input → validasi → query → database → hasil → redirect/output</b>.
+  </div>
+  <div class="grid cards">
+    <article><b>JS09</b><h3>CRUD + Search + Pagination</h3><p>Data master, prepared statement, ILIKE, LIMIT/OFFSET.</p></article>
+    <article><b>JS10</b><h3>Authentication + Session</h3><p>Register, login, logout, password hashing, proteksi halaman.</p></article>
+    <article><b>JS11</b><h3>Security</h3><p>CSRF, XSS, SQL Injection, session fixation, output escaping.</p></article>
+    <article><b>JS12</b><h3>Transaction Integration</h3><p>Stok, meja, pembayaran, rollback, row locking, alur pesanan.</p></article>
+  </div>
+</section>
+
+<section id="architecture" class="section">
+<h2>01 · Arsitektur Aplikasi</h2>
+<p>Secara sederhana, aplikasi Cafe_Najwa berjalan seperti ini:</p>
+<div class="flow"><span>Browser</span><i>→</i><span>PHP page</span><i>→</i><span>config/database.php</span><i>→</i><span>PDO</span><i>→</i><span>PostgreSQL</span><i>→</i><span>HTML response</span></div>
+<h3>Kenapa struktur dipisah?</h3>
+<ul>
+<li><b>config/</b> menangani koneksi database.</li>
+<li><b>layout/</b> menyimpan komponen tampilan bersama seperti header, navbar, footer.</li>
+<li><b>master/</b> menangani data kategori, menu, pelanggan, meja.</li>
+<li><b>transaksi/</b> menangani pesanan dan pembayaran.</li>
+<li><b>laporan/</b> mengambil data untuk laporan.</li>
+<li><b>auth/</b> menangani login, register, logout.</li>
+<li><b>includes/</b> berisi middleware/helper seperti auth dan CSRF.</li>
+</ul>
+<div class="qa">
+<strong>Kalau ditanya: “Kenapa tidak semua kode ditaruh di index.php?”</strong>
+<p>Karena pemisahan file membuat tanggung jawab kode lebih jelas, mengurangi duplikasi,
+dan memudahkan pemeliharaan. Header, footer, koneksi database, autentikasi, dan fitur
+transaksi dapat dipakai kembali dari banyak halaman.</p>
+</div>
+</section>
+
+<section id="php" class="section">
+<h2>02 · PHP Fundamental yang Wajib Bisa Dijelaskan</h2>
+
+<h3>Request method</h3>
+<pre><code>if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: index.php");
+    exit;
+}</code></pre>
+<p><b>Artinya:</b> proses hanya menerima request POST. Jika URL dipanggil dengan GET,
+pengguna diarahkan kembali.</p>
+
+<h3>GET vs POST</h3>
+<ul>
+<li><b>GET</b> dipakai pada source untuk search/pagination karena parameter berada di URL,
+contoh <code>?keyword=kopi&amp;page=2</code>.</li>
+<li><b>POST</b> dipakai untuk perubahan data seperti tambah, edit, hapus, pembayaran.
+Ini juga memungkinkan pemeriksaan CSRF pada form perubahan data.</li>
+</ul>
+
+<h3>trim(), isset(), ??</h3>
+<pre><code>$keyword = trim($_GET['keyword'] ?? '');
+$id = !empty($_POST['id']) ? (int) $_POST['id'] : 0;</code></pre>
+<ul>
+<li><code>??</code> memberi nilai default jika key tidak ada.</li>
+<li><code>trim()</code> menghapus spasi di awal/akhir input.</li>
+<li><code>empty()</code> memeriksa apakah nilai kosong.</li>
+<li><code>(int)</code> mengubah input menjadi integer sebelum digunakan sebagai ID.</li>
+</ul>
+
+<h3>require / require_once</h3>
+<pre><code>require __DIR__ . "/../../config/database.php";
+require_once __DIR__ . "/../../includes/auth.php";</code></pre>
+<p><code>require</code> memasukkan file lain ke file yang sedang berjalan.
+<code>require_once</code> memastikan file tidak dimuat berulang kali.</p>
+
+<h3>Redirect + exit</h3>
+<pre><code>header("Location: index.php?pesan=gagal");
+exit;</code></pre>
+<p><code>header()</code> mengirim response redirect. <code>exit</code> menghentikan script
+agar kode setelah redirect tidak ikut berjalan.</p>
+
+<h3>PDO</h3>
+<pre><code>$pdo = new PDO(
+    "pgsql:host={$host};port={$port};dbname={$dbname};sslmode=require",
+    $username,
+    $password
+);</code></pre>
+<p>PDO adalah interface PHP untuk bekerja dengan database. Pada project ini drivernya
+adalah PostgreSQL. Setelah koneksi dibuat, query dijalankan melalui <code>$pdo</code>.</p>
+
+<h3>Prepared statement</h3>
+<pre><code>$stmt = $pdo->prepare("
+    SELECT id, nama, username, password, role
+    FROM users
+    WHERE username = :username
+    LIMIT 1
+");
+
+$stmt->execute([
+    ':username' => $username
+]);</code></pre>
+<p>Query dipisahkan dari data input. Ini penting untuk keamanan dan juga membuat query
+lebih terstruktur.</p>
+
+<h3>fetch(), fetchAll(), fetchColumn()</h3>
+<ul>
+<li><code>fetch()</code> mengambil satu baris hasil.</li>
+<li><code>fetchAll()</code> mengambil banyak baris.</li>
+<li><code>fetchColumn()</code> mengambil satu nilai/kolom dari hasil, digunakan pada COUNT.</li>
+</ul>
+
+<div class="qa"><strong>Pertanyaan jebakan:</strong> “Kenapa input ID masih di-cast ke int kalau query sudah prepared statement?”<p>
+Prepared statement melindungi struktur SQL dari injeksi, sedangkan casting ke integer
+membuat tipe data yang diharapkan jelas dan membantu validasi input. Keduanya memiliki
+fungsi berbeda.</p></div>
+</section>
+
+<section id="database" class="section">
+<h2>03 · Database & SQL</h2>
+<h3>Entitas utama</h3>
+<table>
+<tr><th>Tabel</th><th>Peran</th><th>Relasi penting</th></tr>
+<tr><td>kategori</td><td>Kategori menu</td><td>1 kategori → banyak menu</td></tr>
+<tr><td>menu</td><td>Daftar menu + harga + stok</td><td>kategori_id → kategori</td></tr>
+<tr><td>pelanggan</td><td>Data pelanggan</td><td>dipakai pesanan</td></tr>
+<tr><td>meja</td><td>Nomor, kapasitas, status</td><td>dipakai pesanan</td></tr>
+<tr><td>pesanan</td><td>Header transaksi</td><td>pelanggan + meja</td></tr>
+<tr><td>detail_pesanan</td><td>Item dalam pesanan</td><td>pesanan + menu</td></tr>
+<tr><td>pembayaran</td><td>Catatan pembayaran</td><td>1 pembayaran per pesanan</td></tr>
+<tr><td>users</td><td>Akun login</td><td>role admin/petugas</td></tr>
+</table>
+
+<h3>Primary key</h3>
+<pre><code>id SERIAL PRIMARY KEY</code></pre>
+<p>Primary key mengidentifikasi satu baris secara unik.</p>
+
+<h3>Foreign key</h3>
+<pre><code>FOREIGN KEY (kategori_id)
+REFERENCES kategori(id)
+ON UPDATE CASCADE
+ON DELETE RESTRICT</code></pre>
+<p><b>CASCADE</b> pada update meneruskan perubahan key yang direferensikan.
+<b>RESTRICT</b> mencegah kategori dihapus jika masih direferensikan oleh menu.</p>
+
+<h3>Constraint</h3>
+<pre><code>CHECK (harga &gt;= 0)
+CHECK (stok &gt;= 0)
+CHECK (status IN ('Tersedia', 'Tidak Tersedia'))</code></pre>
+<p>Constraint adalah validasi di level database. Jadi aturan penting tidak hanya
+bergantung pada form PHP.</p>
+
+<h3>Relasi pesanan</h3>
+<p><code>pesanan</code> adalah header, sedangkan <code>detail_pesanan</code> menyimpan
+baris item. Satu pesanan dapat memiliki banyak detail.</p>
+
+<h3>Kenapa pembayaran punya UNIQUE?</h3>
+<pre><code>pesanan_id INTEGER NOT NULL UNIQUE</code></pre>
+<p>Karena desain project menetapkan satu pesanan memiliki maksimal satu record pembayaran.</p>
+
+<h3>Index JS12</h3>
+<pre><code>CREATE INDEX IF NOT EXISTS idx_pesanan_pelanggan
+ON pesanan (pelanggan_id);</code></pre>
+<p>Index membantu pencarian/join berdasarkan kolom tersebut agar database tidak selalu
+harus memeriksa seluruh tabel.</p>
+
+<div class="qa"><strong>Q: Apa beda primary key dan foreign key?</strong>
+<p>Primary key mengidentifikasi record di tabelnya sendiri. Foreign key menyimpan
+referensi ke primary key tabel lain untuk membentuk hubungan antar tabel.</p></div>
+</section>
+
+<section id="crud" class="section">
+<h2>04 · CRUD</h2>
+<p>CRUD = Create, Read, Update, Delete.</p>
+<div class="grid cards">
+<article><b>C</b><h3>Create</h3><p>Form mengirim POST → proses.php → INSERT.</p></article>
+<article><b>R</b><h3>Read</h3><p>index.php menjalankan SELECT → fetch/fetchAll → HTML.</p></article>
+<article><b>U</b><h3>Update</h3><p>Form menerima ID → proses.php → UPDATE.</p></article>
+<article><b>D</b><h3>Delete</h3><p>POST → hapus.php → DELETE, dengan validasi/CSRF pada JS11+.</p></article>
+</div>
+
+<h3>Pola Create</h3>
+<pre><code>$stmt = $pdo-&gt;prepare("
+    INSERT INTO users (nama, username, password, role)
+    VALUES (:nama, :username, :password, 'petugas')
+");
+
+$stmt-&gt;execute([
+    ':nama' =&gt; $nama,
+    ':username' =&gt; $username,
+    ':password' =&gt; password_hash($password, PASSWORD_DEFAULT)
+]);</code></pre>
+
+<h3>Pola Read</h3>
+<pre><code>$stmt = $pdo-&gt;prepare("SELECT ... FROM menu ...");
+$stmt-&gt;execute($params);
+$menu = $stmt-&gt;fetchAll(PDO::FETCH_ASSOC);</code></pre>
+
+<h3>Pola Update</h3>
+<p>Data lama dicari berdasarkan ID, form diisi, lalu proses mengirim UPDATE berdasarkan
+ID tersebut.</p>
+
+<h3>Pola Delete</h3>
+<p>Project JS9 memakai POST untuk delete. Pada JS11/12 delete juga diverifikasi dengan
+CSRF dan menggunakan prepared statement.</p>
+
+<div class="qa"><strong>Q: Mengapa delete tidak menggunakan GET?</strong>
+<p>Karena delete mengubah data dan bersifat destruktif. POST lebih sesuai untuk operasi
+perubahan dan dapat dipasangkan dengan token CSRF.</p></div>
+</section>
+
+<section id="search" class="section">
+<h2>05 · Search & Pagination</h2>
+<h3>Search server-side</h3>
+<pre><code>$keyword = trim($_GET['keyword'] ?? '');
+
+if ($keyword !== '') {
+    $whereSql = "WHERE (
+        menu.kode_menu ILIKE :keyword
+        OR menu.nama_menu ILIKE :keyword
+        OR kategori.nama_kategori ILIKE :keyword
+        OR menu.status ILIKE :keyword
+    )";
+
+    $params[':keyword'] = '%' . $keyword . '%';
+}</code></pre>
+<p>Pencarian dilakukan di database, bukan mengambil semua data lalu memfilter dengan JavaScript.</p>
+
+<h3>Kenapa ILIKE?</h3>
+<p>PostgreSQL menyediakan <code>ILIKE</code> untuk pencarian pattern yang tidak membedakan
+huruf besar-kecil. Tanda <code>%</code> berarti karakter apa pun boleh berada sebelum atau
+sesudah keyword.</p>
+
+<h3>Pagination</h3>
+<pre><code>$page = max(1, (int) ($_GET['page'] ?? 1));
+$perPage = 5;
+$offset = ($page - 1) * $perPage;</code></pre>
+<p>Jika page 1 → offset 0. Page 2 → offset 5. Page 3 → offset 10.</p>
+
+<pre><code>$totalData = (int) $countStmt-&gt;fetchColumn();
+$totalPages = max(1, (int) ceil($totalData / $perPage));
+
+$query-&gt;bindValue(':limit', $perPage, PDO::PARAM_INT);
+$query-&gt;bindValue(':offset', $offset, PDO::PARAM_INT);</code></pre>
+
+<h3>Kenapa COUNT dilakukan terpisah?</h3>
+<p>Karena aplikasi perlu mengetahui jumlah total record untuk menghitung jumlah halaman,
+sementara query utama hanya mengambil record untuk halaman aktif.</p>
+
+<div class="qa"><strong>Q: Apa risiko kalau LIMIT/OFFSET tidak dibind sebagai integer?</strong>
+<p>Parameter pagination adalah bagian dari kontrol query. Di source, keduanya di-bind
+dengan <code>PDO::PARAM_INT</code> agar tipe yang dikirim jelas.</p></div>
+</section>
+
+<section id="auth" class="section">
+<h2>06 · Authentication & Session</h2>
+<h3>Register</h3>
+<ol>
+<li>Ambil nama, username, password, konfirmasi.</li>
+<li>Validasi field kosong.</li>
+<li>Password minimal 6 karakter.</li>
+<li>Konfirmasi harus sama.</li>
+<li>Cek username sudah digunakan atau belum.</li>
+<li>Password di-hash dengan <code>password_hash()</code>.</li>
+<li>Insert user dengan role default <code>petugas</code>.</li>
+</ol>
+
+<pre><code>$stmt-&gt;execute([
+    ':nama' =&gt; $nama,
+    ':username' =&gt; $username,
+    ':password' =&gt; password_hash($password, PASSWORD_DEFAULT)
+]);</code></pre>
+
+<h3>Login</h3>
+<pre><code>$stmt = $pdo-&gt;prepare("
+    SELECT id, nama, username, password, role
+    FROM users
+    WHERE username = :username
+    LIMIT 1
+");
+
+$stmt-&gt;execute([':username' =&gt; $username]);
+$user = $stmt-&gt;fetch();
+
+if (!$user || !password_verify($password, $user['password'])) {
+    header("Location: login.php?pesan=gagal");
+    exit;
+}</code></pre>
+
+<h3>Session fixation protection</h3>
+<pre><code>session_regenerate_id(true);</code></pre>
+<p>Dipanggil setelah kredensial berhasil diverifikasi, sebelum identitas user disimpan ke session.</p>
+
+<h3>Isi session</h3>
+<pre><code>$_SESSION['user_id'] = $user['id'];
+$_SESSION['user_name'] = $user['nama'];
+$_SESSION['username'] = $user['username'];
+$_SESSION['role'] = $user['role'];</code></pre>
+
+<h3>Proteksi halaman</h3>
+<pre><code>if (!isset($_SESSION['user_id'])) {
+    header("Location: /Jobsheet12/auth/login.php");
+    exit;
+}</code></pre>
+<p>Ini adalah bentuk middleware sederhana: halaman berhenti dan redirect jika user belum login.</p>
+
+<div class="qa"><strong>Q: Kenapa password tidak dibandingkan dengan ==?</strong>
+<p>Karena database menyimpan hash password. <code>password_verify()</code> membandingkan
+password plaintext yang dimasukkan dengan hash yang tersimpan tanpa membutuhkan aplikasi
+mengetahui password asli.</p></div>
+</section>
+
+<section id="security" class="section">
+<h2>07 · Security</h2>
+
+<h3>1. SQL Injection</h3>
+<p>Risiko muncul jika input user digabung langsung ke SQL. Source menggunakan prepared statement:</p>
+<pre><code>$stmt = $pdo-&gt;prepare("SELECT ... WHERE username = :username");
+$stmt-&gt;execute([':username' =&gt; $username]);</code></pre>
+
+<h3>2. XSS</h3>
+<pre><code>htmlspecialchars($data['nama_menu'], ENT_QUOTES, 'UTF-8')</code></pre>
+<p>Output user-controlled diubah menjadi bentuk aman untuk HTML. Pada JS11 tersedia helper:</p>
+<pre><code>function e($value): string
+{
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}</code></pre>
+
+<h3>3. CSRF</h3>
+<pre><code>$_SESSION['csrf_token'] = bin2hex(random_bytes(32));</code></pre>
+<p>Token acak disimpan di session, dimasukkan ke form, lalu dibandingkan ketika POST.</p>
+<pre><code>if (!hash_equals($sessionToken, $postedToken)) {
+    http_response_code(403);
+    exit('CSRF token tidak valid.');
+}</code></pre>
+
+<h3>4. Session Fixation</h3>
+<pre><code>session_regenerate_id(true);</code></pre>
+<p>Session ID diganti setelah login berhasil.</p>
+
+<h3>5. Password hashing</h3>
+<pre><code>password_hash($password, PASSWORD_DEFAULT)</code></pre>
+<p>Jangan menyimpan password plaintext.</p>
+
+<h3>6. Validasi dua lapis</h3>
+<p>Validasi terjadi di PHP dan beberapa aturan juga berada di database melalui CHECK,
+UNIQUE, NOT NULL, dan foreign key. Client-side validation saja tidak cukup karena request
+dapat dibuat tanpa melalui form browser.</p>
+
+<div class="qa"><strong>Q: Apakah prepared statement sama dengan validasi?</strong>
+<p>Tidak. Prepared statement melindungi struktur SQL dari injeksi. Validasi memeriksa
+apakah data sesuai aturan aplikasi. Keduanya saling melengkapi.</p></div>
+</section>
+
+<section id="transaction" class="section">
+<h2>08 · Integrasi Transaksi JS12</h2>
+<h3>Alur final</h3>
+<div class="flow">
+<span>Pilih meja</span><i>→</i><span>Buat pesanan</span><i>→</i>
+<span>Stok berkurang</span><i>→</i><span>Bayar</span><i>→</i>
+<span>Pesanan tetap Proses</span><i>→</i><span>Selesai</span><i>→</i>
+<span>Kosongkan meja</span>
+</div>
+
+<h3>Database transaction</h3>
+<pre><code>$pdo-&gt;beginTransaction();
+
+try {
+    // beberapa perubahan database
+    $pdo-&gt;commit();
+} catch (Throwable $e) {
+    if ($pdo-&gt;inTransaction()) {
+        $pdo-&gt;rollBack();
+    }
+}</code></pre>
+<p>Tujuannya menjaga konsistensi. Jika salah satu langkah gagal, perubahan yang sudah
+terjadi dalam transaction dapat dibatalkan.</p>
+
+<h3>Row locking</h3>
+<pre><code>SELECT id, status
+FROM meja
+WHERE id = :id
+FOR UPDATE</code></pre>
+<p>Baris meja dikunci selama transaction sehingga proses lain tidak bebas mengubah baris
+yang sama pada saat bersamaan.</p>
+
+<h3>Stok</h3>
+<p>Saat pesanan aktif dibuat/diproses, stok menu dikurangi. Saat pesanan aktif diedit atau
+dihapus, stok lama dikembalikan terlebih dahulu sebelum data baru diproses.</p>
+
+<h3>Meja</h3>
+<ul>
+<li>Pesanan aktif → meja <b>Terisi</b>.</li>
+<li>Meja yang tidak <b>Kosong</b> tidak boleh dipakai untuk pesanan baru.</li>
+<li>Pesanan <b>Dibatalkan</b> → meja dilepas.</li>
+<li>Pesanan <b>Selesai</b> belum otomatis membuat meja kosong.</li>
+<li><code>kosongkan_meja.php</code> hanya mengosongkan meja setelah status pesanan Selesai.</li>
+</ul>
+
+<h3>Pembayaran</h3>
+<ul>
+<li>Metode: Cash, QRIS, Debit, E-Wallet.</li>
+<li>Lunas harus sama dengan total pesanan.</li>
+<li>Belum Lunas tidak boleh melebihi total pesanan.</li>
+<li>Satu pesanan hanya memiliki satu pembayaran menurut constraint UNIQUE.</li>
+<li>Menghapus pembayaran mengembalikan status pesanan menjadi Proses, kecuali dibatalkan.</li>
+</ul>
+
+<div class="qa"><strong>Q: Kenapa bayar Lunas tidak otomatis membuat pesanan Selesai?</strong>
+<p>Karena pembayaran adalah status finansial, sedangkan status pesanan menunjukkan proses
+pelayanan. Pada desain project, makanan masih dapat diproses/disajikan walaupun sudah dibayar.</p></div>
+</section>
+
+<section id="frontend" class="section">
+<h2>09 · HTML, CSS & JavaScript</h2>
+<h3>HTML</h3>
+<p>HTML membentuk struktur halaman: form, input, button, table, link, section.</p>
+
+<h3>CSS</h3>
+<p>CSS mengatur layout, warna, typography, responsive design, table, button, dan komponen UI.</p>
+
+<h3>JavaScript project</h3>
+<p>Source menggunakan JavaScript untuk interaksi antarmuka, misalnya konfirmasi hapus,
+toggle menu, dan perilaku komponen halaman.</p>
+<pre><code>document.addEventListener("DOMContentLoaded", function () {
+    // kode dijalankan setelah DOM tersedia
+});</code></pre>
+
+<h3>Data server → HTML</h3>
+<pre><code>&lt;td&gt;
+    &lt;?= htmlspecialchars($data['nama_menu']); ?&gt;
+&lt;/td&gt;</code></pre>
+<p>PHP mengambil data dari database lalu menghasilkan HTML di server. Karena output berasal
+dari data, escaping penting untuk mencegah XSS.</p>
+</section>
+
+<section id="deployment" class="section">
+<h2>10 · Deployment</h2>
+<h3>Vercel</h3>
+<p>Project menggunakan Vercel untuk deployment web. Untuk PHP, source yang diberikan
+menggunakan runtime PHP melalui konfigurasi Vercel dan router pada project.</p>
+
+<h3>Environment variable</h3>
+<p>Koneksi database mengambil:</p>
+<pre><code>DB_HOST
+DB_PORT
+DB_NAME
+DB_USER
+DB_PASSWORD</code></pre>
+<p>Credential tidak seharusnya ditulis hard-code di source.</p>
+
+<h3>Supabase/PostgreSQL</h3>
+<p>Database production menggunakan PostgreSQL. File <code>config/database.php</code>
+membangun DSN <code>pgsql:...</code> dan menggunakan <code>sslmode=require</code>.</p>
+
+<div class="notice"><strong>Keamanan:</strong> ZIP sumber yang dianalisis memiliki
+<code>.env</code>. Jangan upload nilai credential ke GitHub. Jika pernah terpublikasi,
+ganti credential database.</div>
+</section>
+
+<section id="filemap" class="section">
+<h2>11 · Peta File Penting</h2>
+<table>
+<tr><th>File</th><th>Fungsi</th><th>Yang harus bisa dijelaskan</th></tr>
+<tr><td>config/database.php</td><td>Koneksi PDO PostgreSQL</td><td>env, DSN, exception, fetch mode</td></tr>
+<tr><td>includes/auth.php</td><td>Proteksi halaman</td><td>session + redirect</td></tr>
+<tr><td>includes/csrf.php</td><td>CSRF token</td><td>random_bytes + hash_equals</td></tr>
+<tr><td>auth/register.php</td><td>Registrasi</td><td>validasi + password_hash</td></tr>
+<tr><td>auth/process_login.php</td><td>Login</td><td>prepare + password_verify + session regeneration</td></tr>
+<tr><td>master/*/index.php</td><td>Read/list/search</td><td>SELECT + search + pagination</td></tr>
+<tr><td>master/*/form.php</td><td>Input/edit form</td><td>GET id, POST form</td></tr>
+<tr><td>master/*/proses.php</td><td>Create/update</td><td>INSERT/UPDATE + validation</td></tr>
+<tr><td>master/*/hapus.php</td><td>Delete</td><td>POST + CSRF + DELETE</td></tr>
+<tr><td>transaksi/pesanan/proses.php</td><td>Integrasi order</td><td>transaction, stock, table, locking</td></tr>
+<tr><td>transaksi/pembayaran/proses.php</td><td>Payment</td><td>validation + payment relation</td></tr>
+<tr><td>transaksi/pesanan/kosongkan_meja.php</td><td>Release table</td><td>only after Selesai</td></tr>
+<tr><td>sql/database.sql</td><td>Schema</td><td>PK, FK, CHECK, UNIQUE</td></tr>
+<tr><td>sql/03_integrasi_transaksi.sql</td><td>Index transaksi</td><td>index + integrasi JS12</td></tr>
+</table>
+</section>
+
+<section id="troubleshoot" class="section">
+<h2>12 · Troubleshooting</h2>
+<h3>“Koneksi database gagal”</h3>
+<ol>
+<li>Cek DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD.</li>
+<li>Cek database benar-benar ada.</li>
+<li>Cek SSL/port PostgreSQL.</li>
+<li>Cek apakah environment production sudah memiliki variable.</li>
+</ol>
+
+<h3>“Undefined array key”</h3>
+<p>Biasanya kode membaca <code>$_POST['x']</code> ketika field tidak dikirim. Gunakan pola
+default seperti <code>$_POST['x'] ?? ''</code> dan pastikan nama input sama dengan yang dibaca PHP.</p>
+
+<h3>Data tidak muncul</h3>
+<p>Periksa query SELECT, JOIN, WHERE, parameter, dan isi database. Jalankan query yang sama
+di DBeaver/psql untuk membedakan masalah database dengan masalah tampilan.</p>
+
+<h3>Pagination salah</h3>
+<p>Periksa page, perPage, offset, totalPages, dan apakah keyword ikut dibawa pada link page.</p>
+
+<h3>CSRF token invalid</h3>
+<p>Pastikan form memakai <code>csrf_field()</code>, session aktif, dan endpoint POST
+memanggil <code>csrf_verify()</code>.</p>
+
+<h3>Stok berubah setengah</h3>
+<p>Periksa apakah proses menggunakan <code>beginTransaction()</code>, <code>commit()</code>,
+dan <code>rollBack()</code> pada exception.</p>
+
+<h3>Meja tidak bisa dipilih</h3>
+<p>Cek status meja. Pada JS12 meja yang statusnya bukan <b>Kosong</b> dianggap sedang digunakan.</p>
+</section>
+
+<section id="questions" class="section">
+<h2>13 · Bank Pertanyaan UTS</h2>
+
+<div class="question"><b>1. Apa fungsi PDO?</b><p>PDO menjadi interface PHP untuk koneksi dan eksekusi query database. Di project digunakan
+dengan driver PostgreSQL dan prepared statement.</p></div>
+
+<div class="question"><b>2. Apa fungsi prepare()?</b><p>Mempersiapkan SQL dengan placeholder sehingga data dapat diberikan melalui execute().
+Ini membantu memisahkan struktur SQL dari input.</p></div>
+
+<div class="question"><b>3. Apa fungsi execute()?</b><p>Menjalankan prepared statement dengan parameter yang diberikan.</p></div>
+
+<div class="question"><b>4. Apa fungsi fetch()?</b><p>Mengambil satu baris hasil query.</p></div>
+
+<div class="question"><b>5. Apa fungsi fetchAll()?</b><p>Mengambil seluruh baris hasil query.</p></div>
+
+<div class="question"><b>6. Kenapa menggunakan ILIKE?</b><p>Karena PostgreSQL menyediakan pencarian pattern yang case-insensitive.</p></div>
+
+<div class="question"><b>7. Apa rumus offset pagination?</b><p><code>offset = (page - 1) × perPage</code>.</p></div>
+
+<div class="question"><b>8. Kenapa COUNT terpisah dari SELECT data?</b><p>Untuk mengetahui total record dan menghitung jumlah halaman.</p></div>
+
+<div class="question"><b>9. Apa fungsi password_hash?</b><p>Menyimpan representasi hash password, bukan plaintext.</p></div>
+
+<div class="question"><b>10. Apa fungsi password_verify?</b><p>Memverifikasi password yang dimasukkan terhadap hash yang tersimpan.</p></div>
+
+<div class="question"><b>11. Kenapa session_regenerate_id?</b><p>Untuk mengganti session ID setelah login dan mengurangi risiko session fixation.</p></div>
+
+<div class="question"><b>12. Apa itu CSRF?</b><p>Serangan yang memanfaatkan session korban agar browser korban mengirim request perubahan
+ke aplikasi tanpa persetujuan yang semestinya. Token CSRF memastikan request berasal dari form
+yang memiliki token session yang benar.</p></div>
+
+<div class="question"><b>13. Apa itu XSS?</b><p>Injeksi script/content berbahaya ke halaman yang kemudian dirender ke pengguna lain.
+Project menggunakan htmlspecialchars untuk escaping output HTML.</p></div>
+
+<div class="question"><b>14. Apa itu SQL Injection?</b><p>Memanipulasi input agar menjadi bagian dari sintaks SQL. Prepared statement digunakan
+untuk memisahkan query dari data.</p></div>
+
+<div class="question"><b>15. Kenapa delete memakai POST?</b><p>Karena delete adalah perubahan/destruktif dan membutuhkan perlindungan CSRF.</p></div>
+
+<div class="question"><b>16. Apa itu transaction database?</b><p>Kumpulan perubahan database yang diperlakukan sebagai satu unit sehingga dapat commit
+bersama atau rollback jika terjadi kegagalan.</p></div>
+
+<div class="question"><b>17. Apa fungsi rollback?</b><p>Membatalkan perubahan yang belum di-commit dalam transaction.</p></div>
+
+<div class="question"><b>18. Kenapa SELECT ... FOR UPDATE digunakan?</b><p>Untuk mengunci baris yang relevan selama transaction, misalnya baris meja/menu,
+agar pemeriksaan dan perubahan konsisten.</p></div>
+
+<div class="question"><b>19. Kenapa stok dikembalikan saat pesanan aktif dihapus?</b><p>Karena stok sebelumnya sudah dikurangi ketika item pesanan mengambil stok.
+Menghapus pesanan harus mengembalikan keadaan stok.</p></div>
+
+<div class="question"><b>20. Kenapa pembayaran Lunas tidak otomatis Selesai?</b><p>Status pembayaran dan status pelayanan memiliki makna berbeda dalam desain Cafe_Najwa.</p></div>
+
+<div class="question"><b>21. Kenapa meja belum kosong setelah pesanan Selesai?</b><p>Karena Selesai berarti pesanan selesai dilayani, sedangkan pelanggan masih dapat duduk.
+Meja baru dikosongkan melalui aksi khusus setelah pelanggan selesai makan.</p></div>
+
+<div class="question"><b>22. Apa fungsi foreign key?</b><p>Menjaga hubungan antar tabel dan referensi data tetap valid.</p></div>
+
+<div class="question"><b>23. Apa beda UNIQUE dan PRIMARY KEY?</b><p>Primary key adalah identitas utama record dan secara konsep menjadi key utama tabel.
+UNIQUE memastikan nilai pada kolom tidak duplikat.</p></div>
+
+<div class="question"><b>24. Kenapa database punya CHECK?</b><p>Untuk memastikan aturan data juga ditegakkan di level database.</p></div>
+
+<div class="question"><b>25. Kenapa validasi PHP masih diperlukan jika database punya CHECK?</b><p>Agar pengguna mendapat alur error yang jelas sebelum query gagal dan untuk memeriksa
+aturan yang bersifat aplikasi.</p></div>
+
+<div class="question"><b>26. Apa fungsi require_once auth.php?</b><p>Memastikan halaman hanya bisa dibuka user yang sudah login.</p></div>
+
+<div class="question"><b>27. Apa fungsi htmlspecialchars?</b><p>Escape karakter khusus HTML agar input tidak dirender sebagai markup/script.</p></div>
+
+<div class="question"><b>28. Apa beda GET dan POST di project?</b><p>GET terutama untuk search/pagination; POST untuk operasi yang mengubah data.</p></div>
+
+<div class="question"><b>29. Apa yang terjadi jika commit tidak dipanggil?</b><p>Perubahan transaction tidak difinalisasi sebagai transaksi yang berhasil. Pada alur
+exception, rollback dipakai untuk membatalkan perubahan.</p></div>
+
+<div class="question"><b>30. Kenapa credential database tidak boleh hard-code?</b><p>Karena source code dapat dibaca/ter-push ke repository. Environment variable memisahkan
+secret dari kode aplikasi.</p></div>
+</section>
+
+<section id="simulation" class="section">
+<h2>14 · Simulasi Tanya Jawab Dosen</h2>
+
+<article class="sim">
+<h3>Simulasi A — Tunjuk baris kode</h3>
+<p><b>Dosen:</b> “Ini <code>prepare()</code> untuk apa?”</p>
+<p><b>Kamu:</b> “Untuk mempersiapkan query dengan placeholder parameter. Data kemudian dikirim
+melalui <code>execute()</code>, sehingga input tidak langsung digabungkan ke string SQL dan
+membantu mencegah SQL Injection.”</p>
+<p><b>Dosen:</b> “Kenapa masih pakai validasi?”</p>
+<p><b>Kamu:</b> “Karena prepared statement dan validasi punya tujuan berbeda. Prepared statement
+melindungi struktur SQL, sedangkan validasi memastikan data sesuai aturan aplikasi.”</p>
+</article>
+
+<article class="sim">
+<h3>Simulasi B — Stok</h3>
+<p><b>Dosen:</b> “Kalau pesanan dihapus, stok bagaimana?”</p>
+<p><b>Kamu:</b> “Jika pesanan sebelumnya aktif dan sudah mengambil stok, jumlah detail pesanan
+dikembalikan ke tabel menu. Proses dilakukan dalam transaction supaya pengembalian stok dan
+penghapusan pesanan konsisten.”</p>
+<p><b>Dosen:</b> “Kalau pengembalian stok gagal?”</p>
+<p><b>Kamu:</b> “Transaction di-rollback sehingga perubahan yang belum commit tidak dibiarkan
+setengah jalan.”</p>
+</article>
+
+<article class="sim">
+<h3>Simulasi C — Meja</h3>
+<p><b>Dosen:</b> “Kenapa meja tidak langsung kosong setelah bayar?”</p>
+<p><b>Kamu:</b> “Karena pembayaran hanya menunjukkan status finansial. Pesanan masih bisa dalam
+proses pelayanan. Pada sistem ini meja baru dikosongkan setelah pesanan berstatus Selesai
+dan petugas menjalankan aksi Kosongkan Meja.”</p>
+</article>
+
+<article class="sim">
+<h3>Simulasi D — CSRF</h3>
+<p><b>Dosen:</b> “Token CSRF disimpan di mana?”</p>
+<p><b>Kamu:</b> “Di session server. Form memasukkan token tersebut sebagai hidden input,
+kemudian endpoint POST membandingkan token form dengan token session menggunakan
+<code>hash_equals()</code>.”</p>
+</article>
+
+<article class="sim">
+<h3>Simulasi E — Pagination</h3>
+<p><b>Dosen:</b> “Kenapa halaman kedua offset-nya 5?”</p>
+<p><b>Kamu:</b> “Karena per halaman lima data. Rumusnya offset sama dengan page dikurangi satu
+dikali jumlah data per halaman. Jadi halaman 2: (2-1) × 5 = 5.”</p>
+</article>
+
+<article class="sim">
+<h3>Simulasi F — Database</h3>
+<p><b>Dosen:</b> “Kenapa detail_pesanan tidak langsung disimpan di pesanan?”</p>
+<p><b>Kamu:</b> “Karena satu pesanan dapat berisi banyak item. Dengan tabel detail_pesanan,
+satu record pesanan menjadi header dan setiap item menjadi baris detail. Ini membuat struktur
+lebih normal dan memudahkan pengelolaan jumlah, harga, dan subtotal per item.”</p>
+</article>
+</section>
+
+<section id="cheatsheet" class="section">
+<h2>15 · Cheat Sheet 5 Menit Sebelum UTS</h2>
+<div class="cheat">
+<p><b>PDO</b> = interface PHP ↔ database.</p>
+<p><b>prepare()</b> = siapkan query dengan placeholder.</p>
+<p><b>execute()</b> = jalankan query + parameter.</p>
+<p><b>fetch()</b> = satu row.</p>
+<p><b>fetchAll()</b> = banyak row.</p>
+<p><b>fetchColumn()</b> = satu nilai.</p>
+<p><b>ILIKE</b> = pencarian PostgreSQL case-insensitive.</p>
+<p><b>LIMIT</b> = jumlah row yang diambil.</p>
+<p><b>OFFSET</b> = jumlah row yang dilewati.</p>
+<p><b>password_hash()</b> = membuat hash password.</p>
+<p><b>password_verify()</b> = memeriksa password terhadap hash.</p>
+<p><b>session_regenerate_id()</b> = mengganti session ID setelah login.</p>
+<p><b>htmlspecialchars()</b> = escape output HTML.</p>
+<p><b>CSRF token</b> = membuktikan request POST memiliki token yang sesuai session.</p>
+<p><b>beginTransaction()</b> = mulai transaksi database.</p>
+<p><b>commit()</b> = sahkan perubahan transaction.</p>
+<p><b>rollBack()</b> = batalkan perubahan transaction.</p>
+<p><b>FOR UPDATE</b> = lock row selama transaction.</p>
+<p><b>PK</b> = identitas unik record.</p>
+<p><b>FK</b> = referensi ke tabel lain.</p>
+<p><b>UNIQUE</b> = cegah duplikasi nilai.</p>
+<p><b>CHECK</b> = aturan nilai di database.</p>
+</div>
+<div class="notice"><strong>Formula yang wajib hafal:</strong><br>
+<code>offset = (page - 1) × perPage</code><br>
+<code>totalPages = ceil(totalData / perPage)</code>
+</div>
+</section>
+
+
+<section id="deepdive" class="section">
+<h2>16 · CODE-BY-CODE MODE</h2>
+<p>Ini bagian yang dipakai saat latihan UTS. Source guide berisi kode asli dari file penting,
+dengan nomor baris, konsep yang terdeteksi, dan pertanyaan yang mungkin ditanyakan.</p>
+<div class="grid cards">
+<article><b>DEEP DIVE</b><h3>Bedah File Penting</h3><p><a href="docs/deep-dive-source.md">Buka deep-dive-source.md →</a></p></article>
+<article><b>INVENTORY</b><h3>Peta Seluruh Source</h3><p><a href="docs/source-inventory.md">Lihat seluruh file →</a></p></article>
+<article><b>EVOLUTION</b><h3>JS09 → JS12</h3><p><a href="docs/evolution.md">Pelajari perkembangan project →</a></p></article>
+<article><b>DRILL</b><h3>70+ Pertanyaan UTS</h3><p><a href="docs/uts-drill.md">Latihan tanya jawab →</a></p></article>
+</div>
+<div class="notice"><strong>Metode latihan:</strong> buka deep dive, tutup jawaban di kepala,
+lalu coba jelaskan setiap blok dengan pola <b>fungsi → alasan → hubungan → dampak</b>.</div>
+</section>
+
+<footer>
+  <span>Najwa Adha Khairunissa Giarno · TI-2D</span>
+  <span>Handbook UTS · Cafe_Najwa</span>
+</footer>
+</main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>
