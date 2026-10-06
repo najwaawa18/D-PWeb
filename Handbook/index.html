@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Handbook UTS — Najwa Adha K.G</title>
+    <title>Handbook UTS — Najwa Adha K.G</title>
 
-<link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
 
 <div class="app-shell">
 
-    <!-- SIDEBAR -->
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
     <aside class="sidebar" id="sidebar">
 
+        <!-- BRAND -->
         <div class="brand">
-            <span>HANDBOOK / 2026</span>
+
+            <span>
+                HANDBOOK / 2026
+            </span>
 
             <h1>
                 Najwa<br>
@@ -27,20 +35,26 @@
             <p>
                 Design & Pemrograman Web · TI-2D
             </p>
+
         </div>
 
 
         <!-- SEARCH -->
         <div class="search-wrap">
+
             <input
                 id="search"
                 type="search"
                 placeholder="Cari dokumentasi..."
             >
+
         </div>
 
 
-        <!-- MENU -->
+        <!-- =================================================
+             MENU
+        ================================================== -->
+
         <nav id="menu">
 
             <div class="menu-label">
@@ -48,10 +62,12 @@
             </div>
 
 
-            <!-- ================= JS 1 ================= -->
+            <!-- =================================================
+                 JS 1
+            ================================================== -->
 
             <button
-                data-doc="docs/js1/05-ringkasan%20(1).md"
+                data-doc="docs/js1/05-ringkasan.md"
                 class="menu-group"
             >
                 01 · HTML Dasar
@@ -60,23 +76,25 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js1/01-konsep-html%20(3).md"
+                    data-doc="docs/js1/01-konsep-html.md"
                 >
                     Konsep HTML
                 </button>
 
                 <button
-                    data-doc="docs/js1/02-halaman-list%20(1).md"
+                    data-doc="docs/js1/02-halaman-list.md"
                 >
                     Daftar Data
                 </button>
 
-                <button disabled>
+                <button
+                    data-doc="docs/js1/03-form.md"
+                >
                     Form
                 </button>
 
                 <button
-                    data-doc="docs/js1/04-index%20(3).md"
+                    data-doc="docs/js1/04-index.md"
                 >
                     Beranda
                 </button>
@@ -84,10 +102,12 @@
             </div>
 
 
-            <!-- ================= JS 2 ================= -->
+            <!-- =================================================
+                 JS 2
+            ================================================== -->
 
             <button
-                data-doc="docs/js2/03-main-card-tabel%20(2).md"
+                data-doc="docs/js2/05-ringkasan.md"
                 class="menu-group"
             >
                 02 · CSS Dasar
@@ -96,30 +116,38 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js2/01-konsep-css%20(2).md"
+                    data-doc="docs/js2/01-konsep-css.md"
                 >
                     Konsep CSS
                 </button>
 
                 <button
-                    data-doc="docs/js2/02-header-navbar-flexbox%20(2).md"
+                    data-doc="docs/js2/02-header-navbar-flexbox.md"
                 >
                     Header & Flexbox
                 </button>
 
                 <button
-                    data-doc="docs/js2/03-main-card-tabel%20(2).md"
+                    data-doc="docs/js2/03-main-card-tabel.md"
                 >
                     Main, Card & Tabel
+                </button>
+
+                <button
+                    data-doc="docs/js2/04-form-footer.md"
+                >
+                    Form & Footer
                 </button>
 
             </div>
 
 
-            <!-- ================= JS 3 ================= -->
+            <!-- =================================================
+                 JS 3
+            ================================================== -->
 
             <button
-                data-doc="docs/js3/04-ringkasan%20(3).md"
+                data-doc="docs/js3/04-ringkasan.md"
                 class="menu-group"
             >
                 03 · Responsive
@@ -134,22 +162,26 @@
                 </button>
 
                 <button
-                    data-doc="docs/js3/02-hamburger%20(2).md"
+                    data-doc="docs/js3/02-hamburger.md"
                 >
                     Hamburger
                 </button>
 
-                <button disabled>
+                <button
+                    data-doc="docs/js3/03-table-responsive.md"
+                >
                     Tabel Responsive
                 </button>
 
             </div>
 
 
-            <!-- ================= JS 4 ================= -->
+            <!-- =================================================
+                 JS 4
+            ================================================== -->
 
             <button
-                data-doc="docs/js4/04-ringkasan%20(4).md"
+                data-doc="docs/js4/04-ringkasan.md"
                 class="menu-group"
             >
                 04 · UI/UX & Wireframe
@@ -157,7 +189,9 @@
 
             <div class="submenu">
 
-                <button disabled>
+                <button
+                    data-doc="docs/js4/01-konsep-uiux.md"
+                >
                     Konsep UI/UX
                 </button>
 
@@ -168,7 +202,7 @@
                 </button>
 
                 <button
-                    data-doc="docs/js4/03-wireframe%20(2).md"
+                    data-doc="docs/js4/03-wireframe.md"
                 >
                     Wireframe
                 </button>
@@ -176,10 +210,12 @@
             </div>
 
 
-            <!-- ================= JS 5 ================= -->
+            <!-- =================================================
+                 JS 5
+            ================================================== -->
 
             <button
-                data-doc="docs/js5/05-ringkasan%20(4).md"
+                data-doc="docs/js5/05-ringkasan.md"
                 class="menu-group"
             >
                 05 · JavaScript
@@ -188,23 +224,25 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js5/01-perubahan-html%20(2).md"
+                    data-doc="docs/js5/01-perubahan-html.md"
                 >
                     Perubahan HTML
                 </button>
 
-                <button disabled>
+                <button
+                    data-doc="docs/js5/02-css-pendukung.md"
+                >
                     CSS Pendukung
                 </button>
 
                 <button
-                    data-doc="docs/js5/03-javascript%20(2).md"
+                    data-doc="docs/js5/03-javascript.md"
                 >
                     JavaScript
                 </button>
 
                 <button
-                    data-doc="docs/js5/04-fitur%20(2).md"
+                    data-doc="docs/js5/04-fitur.md"
                 >
                     Hubungan Fitur
                 </button>
@@ -212,10 +250,12 @@
             </div>
 
 
-            <!-- ================= JS 6 ================= -->
+            <!-- =================================================
+                 JS 6
+            ================================================== -->
 
             <button
-                data-doc="docs/js6/05-app-js%20(2).md"
+                data-doc="docs/js6/06-ringkasan.md"
                 class="menu-group"
             >
                 06 · JSON & Fetch
@@ -224,19 +264,19 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js6/01-perubahan-html%20(3).md"
+                    data-doc="docs/js6/01-perubahan-html.md"
                 >
                     Perubahan HTML
                 </button>
 
                 <button
-                    data-doc="docs/js6/02-json%20(2).md"
+                    data-doc="docs/js6/02-json.md"
                 >
                     JSON
                 </button>
 
                 <button
-                    data-doc="docs/js6/03-buku-js%20(2).md"
+                    data-doc="docs/js6/03-buku-js.md"
                 >
                     buku.js
                 </button>
@@ -248,7 +288,7 @@
                 </button>
 
                 <button
-                    data-doc="docs/js6/05-app-js%20(2).md"
+                    data-doc="docs/js6/05-app-js.md"
                 >
                     app.js
                 </button>
@@ -256,14 +296,17 @@
             </div>
 
 
-            <!-- ================= PORTFOLIO ================= -->
+            <!-- =================================================
+                 PORTFOLIO
+            ================================================== -->
 
             <div class="menu-label portfolio-label">
                 PORTFOLIO
             </div>
 
+
             <button
-                data-doc="docs/portofolio/01-struktur%20(2).md"
+                data-doc="docs/portofolio/01-struktur.md"
                 class="menu-group"
             >
                 Portfolio
@@ -278,17 +321,19 @@
                 </button>
 
                 <button
-                    data-doc="docs/portofolio/03-navigasi%20(2).md"
+                    data-doc="docs/portofolio/03-navigasi.md"
                 >
                     Navigasi
                 </button>
 
-                <button disabled>
+                <button
+                    data-doc="docs/portofolio/04-javascript.md"
+                >
                     JavaScript
                 </button>
 
                 <button
-                    data-doc="docs/portofolio/05-handbook-link%20(2).md"
+                    data-doc="docs/portofolio/05-handbook-link.md"
                 >
                     Link Handbook
                 </button>
@@ -296,26 +341,212 @@
             </div>
 
 
-            <!-- ================= DEPLOYMENT ================= -->
+            <!-- =================================================
+                 DEPLOYMENT / VERCEL
+            ================================================== -->
 
             <div class="menu-label portfolio-label">
                 DEPLOYMENT
             </div>
 
+
             <button
+                data-doc="docs/vercel/05-ringkasan.md"
                 class="menu-group"
-                disabled
             >
                 Vercel
             </button>
+
+            <div class="submenu">
+
+                <button
+                    data-doc="docs/vercel/01-konfigurasi.md"
+                >
+                    Konfigurasi Vercel
+                </button>
+
+                <button
+                    data-doc="docs/vercel/02-api-router.md"
+                >
+                    API Router
+                </button>
+
+                <button
+                    data-doc="docs/vercel/03-jobsheet-new.md"
+                >
+                    Jobsheet New
+                </button>
+
+                <button
+                    data-doc="docs/vercel/04-alur-deployment.md"
+                >
+                    Alur Deployment
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 CAFE_NAJWA
+            ================================================== -->
+
+            <div class="menu-label portfolio-label">
+                CAFE_NAJWA
+            </div>
+
+
+            <!-- FOUNDATION -->
+            <button
+                data-doc="docs/cafe-najwa/05-foundation.md"
+                class="menu-group"
+            >
+                Cafe_Najwa
+            </button>
+
+            <div class="submenu">
+
+                <button
+                    data-doc="docs/cafe-najwa/01-struktur.md"
+                >
+                    Struktur Project
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/02-html.md"
+                >
+                    HTML & Layout
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/03-css.md"
+                >
+                    CSS & Desain
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/04-komponen.md"
+                >
+                    Komponen
+                </button>
+
+            </div>
+
+
+            <!-- STATIC -->
+            <button
+                data-doc="docs/cafe-najwa/static/05-ringkasan.md"
+                class="menu-group"
+            >
+                Static Version
+            </button>
+
+            <div class="submenu">
+
+                <button
+                    data-doc="docs/cafe-najwa/static/01-struktur.md"
+                >
+                    Struktur Static
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/static/02-html.md"
+                >
+                    HTML
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/static/03-css.md"
+                >
+                    CSS
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/static/04-bootstrap.md"
+                >
+                    Bootstrap
+                </button>
+
+            </div>
+
+
+            <!-- DYNAMIC -->
+            <button
+                data-doc="docs/cafe-najwa/dynamic/09-deployment.md"
+                class="menu-group"
+            >
+                Dynamic Version
+            </button>
+
+            <div class="submenu">
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/01-foundation.md"
+                >
+                    Foundation
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/02-database.md"
+                >
+                    Database
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/03-crud.md"
+                >
+                    CRUD
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/04-search-pagination.md"
+                >
+                    Search & Pagination
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/05-authentication.md"
+                >
+                    Authentication
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/06-session.md"
+                >
+                    Session
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/07-security.md"
+                >
+                    Security
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/08-transaction.md"
+                >
+                    Transaction
+                </button>
+
+                <button
+                    data-doc="docs/cafe-najwa/dynamic/09-deployment.md"
+                >
+                    Deployment
+                </button>
+
+            </div>
 
         </nav>
 
     </aside>
 
 
-    <!-- CONTENT -->
+    <!-- =====================================================
+         CONTENT
+    ====================================================== -->
+
     <main class="content">
+
+        <!-- TOPBAR -->
 
         <header class="topbar">
 
@@ -326,7 +557,9 @@
                 ☰
             </button>
 
+
             <div>
+
                 <span class="eyebrow">
                     PERSONAL CODE REFERENCE
                 </span>
@@ -334,7 +567,9 @@
                 <strong>
                     HANDBOOK UTS
                 </strong>
+
             </div>
+
 
             <a
                 href="../"
@@ -346,7 +581,10 @@
         </header>
 
 
-        <!-- READER -->
+        <!-- =================================================
+             READER
+        ================================================== -->
+
         <article
             id="reader"
             class="reader"
@@ -358,16 +596,20 @@
                     00 / HANDBOOK
                 </span>
 
+
                 <h2>
                     Belajar dari <em>kode sendiri.</em>
                 </h2>
+
 
                 <p>
                     Pilih Jobsheet di sebelah kiri.
                     Dokumentasi disusun seperti catatan praktikum:
                     apa yang dibuat, kode penting, alur,
+                    hubungan antarfile, kesalahan yang mungkin terjadi,
                     dan apa yang harus diingat untuk UTS.
                 </p>
+
 
                 <div class="welcome-grid">
 
@@ -376,15 +618,36 @@
                         <span>Jobsheet UTS</span>
                     </div>
 
+
                     <div>
                         <b>V</b>
                         <span>Vercel & Router</span>
                     </div>
 
+
                     <div>
                         <b>P</b>
                         <span>Portfolio</span>
                     </div>
+
+                </div>
+
+
+                <!-- INFO TAMBAHAN -->
+
+                <div class="welcome-note">
+
+                    <strong>
+                        Cara menggunakan Handbook
+                    </strong>
+
+                    <p>
+                        Gunakan dokumentasi ini sebagai referensi
+                        ketika lupa fungsi suatu kode. Setiap bagian
+                        menjelaskan tujuan, struktur kode, cara kerja,
+                        hubungan dengan file lain, serta poin penting
+                        yang perlu dipahami sebelum UTS.
+                    </p>
 
                 </div>
 
@@ -396,6 +659,10 @@
 
 </div>
 
+
+<!-- =====================================================
+     JAVASCRIPT HANDBOOK
+====================================================== -->
 
 <script src="assets/app.js"></script>
 
