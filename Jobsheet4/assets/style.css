@@ -1,313 +1,359 @@
-/* ===== Reset & Variable Warna ===== */
+/* =========================================================
+   SIMPUS-Mini - Desain Gradasi Maroon
+   Desain dibuat sederhana agar mudah dipelajari untuk UTS.
+   ========================================================= */
+
 :root {
-    --maroon-primary: #800000;
-    --maroon-dark: #500000;
-    --maroon-light: #f7eded;
-    --maroon-hover: #660000;
-    --text-color: #2b2b2b;
-    --bg-color: #fcf9f9;
-    --border-color: #e5d8d8;
+    --maroon-dark: #4a1020;
+    --maroon: #6f1d35;
+    --maroon-mid: #8f304b;
+    --maroon-light: #f7edf0;
+    --cream: #fffaf8;
+    --white: #ffffff;
+    --text: #30252a;
+    --muted: #76666d;
+    --border: #ead9df;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border-radius: 0 !important; 
 }
 
 body {
     font-family: "Segoe UI", Arial, sans-serif;
-    color: var(--text-color);
-    background-color: var(--bg-color);
+    color: var(--text);
+    background: linear-gradient(180deg, #fff7f8 0%, #f8eef1 100%);
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 a {
-    color: var(--maroon-primary);
+    color: var(--maroon);
     text-decoration: none;
-    transition: all 0.2s ease;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--maroon-mid);
 }
 
-/* ===== Header & Navbar ===== */
 header {
-    background-color: var(--maroon-primary);
-    color: #ffffff;
-    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--maroon-dark), var(--maroon), var(--maroon-mid));
+    color: var(--white);
+    padding: 18px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
     flex-wrap: wrap;
-    border-bottom: 4px solid var(--maroon-dark);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 14px rgba(74, 16, 32, 0.18);
 }
 
 header h1 {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     letter-spacing: 1px;
-    font-weight: 700;
 }
 
 header nav ul {
     list-style: none;
     display: flex;
-    gap: 0.5rem;
+    gap: 6px;
+    flex-wrap: wrap;
 }
 
 header nav a {
-    color: #ffffff;
-    font-weight: 500;
-    padding: 0.5rem 0.8rem;
+    color: var(--white);
     display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
 }
 
 header nav a:hover,
 header nav a.active {
-    background-color: var(--maroon-dark);
-    color: #ffffff;
-    text-decoration: none;
+    background: rgba(255, 255, 255, 0.16);
+    color: var(--white);
 }
 
-/* ===== Main Layout ===== */
 main {
     max-width: 1000px;
-    margin: 2.5rem auto;
-    padding: 0 1.5rem;
+    margin: 32px auto;
+    padding: 0 20px;
 }
 
 section {
-    background-color: #ffffff;
-    padding: 1.8rem;
-    margin-bottom: 2rem;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background: var(--white);
+    padding: 24px;
+    margin-bottom: 22px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(74, 16, 32, 0.06);
 }
 
 section h2 {
-    margin-bottom: 1.2rem;
-    color: var(--maroon-primary);
-    border-bottom: 2px solid var(--maroon-primary);
-    padding-bottom: 0.4rem;
-    font-size: 1.35rem;
+    color: var(--maroon);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #d8a8b6;
+    font-size: 1.3rem;
 }
 
-/* ===== Kartu Ringkasan (Beranda) ===== */
 main section:has(article) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    gap: 16px;
 }
 
 main section:has(article) h2 {
     grid-column: 1 / -1;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
 }
 
 main section article {
-    background-color: var(--maroon-light);
-    padding: 1.5rem 1rem;
+    background: linear-gradient(145deg, #fffafb, var(--maroon-light));
+    padding: 20px 14px;
     text-align: center;
-    border: 1px solid var(--border-color);
-    border-top: 4px solid var(--maroon-primary);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--maroon);
+    border-radius: 8px;
 }
 
 main section article h3 {
-    font-size: 0.95rem;
-    color: #664444;
-    margin-bottom: 0.5rem;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 main section article p {
-    font-size: 2.2rem;
+    color: var(--maroon);
+    font-size: 2rem;
     font-weight: 700;
-    color: var(--maroon-primary);
 }
 
-/* ===== Tabel (Daftar Buku & Anggota) ===== */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 0.5rem;
+    margin-top: 8px;
+    background: var(--white);
 }
 
-th, td {
+th,
+td {
     text-align: left;
-    padding: 0.75rem 0.9rem;
-    border-bottom: 1px solid #e8dada;
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
 }
 
 thead {
-    background-color: var(--maroon-primary);
-    color: #ffffff;
+    background: linear-gradient(90deg, var(--maroon-dark), var(--maroon));
+    color: var(--white);
 }
 
 thead th {
     font-weight: 600;
-    letter-spacing: 0.5px;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #faf4f4;
+    background: #fcf5f7;
 }
 
 tbody tr:hover {
-    background-color: #f2e6e6;
+    background: #f5e7eb;
 }
 
 td button {
-    padding: 0.4rem 0.8rem;
-    margin-right: 0.25rem;
-    border: none;
+    padding: 7px 11px;
+    margin-right: 4px;
+    border: 0;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--white);
 }
 
-/* Tombol Edit */
 td button:first-of-type {
-    background-color: #d97724;
+    background: #9a5b6d;
 }
 
 td button:first-of-type:hover {
-    background-color: #b55f19;
+    background: #7f4053;
 }
 
-/* Tombol Hapus */
 td button:last-of-type {
-    background-color: #a31c1c;
+    background: var(--maroon);
 }
 
 td button:last-of-type:hover {
-    background-color: #7d1212;
+    background: var(--maroon-dark);
 }
 
-/* ===== Form (Tambah Buku & Anggota) ===== */
 form p {
-    margin-bottom: 1.2rem;
+    margin-bottom: 16px;
 }
 
 form label {
     display: block;
-    margin-bottom: 0.4rem;
+    margin-bottom: 6px;
     font-weight: 600;
-    color: #443333;
+    color: var(--text);
 }
 
 form input[type="text"],
 form input[type="number"],
+form input[type="email"],
 form select {
     width: 100%;
     max-width: 450px;
-    padding: 0.65rem 0.8rem;
-    border: 1px solid #cca3a3;
-    background-color: #ffffff;
+    padding: 10px 12px;
+    border: 1px solid #d9b9c3;
+    border-radius: 6px;
+    background: var(--white);
     font-size: 0.95rem;
     outline: none;
 }
 
 form input:focus,
 form select:focus {
-    border-color: var(--maroon-primary);
-    box-shadow: 0 0 0 2px rgba(128, 0, 0, 0.15);
+    border-color: var(--maroon);
+    box-shadow: 0 0 0 3px rgba(111, 29, 53, 0.10);
 }
 
 form button[type="submit"] {
-    background-color: var(--maroon-primary);
-    color: #ffffff;
-    border: none;
-    padding: 0.7rem 1.8rem;
-    font-size: 1rem;
+    background: linear-gradient(135deg, var(--maroon-dark), var(--maroon-mid));
+    color: var(--white);
+    border: 0;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
     cursor: pointer;
     font-weight: 600;
 }
 
 form button[type="submit"]:hover {
-    background-color: var(--maroon-dark);
+    opacity: 0.9;
 }
 
-/* ===== Footer ===== */
 footer {
     text-align: center;
-    padding: 1.5rem;
-    color: #735c5c;
+    padding: 22px;
+    color: var(--muted);
     font-size: 0.9rem;
-    border-top: 1px solid var(--border-color);
-    background-color: var(--bg-color);
+    border-top: 1px solid var(--border);
+    background: #fff8fa;
 }
 
-/* ===== Tabel Responsif ===== */
 .table-responsive {
     overflow-x: auto;
 }
 
-/* ===== Sembunyikan Checkbox & Label di Layar Komputer ===== */
+.search-box {
+    margin-bottom: 14px;
+}
+
+.search-box input,
+.search-input {
+    width: 100%;
+    max-width: 320px;
+    padding: 9px 12px;
+    border: 1px solid #d9b9c3;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.search-box input:focus,
+.search-input:focus {
+    border-color: var(--maroon);
+    box-shadow: 0 0 0 3px rgba(111, 29, 53, 0.10);
+}
+
+.error {
+    display: block;
+    color: #a33b50;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+/* Tombol hamburger untuk JS3-6 */
 .nav-toggle,
 .nav-toggle-label {
     display: none;
 }
 
-/* ===== Responsive Breakpoints ===== */
-
-/* Tablet (<= 768px) */
 @media (max-width: 768px) {
     main section:has(article) {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Mobile (<= 480px) */
 @media (max-width: 480px) {
     header {
-        position: relative;
+        padding: 16px 18px;
     }
 
-    /* Tampilkan tombol ikon hamburger di HP */
-    .nav-toggle-label {
-        display: block;
-        font-size: 1.8rem;
-        color: #ffffff;
-        cursor: pointer;
-        padding: 0.2rem 0.5rem;
-    }
-
-    /* Sembunyikan menu bawaan */
     header nav {
-        display: none;
         width: 100%;
-        order: 3;
-        margin-top: 0.8rem;
-    }
-
-    /* Buka menu ketika checkbox tercentang */
-    .nav-toggle:checked ~ nav {
-        display: block;
     }
 
     header nav ul {
         flex-direction: column;
-        gap: 0.2rem;
     }
 
     header nav a {
-        background-color: var(--maroon-dark);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(74, 16, 32, 0.55);
     }
 
-    /* Kartu statistik menumpuk 1 kolom */
+    main {
+        margin: 22px auto;
+        padding: 0 14px;
+    }
+
+    section {
+        padding: 18px;
+    }
+
     main section:has(article) {
         grid-template-columns: 1fr;
     }
 
     form input[type="text"],
     form input[type="number"],
+    form input[type="email"],
     form select {
         max-width: 100%;
+    }
+
+    table {
+        font-size: 0.82rem;
+    }
+
+    th,
+    td {
+        padding: 8px 7px;
+    }
+
+    td button {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-toggle-label {
+        display: block;
+        font-size: 1.7rem;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    header nav {
+        display: none;
+    }
+
+    .nav-toggle:checked ~ nav {
+        display: block;
     }
 }
