@@ -1,17 +1,27 @@
-# Portfolio — JavaScript
+# Portfolio — Desain
 
-`app.js` digunakan untuk interaksi portfolio seperti membuka bagian portfolio dari tombol Explore dan berpindah antar panel kategori.
+## Konsep visual
 
-Pola interaksinya:
+Portfolio menggunakan pendekatan editorial/minimal dengan hierarchy teks yang kuat. Halaman pembuka menampilkan:
+
+- `PORTOFOLIO / 2026`
+- `TEKNIK INFORMATIKA · TI-2D`
+- `DESIGN & PEMROGRAMAN WEB`
+- nama Najwa
+- tombol `EXPLORE PORTFOLIO`
+
+## Struktur visual
 
 ```text
-Klik tombol
-   ↓
-JavaScript membaca target
-   ↓
-Panel yang sesuai ditampilkan
-   ↓
-Tombol Back mengembalikan kategori
+Landing
+  ↓
+My Projects
+  ↓
+3 Category Cards
+  ↓
+Panel kategori
+  ↓
+Project Cards
 ```
 
-Karena portfolio memakai class dan `data-target`, perubahan struktur HTML harus tetap menjaga nama class/ID yang digunakan JavaScript.
+Desain dibuat untuk mengutamakan isi project, bukan ornamen yang berlebihan.

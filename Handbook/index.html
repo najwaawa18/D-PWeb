@@ -1,31 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Handbook UTS — Najwa Adha K.G</title>
-
-    <link rel="stylesheet" href="assets/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handbook UTS — Najwa Adha K.G</title>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
 
 <div class="app-shell">
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
-
     <aside class="sidebar" id="sidebar">
 
-        <!-- BRAND -->
         <div class="brand">
 
-            <span>
-                HANDBOOK / 2026
-            </span>
+            <span>HANDBOOK / 2026</span>
 
             <h1>
                 Najwa<br>
@@ -39,7 +29,6 @@
         </div>
 
 
-        <!-- SEARCH -->
         <div class="search-wrap">
 
             <input
@@ -51,10 +40,6 @@
         </div>
 
 
-        <!-- =================================================
-             MENU
-        ================================================== -->
-
         <nav id="menu">
 
             <div class="menu-label">
@@ -62,12 +47,20 @@
             </div>
 
 
+            <button
+                data-doc="docs/00-panduan-belajar.md"
+                class="menu-group"
+            >
+                00 · Panduan Belajar
+            </button>
+
+
             <!-- =================================================
-                 JS 1
+                 JOBSHEET 01
             ================================================== -->
 
             <button
-                data-doc="docs/js1/05-ringkasan.md"
+                data-doc="docs/js01/00-ringkasan.md"
                 class="menu-group"
             >
                 01 · HTML Dasar
@@ -76,38 +69,38 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js1/01-konsep-html.md"
+                    data-doc="docs/js01/01-struktur-html.md"
                 >
-                    Konsep HTML
+                    Struktur HTML
                 </button>
 
                 <button
-                    data-doc="docs/js1/02-halaman-list.md"
+                    data-doc="docs/js01/02-tabel-dan-navigasi.md"
                 >
-                    Daftar Data
+                    Tabel & Navigasi
                 </button>
 
                 <button
-                    data-doc="docs/js1/03-form.md"
+                    data-doc="docs/js01/03-form.md"
                 >
                     Form
                 </button>
 
                 <button
-                    data-doc="docs/js1/04-index.md"
+                    data-doc="docs/js01/04-cheat-sheet.md"
                 >
-                    Beranda
+                    Cheat Sheet
                 </button>
 
             </div>
 
 
             <!-- =================================================
-                 JS 2
+                 JOBSHEET 02
             ================================================== -->
 
             <button
-                data-doc="docs/js2/05-ringkasan.md"
+                data-doc="docs/js02/00-ringkasan.md"
                 class="menu-group"
             >
                 02 · CSS Dasar
@@ -116,38 +109,38 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js2/01-konsep-css.md"
+                    data-doc="docs/js02/01-selector-dan-variable.md"
                 >
-                    Konsep CSS
+                    Selector & Variable
                 </button>
 
                 <button
-                    data-doc="docs/js2/02-header-navbar-flexbox.md"
+                    data-doc="docs/js02/02-flexbox-header.md"
                 >
                     Header & Flexbox
                 </button>
 
                 <button
-                    data-doc="docs/js2/03-main-card-tabel.md"
+                    data-doc="docs/js02/03-grid-tabel-form.md"
                 >
-                    Main, Card & Tabel
+                    Grid, Tabel & Form
                 </button>
 
                 <button
-                    data-doc="docs/js2/04-form-footer.md"
+                    data-doc="docs/js02/04-cheat-sheet.md"
                 >
-                    Form & Footer
+                    Cheat Sheet
                 </button>
 
             </div>
 
 
             <!-- =================================================
-                 JS 3
+                 JOBSHEET 03
             ================================================== -->
 
             <button
-                data-doc="docs/js3/04-ringkasan.md"
+                data-doc="docs/js03/00-ringkasan.md"
                 class="menu-group"
             >
                 03 · Responsive
@@ -156,32 +149,38 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js3/01-konsep-responsive.md"
+                    data-doc="docs/js03/01-viewport.md"
                 >
-                    Responsive
+                    Viewport & Media Query
                 </button>
 
                 <button
-                    data-doc="docs/js3/02-hamburger.md"
+                    data-doc="docs/js03/02-hamburger-checkbox.md"
                 >
-                    Hamburger
+                    Hamburger Checkbox
                 </button>
 
                 <button
-                    data-doc="docs/js3/03-table-responsive.md"
+                    data-doc="docs/js03/03-table-responsive.md"
                 >
                     Tabel Responsive
+                </button>
+
+                <button
+                    data-doc="docs/js03/04-cheat-sheet.md"
+                >
+                    Cheat Sheet
                 </button>
 
             </div>
 
 
             <!-- =================================================
-                 JS 4
+                 JOBSHEET 04
             ================================================== -->
 
             <button
-                data-doc="docs/js4/04-ringkasan.md"
+                data-doc="docs/js04/00-ringkasan.md"
                 class="menu-group"
             >
                 04 · UI/UX & Wireframe
@@ -190,32 +189,38 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js4/01-konsep-uiux.md"
-                >
-                    Konsep UI/UX
-                </button>
-
-                <button
-                    data-doc="docs/js4/02-user-flow.md"
+                    data-doc="docs/js04/01-user-flow.md"
                 >
                     User Flow
                 </button>
 
                 <button
-                    data-doc="docs/js4/03-wireframe.md"
+                    data-doc="docs/js04/02-wireframe.md"
                 >
                     Wireframe
+                </button>
+
+                <button
+                    data-doc="docs/js04/03-konsistensi-desain.md"
+                >
+                    Konsistensi Desain
+                </button>
+
+                <button
+                    data-doc="docs/js04/04-cheat-sheet.md"
+                >
+                    Cheat Sheet
                 </button>
 
             </div>
 
 
             <!-- =================================================
-                 JS 5
+                 JOBSHEET 05
             ================================================== -->
 
             <button
-                data-doc="docs/js5/05-ringkasan.md"
+                data-doc="docs/js05/00-ringkasan.md"
                 class="menu-group"
             >
                 05 · JavaScript
@@ -224,38 +229,50 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js5/01-perubahan-html.md"
+                    data-doc="docs/js05/01-dom-dan-event.md"
                 >
-                    Perubahan HTML
+                    DOM & Event
                 </button>
 
                 <button
-                    data-doc="docs/js5/02-css-pendukung.md"
+                    data-doc="docs/js05/02-hamburger-dan-hapus.md"
                 >
-                    CSS Pendukung
+                    Hamburger & Hapus
                 </button>
 
                 <button
-                    data-doc="docs/js5/03-javascript.md"
+                    data-doc="docs/js05/03-filter-tabel.md"
                 >
-                    JavaScript
+                    Filter Tabel
                 </button>
 
                 <button
-                    data-doc="docs/js5/04-fitur.md"
+                    data-doc="docs/js05/04-validasi-form.md"
                 >
-                    Hubungan Fitur
+                    Validasi Form
+                </button>
+
+                <button
+                    data-doc="docs/js05/05-full-app-js.md"
+                >
+                    Peta app.js
+                </button>
+
+                <button
+                    data-doc="docs/js05/06-cheat-sheet.md"
+                >
+                    Cheat Sheet
                 </button>
 
             </div>
 
 
             <!-- =================================================
-                 JS 6
+                 JOBSHEET 06
             ================================================== -->
 
             <button
-                data-doc="docs/js6/06-ringkasan.md"
+                data-doc="docs/js06/00-ringkasan.md"
                 class="menu-group"
             >
                 06 · JSON & Fetch
@@ -264,33 +281,187 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/js6/01-perubahan-html.md"
+                    data-doc="docs/js06/01-html-dan-script.md"
                 >
-                    Perubahan HTML
+                    HTML & Script
                 </button>
 
                 <button
-                    data-doc="docs/js6/02-json.md"
+                    data-doc="docs/js06/02-json.md"
                 >
                     JSON
                 </button>
 
                 <button
-                    data-doc="docs/js6/03-buku-js.md"
+                    data-doc="docs/js06/03-buku-js.md"
                 >
                     buku.js
                 </button>
 
                 <button
-                    data-doc="docs/js6/04-anggota-js.md"
+                    data-doc="docs/js06/04-anggota-js.md"
                 >
                     anggota.js
                 </button>
 
                 <button
-                    data-doc="docs/js6/05-app-js.md"
+                    data-doc="docs/js06/05-app-js-dan-event-delegation.md"
                 >
-                    app.js
+                    app.js & Delegation
+                </button>
+
+                <button
+                    data-doc="docs/js06/06-fetch-async-await.md"
+                >
+                    Fetch & Async/Await
+                </button>
+
+                <button
+                    data-doc="docs/js06/07-troubleshooting.md"
+                >
+                    Troubleshooting
+                </button>
+
+                <button
+                    data-doc="docs/js06/08-cheat-sheet.md"
+                >
+                    Cheat Sheet
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 VERCEL
+            ================================================== -->
+
+            <div class="menu-label portfolio-label">
+                DEPLOYMENT
+            </div>
+
+            <button
+                data-doc="docs/vercel/00-ringkasan.md"
+                class="menu-group"
+            >
+                Vercel
+            </button>
+
+            <div class="submenu">
+
+                <button
+                    data-doc="docs/vercel/01-vercel-json.md"
+                >
+                    vercel.json
+                </button>
+
+                <button
+                    data-doc="docs/vercel/02-router-dan-request.md"
+                >
+                    Router & Request
+                </button>
+
+                <button
+                    data-doc="docs/vercel/03-extension-dan-mime.md"
+                >
+                    Extension & MIME
+                </button>
+
+                <button
+                    data-doc="docs/vercel/04-jobsheet7-12.md"
+                >
+                    Jobsheet 7–12
+                </button>
+
+                <button
+                    data-doc="docs/vercel/05-jobsheet13.md"
+                >
+                    Jobsheet 13
+                </button>
+
+                <button
+                    data-doc="docs/vercel/06-jobsheet-new.md"
+                >
+                    Jobsheet New
+                </button>
+
+                <button
+                    data-doc="docs/vercel/07-alur-deployment.md"
+                >
+                    Alur Deployment
+                </button>
+
+                <button
+                    data-doc="docs/vercel/08-troubleshooting.md"
+                >
+                    Troubleshooting
+                </button>
+
+                <button
+                    data-doc="docs/vercel/09-cheat-sheet.md"
+                >
+                    Cheat Sheet
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 HANDBOOK DESIGN
+            ================================================== -->
+
+            <div class="menu-label portfolio-label">
+                HANDBOOK DESIGN
+            </div>
+
+            <button
+                data-doc="docs/handbook/00-ringkasan-desain.md"
+                class="menu-group"
+            >
+                Desain Handbook
+            </button>
+
+            <div class="submenu">
+
+                <button
+                    data-doc="docs/handbook/01-visual-design.md"
+                >
+                    Visual System
+                </button>
+
+                <button
+                    data-doc="docs/handbook/02-html-layout.md"
+                >
+                    HTML Layout
+                </button>
+
+                <button
+                    data-doc="docs/handbook/03-css-layout.md"
+                >
+                    CSS & Responsive
+                </button>
+
+                <button
+                    data-doc="docs/handbook/04-markdown-parser.md"
+                >
+                    Markdown Parser
+                </button>
+
+                <button
+                    data-doc="docs/handbook/05-search-menu.md"
+                >
+                    Menu & Search
+                </button>
+
+                <button
+                    data-doc="docs/handbook/06-menambah-dokumentasi.md"
+                >
+                    Tambah Dokumentasi
+                </button>
+
+                <button
+                    data-doc="docs/handbook/07-cheat-sheet.md"
+                >
+                    Cheat Sheet
                 </button>
 
             </div>
@@ -304,9 +475,8 @@
                 PORTFOLIO
             </div>
 
-
             <button
-                data-doc="docs/portofolio/01-struktur.md"
+                data-doc="docs/portfolio/01-struktur.md"
                 class="menu-group"
             >
                 Portfolio
@@ -315,222 +485,27 @@
             <div class="submenu">
 
                 <button
-                    data-doc="docs/portofolio/02-desain.md"
+                    data-doc="docs/portfolio/02-desain.md"
                 >
                     Desain
                 </button>
 
                 <button
-                    data-doc="docs/portofolio/03-navigasi.md"
+                    data-doc="docs/portfolio/03-navigasi.md"
                 >
                     Navigasi
                 </button>
 
                 <button
-                    data-doc="docs/portofolio/04-javascript.md"
+                    data-doc="docs/portfolio/04-javascript.md"
                 >
                     JavaScript
                 </button>
 
                 <button
-                    data-doc="docs/portofolio/05-handbook-link.md"
+                    data-doc="docs/portfolio/05-handbook-link.md"
                 >
                     Link Handbook
-                </button>
-
-            </div>
-
-
-            <!-- =================================================
-                 DEPLOYMENT / VERCEL
-            ================================================== -->
-
-            <div class="menu-label portfolio-label">
-                DEPLOYMENT
-            </div>
-
-
-            <button
-                data-doc="docs/vercel/05-ringkasan.md"
-                class="menu-group"
-            >
-                Vercel
-            </button>
-
-            <div class="submenu">
-
-                <button
-                    data-doc="docs/vercel/01-konfigurasi.md"
-                >
-                    Konfigurasi Vercel
-                </button>
-
-                <button
-                    data-doc="docs/vercel/02-api-router.md"
-                >
-                    API Router
-                </button>
-
-                <button
-                    data-doc="docs/vercel/03-jobsheet-new.md"
-                >
-                    Jobsheet New
-                </button>
-
-                <button
-                    data-doc="docs/vercel/04-alur-deployment.md"
-                >
-                    Alur Deployment
-                </button>
-
-            </div>
-
-
-            <!-- =================================================
-                 CAFE_NAJWA
-            ================================================== -->
-
-            <div class="menu-label portfolio-label">
-                CAFE_NAJWA
-            </div>
-
-
-            <!-- FOUNDATION -->
-            <button
-                data-doc="docs/cafe-najwa/05-foundation.md"
-                class="menu-group"
-            >
-                Cafe_Najwa
-            </button>
-
-            <div class="submenu">
-
-                <button
-                    data-doc="docs/cafe-najwa/01-struktur.md"
-                >
-                    Struktur Project
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/02-html.md"
-                >
-                    HTML & Layout
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/03-css.md"
-                >
-                    CSS & Desain
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/04-komponen.md"
-                >
-                    Komponen
-                </button>
-
-            </div>
-
-
-            <!-- STATIC -->
-            <button
-                data-doc="docs/cafe-najwa/static/05-ringkasan.md"
-                class="menu-group"
-            >
-                Static Version
-            </button>
-
-            <div class="submenu">
-
-                <button
-                    data-doc="docs/cafe-najwa/static/01-struktur.md"
-                >
-                    Struktur Static
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/static/02-html.md"
-                >
-                    HTML
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/static/03-css.md"
-                >
-                    CSS
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/static/04-bootstrap.md"
-                >
-                    Bootstrap
-                </button>
-
-            </div>
-
-
-            <!-- DYNAMIC -->
-            <button
-                data-doc="docs/cafe-najwa/dynamic/09-deployment.md"
-                class="menu-group"
-            >
-                Dynamic Version
-            </button>
-
-            <div class="submenu">
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/01-foundation.md"
-                >
-                    Foundation
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/02-database.md"
-                >
-                    Database
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/03-crud.md"
-                >
-                    CRUD
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/04-search-pagination.md"
-                >
-                    Search & Pagination
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/05-authentication.md"
-                >
-                    Authentication
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/06-session.md"
-                >
-                    Session
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/07-security.md"
-                >
-                    Security
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/08-transaction.md"
-                >
-                    Transaction
-                </button>
-
-                <button
-                    data-doc="docs/cafe-najwa/dynamic/09-deployment.md"
-                >
-                    Deployment
                 </button>
 
             </div>
@@ -540,13 +515,7 @@
     </aside>
 
 
-    <!-- =====================================================
-         CONTENT
-    ====================================================== -->
-
     <main class="content">
-
-        <!-- TOPBAR -->
 
         <header class="topbar">
 
@@ -556,7 +525,6 @@
             >
                 ☰
             </button>
-
 
             <div>
 
@@ -570,7 +538,6 @@
 
             </div>
 
-
             <a
                 href="../"
                 class="back-portfolio"
@@ -580,10 +547,6 @@
 
         </header>
 
-
-        <!-- =================================================
-             READER
-        ================================================== -->
 
         <article
             id="reader"
@@ -596,18 +559,16 @@
                     00 / HANDBOOK
                 </span>
 
-
                 <h2>
-                    Belajar dari <em>kode sendiri.</em>
+                    Belajar dari
+                    <em>kode sendiri.</em>
                 </h2>
-
 
                 <p>
                     Pilih Jobsheet di sebelah kiri.
-                    Dokumentasi disusun seperti catatan praktikum:
-                    apa yang dibuat, kode penting, alur,
-                    hubungan antarfile, kesalahan yang mungkin terjadi,
-                    dan apa yang harus diingat untuk UTS.
+                    Dokumentasi disusun sebagai code reference:
+                    konsep, perubahan, contoh kode, alur,
+                    troubleshooting, dan cheat sheet untuk UTS.
                 </p>
 
 
@@ -618,36 +579,15 @@
                         <span>Jobsheet UTS</span>
                     </div>
 
-
                     <div>
                         <b>V</b>
                         <span>Vercel & Router</span>
                     </div>
 
-
                     <div>
                         <b>P</b>
                         <span>Portfolio</span>
                     </div>
-
-                </div>
-
-
-                <!-- INFO TAMBAHAN -->
-
-                <div class="welcome-note">
-
-                    <strong>
-                        Cara menggunakan Handbook
-                    </strong>
-
-                    <p>
-                        Gunakan dokumentasi ini sebagai referensi
-                        ketika lupa fungsi suatu kode. Setiap bagian
-                        menjelaskan tujuan, struktur kode, cara kerja,
-                        hubungan dengan file lain, serta poin penting
-                        yang perlu dipahami sebelum UTS.
-                    </p>
 
                 </div>
 
@@ -659,10 +599,6 @@
 
 </div>
 
-
-<!-- =====================================================
-     JAVASCRIPT HANDBOOK
-====================================================== -->
 
 <script src="assets/app.js"></script>
 
